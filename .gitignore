@@ -32,6 +32,10 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+!.env.example
+
+# local order store (swap for a real database in production)
+/.data/
 
 # vercel
 .vercel
