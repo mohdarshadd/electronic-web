@@ -49,7 +49,7 @@ Comprehensive memory of the VoltCart e-commerce project. Update this file whenev
   - `src/lib/cart.ts` — `computeCart(lines, coupon)` re-computes everything server-side → totals can't be tampered with client-side.
   - `src/lib/site.ts` — brand, announcement bar, nav + footer links.
 - [x] **Cart state** — `src/context/CartContext.tsx`; localStorage persistence (`voltcart.lines.v1`, `voltcart.coupon.v1`), hydrate-on-mount (effect suppressed for `react-hooks/set-state-in-effect`), drawer open state. Only `STUDENT10` accepted via `STUDENT_DISCOUNT_CODE`.
-- [x] **Components** — Header (search, cart badge, mobile nav, announcement bar), Footer, CartDrawer, ProductCard, CategoryCard, BuyBox, AddToCartButton, Price, StarRating, ProductImage (gradient + emoji placeholders), ProductGridSkeleton, ShopContent (shared filter/sort), StaticShell (info pages).
+- [x] **Components** — Header (search, cart badge, mobile nav, announcement bar), Footer, CartDrawer, ProductCard, CategoryCard, BuyBox, AddToCartButton, Price, StarRating, ProductImage (dummy SVG in `public/products/`), ProductGridSkeleton, ShopContent (shared filter/sort), StaticShell (info pages).
 - [x] **Pages** — `/`, `/shop`, `/category/[slug]`, `/product/[slug]`, `/search`, `/cart`, `/checkout`, `/order/[id]`, `/student-offers`, `/about`, `/contact`, `/shipping`, `/returns`, `/faqs`, `/bulk-orders`, custom `not-found`.
 - [x] **Cashfree & orders**
   - `src/lib/cashfree.ts` — server: `createCashfreeOrder`, `fetchCashfreeOrder`, `verifyWebhookSignature` (HMAC-SHA256 base64 of `timestamp + rawBody` w/ client secret), `cashfreeConfigured()`.
@@ -63,6 +63,7 @@ Comprehensive memory of the VoltCart e-commerce project. Update this file whenev
   - Payment status: `PENDING → PAID` / `FAILED`.
   - `/order/[id]` re-verifies Cashfree payment status on load while PENDING.
 - [x] **Verification** — `npm run lint` clean (0 errors/warnings); `npm run build` clean (66 SSG pages + 3 dynamic routes); live smoke tests passed (pages 200, 404 works, demo Cashfree checkout + COD checkout + order page render OK).
+- [x] **Dummy product images** — `scripts/generate-product-images.mjs` creates `public/products/{slug}.svg` for all 40 products (gradient + emoji); `ProductImage` uses plain `<img>`; homepage featured chips use `ProductImage` too.
 - [x] **Housekeeping** — `.env.example`, `.gitignore` covers `.env*` (except example) and `/.data/`; dead footer links (`/track-order`, `/careers`) removed; static info pages added.
 
 ---
@@ -74,6 +75,7 @@ Comprehensive memory of the VoltCart e-commerce project. Update this file whenev
 - [ ] **Enable `HACK10` coupon** in `CartContext.applyCoupon` (defined in `COUPONS` but not accepted).
 - [ ] **Replace JSON order store with a database** (order store is NOT persistent on serverless / Vercel — file fs unavailable). Candidates: Postgres (Vercel/Neon), SQLite/Turso, or Supabase.
 - [ ] **Student ID verification flow** — page copy promises verification within 48h; no mechanism yet (email check / document upload).
+- [ ] **Real product photos** — replace the dummy SVGs in `public/products/` with real images; switch `ProductImage` from `<img>` to Next `<Image>`.
 - [ ] **Deploy + domain** — user requirement: *domain is a must*. Deploy to Vercel, connect domain, add `CASHFREE_ENV=PROD`.
 - [ ] **README rewrite** documenting setup + deploy.
 - [ ] **git init** + initial commit (repo not yet initialized).
@@ -99,8 +101,10 @@ Visual language is a clean, "student-maker" marketplace look. Light theme only (
 | Error / danger | `red-50` bg, `red-600/700` text |
 | Announcement bar | `bg-indigo-950 text-indigo-100` |
 
-### Category + product image gradients (placeholder art)
-Products use a colored gradient + emoji instead of real photos (`ProductImage`):
+### Product images: dummy SVG placeholders
+Product photos are **dummy SVGs** (gradient + emoji) generated into `public/products/{productSlug}.svg` by `node scripts/generate-product-images.mjs` (parses the catalog from `src/lib/products.ts`, handles escaped quotes like `0.96\" …`). `ProductImage` renders them with a plain `<img>` — the Next Image optimizer refuses SVGs unless `dangerouslyAllowSVG` is set, so the `@next/next/no-img-element` rule is disabled there. **Replace later:** drop real photos (jpg/png) into `public/products/{slug}.…`, then swap `<img>` for Next `<Image>` in `ProductImage.tsx`.
+
+The SVG dummy uses the same gradient-emoji language as before, with category-coloured gradients:
 - Sensors 📡 `from-emerald-400 to-teal-600`
 - Development boards 🔌 `from-sky-400 to-blue-600`
 - Motors & Drivers ⚙️ `from-orange-400 to-red-600`

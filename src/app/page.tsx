@@ -3,6 +3,7 @@ import { getCategories, getFeaturedProducts, getNewProducts } from "@/lib/produc
 import { site } from "@/lib/site";
 import CategoryCard from "@/components/CategoryCard";
 import ProductCard from "@/components/ProductCard";
+import { ProductImage } from "@/components/ProductImage";
 
 export default function HomePage() {
   const categories = getCategories();
@@ -76,9 +77,7 @@ export default function HomePage() {
                     i % 2 ? "mt-10" : ""
                   }`}
                 >
-                  <div className={`grid h-32 place-items-center rounded-xl bg-gradient-to-br ${p.imageHue}`}>
-                    <span className="text-5xl drop-shadow">{p.emoji}</span>
-                  </div>
+                  <ProductImage product={p} className="h-32 w-full rounded-xl" />
                   <p className="mt-3 line-clamp-2 text-sm font-bold text-gray-900">{p.name}</p>
                   <p className="mt-1 text-sm font-extrabold text-indigo-600">
                     ₹{(p.price / 100).toLocaleString("en-IN")}
