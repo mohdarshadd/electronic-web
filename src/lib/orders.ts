@@ -44,6 +44,10 @@ export function persistOrder(order: Order): Order {
   return order;
 }
 
+export function listOrders(): Order[] {
+  return load().orders.slice().sort((a, b) => b.createdAt.localeCompare(a.createdAt));
+}
+
 export function fetchOrder(id: string): Order | undefined {
   const store = load();
   return store.orders.find((o) => o.orderId === id || o.id === id);

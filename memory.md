@@ -63,6 +63,7 @@ Comprehensive memory of the VoltCart e-commerce project. Update this file whenev
   - Payment status: `PENDING → PAID` / `FAILED`.
   - `/order/[id]` re-verifies Cashfree payment status on load while PENDING.
 - [x] **Verification** — `npm run lint` clean (0 errors/warnings); `npm run build` clean (66 SSG pages + 3 dynamic routes); live smoke tests passed (pages 200, 404 works, demo Cashfree checkout + COD checkout + order page render OK).
+- [x] **Admin panel** — `/admin` (password login + orders dashboard with summary cards + table) and `/admin/orders/[id]` (detail + status controls). Token issued via `ADMIN_PASSWORD` env, held in `voltcart_admin` httpOnly cookie, verified server-side on every admin route. Protected APIs: `/api/admin/login`, `/api/admin/logout`, `/api/admin/orders` (GET), `/api/admin/orders/[id]` (GET+POST update orderStatus/paymentStatus).
 - [x] **Dummy product images** — `scripts/generate-product-images.mjs` creates `public/products/{slug}.svg` for all 40 products (gradient + emoji); `ProductImage` uses plain `<img>`; homepage featured chips use `ProductImage` too.
 - [x] **Housekeeping** — `.env.example`, `.gitignore` covers `.env*` (except example) and `/.data/`; dead footer links (`/track-order`, `/careers`) removed; static info pages added.
 
@@ -71,6 +72,7 @@ Comprehensive memory of the VoltCart e-commerce project. Update this file whenev
 ## 4. Features planned / roadmap (not done yet)
 
 - [ ] **Admin dashboard** (`/admin`) — password-protected order list + detail, update order status (PLACED → … → DELIVERED / CANCELLED). Needs `listOrders()` in `orders.ts` and a `POST /api/admin/orders/[id]` endpoint.
+- [ ] **Admin hardening** — rate limiting on login, proper accounts, audit log. Current auth is a single shared `ADMIN_PASSWORD` signing an HMAC token in an httpOnly cookie (12 h expiry).
 - [ ] **Real Cashfree keys** — configure `.env.local` with `CASHFREE_CLIENT_ID` / `CASHFREE_CLIENT_SECRET` / `CASHFREE_ENV`; test end-to-end sandbox payment + webhook. Until keys exist, checkout runs in demo mode.
 - [ ] **Enable `HACK10` coupon** in `CartContext.applyCoupon` (defined in `COUPONS` but not accepted).
 - [ ] **Replace JSON order store with a database** (order store is NOT persistent on serverless / Vercel — file fs unavailable). Candidates: Postgres (Vercel/Neon), SQLite/Turso, or Supabase.
@@ -160,7 +162,11 @@ npm run dev        # http://localhost:3000
 npm run build      # production build (type-checks)
 npm run start      # serve production build
 npm run lint       # eslint
+node scripts/generate-product-images.mjs   # regenerate dummy product SVGs
 ```
+
+### Admin panel
+- Visit `/admin`; set `ADMIN_PASSWORD` in `.env.local` to enable. Login issues an HMAC-signed token (secret = `ADMIN_PASSWORD`) stored as cookie `voltcart_admin` (httpOnly, 12 h). All `/api/admin/*` routes verify it. `NextResponse.cookies` is used to set the cookie (plain `Response` has no `.cookies`).
 
 ---
 
