@@ -111,12 +111,21 @@ export default function AdminOrders() {
             {filtered.length} of {orders.length} order{orders.length === 1 ? "" : "s"}
           </p>
         </div>
-        <button
-          onClick={reload}
-          className="rounded-xl border border-gray-200 bg-white px-4 py-2 text-sm font-bold text-gray-700 transition hover:bg-gray-50"
-        >
-          Refresh
-        </button>
+        <div className="flex items-center gap-2">
+          <a
+            href="/api/admin/export/orders"
+            download
+            className="rounded-xl border border-gray-200 bg-white px-4 py-2 text-sm font-bold text-gray-700 transition hover:bg-gray-50"
+          >
+            Export CSV
+          </a>
+          <button
+            onClick={reload}
+            className="rounded-xl border border-gray-200 bg-white px-4 py-2 text-sm font-bold text-gray-700 transition hover:bg-gray-50"
+          >
+            Refresh
+          </button>
+        </div>
       </div>
 
       <div className="grid gap-2 rounded-2xl border border-gray-200 bg-white p-3 sm:grid-cols-2 lg:grid-cols-5">

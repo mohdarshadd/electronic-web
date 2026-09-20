@@ -146,6 +146,13 @@ export default function AdminInventory() {
             placeholder="Search name, SKU…"
             className="w-full max-w-xs rounded-xl border border-gray-200 bg-white px-3.5 py-2 text-sm outline-none transition focus:border-indigo-400 focus:ring-4 focus:ring-indigo-100"
           />
+          <a
+            href="/api/admin/export/inventory"
+            download
+            className="rounded-xl border border-gray-200 bg-white px-4 py-2 text-sm font-bold text-gray-700 transition hover:bg-gray-50"
+          >
+            Export CSV
+          </a>
           <button
             onClick={reload}
             className="rounded-xl border border-gray-200 bg-white px-4 py-2 text-sm font-bold text-gray-700 transition hover:bg-gray-50"
