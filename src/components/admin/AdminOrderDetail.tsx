@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import type { Order } from "@/lib/types";
 import { formatINR } from "@/lib/format";
 import { ORDER_STATUSES, ORDER_STATUS_CLASS, PAYMENT_STATUSES, PAYMENT_STATUS_CLASS } from "./status";
+import OrderTimeline from "./OrderTimeline";
 
 export default function AdminOrderDetail({ orderId }: { orderId: string }) {
   const router = useRouter();
@@ -81,10 +82,16 @@ export default function AdminOrderDetail({ orderId }: { orderId: string }) {
   return (
     <div className="space-y-6">
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <Link href="/admin" className="text-sm font-bold text-indigo-600 hover:text-indigo-700">
-          ← Dashboard
+        <Link href="/admin/orders" className="text-sm font-bold text-indigo-600 hover:text-indigo-700">
+          ← Orders
         </Link>
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2">
+          <Link
+            href={`/admin/orders/${order.orderId}/invoice`}
+            className="rounded-xl border border-gray-200 bg-white px-3.5 py-2 text-xs font-bold text-gray-700 transition hover:bg-gray-50"
+          >
+            View invoice
+          </Link>
           <span className={`rounded-full px-2.5 py-1 text-xs font-bold ${ORDER_STATUS_CLASS[order.orderStatus]}`}>
             {order.orderStatus}
           </span>
@@ -93,6 +100,8 @@ export default function AdminOrderDetail({ orderId }: { orderId: string }) {
           </span>
         </div>
       </div>
+
+      <OrderTimeline order={order} />
 
       <div className="rounded-2xl border border-gray-200 bg-white p-6">
         <p className="font-mono text-lg font-extrabold text-gray-900">{order.orderId}</p>
