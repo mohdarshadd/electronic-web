@@ -210,9 +210,9 @@ export default function AdminDashboard() {
                     <Link href={`/product/${p.slug}`} className="block truncate text-sm font-semibold text-gray-900 hover:text-indigo-600">
                       {p.name}
                     </Link>
-                    <p className="text-xs text-gray-400">{p.qty} sold · {formatINR(p.revenue)}</p>
+                    <p className="text-xs text-gray-400">{p.qty} sold · avg {formatINR(Math.round(p.revenue / Math.max(p.qty, 1)))}</p>
                   </div>
-                  <span className="text-sm font-bold text-gray-900">{formatINR(p.qty * (p.revenue / Math.max(p.qty, 1)))}</span>
+                  <span className="text-sm font-bold text-gray-900">{formatINR(p.revenue)}</span>
                 </li>
               ))}
             </ul>

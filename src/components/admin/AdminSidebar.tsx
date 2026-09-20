@@ -56,7 +56,7 @@ export default function AdminSidebar({ authed }: { authed: boolean }) {
         })}
       </nav>
 
-      <div className="mt-auto hidden flex-col gap-1 pt-6 lg:flex">
+      <div className="mt-auto flex flex-col gap-1 pt-6">
         <Link
           href="/"
           className="flex items-center gap-2.5 rounded-xl px-3 py-2.5 text-sm font-semibold text-gray-600 transition hover:bg-gray-50 hover:text-gray-900"

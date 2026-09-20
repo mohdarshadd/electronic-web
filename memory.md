@@ -26,7 +26,7 @@ Comprehensive memory of the VoltCart e-commerce project. Update this file whenev
 | Package manager | npm 11.13.0 |
 | Runtime (local) | Node v24.11.1, Windows PowerShell |
 | Payments | Cashfree Payment Gateway (UPI / Cards / NetBanking), + Cash on Delivery |
-| Data persistence | JSON file store `.data/orders.json` (fs) with in-memory fallback — **not serverless-safe** |
+| Data persistence | JSON file stores under `.data/`: `orders.json`, `inventory.json` (price/stock overrides), `settings.json` (announcement, shipping, coupons) — fs-backed, **not serverless-safe** |
 | Project layout | `src/` dir, import alias `@/*`, `canary`-style `PageProps`/`LayoutProps`/`RouteContext` helpers |
 
 ### Next.js 16 conventions to respect (read `node_modules/next/dist/docs/` before code)
@@ -54,7 +54,7 @@ Comprehensive memory of the VoltCart e-commerce project. Update this file whenev
 - [x] **Cashfree & orders**
   - `src/lib/cashfree.ts` — server: `createCashfreeOrder`, `fetchCashfreeOrder`, `verifyWebhookSignature` (HMAC-SHA256 base64 of `timestamp + rawBody` w/ client secret), `cashfreeConfigured()`.
   - `src/lib/cashfree-checkout.ts` — client SDK loader + `renderCashfreeCheckout` (checkout.js v3).
-  - `src/lib/orders.ts` — JSON-file order store; `persistOrder`, `fetchOrder`, `updateOrderPayment`, `generateOrderId` (`VOLT…`); **defensive parse** (accepts bare array or `{orders:[…]}`).
+  - `src/lib/orders.ts` — JSON-file order store; `persistOrder`, `fetchOrder`, `updateOrder` (audit-aware: records `activity` entries for status changes), `generateOrderId` (`VOLT…`); **defensive parse** (accepts bare array or `{orders:[…]}`).
   - `POST /api/checkout` — validates, creates order, creates Cashfree session (or **demo mode** when keys missing → order marked PAID, `{demo:true}`).
   - `GET /api/orders/[id]`.
   - `POST /api/payments/webhook` (HMAC-verified) + `GET /api/payments/webhook?order_id=` (manual sync from Cashfree).
@@ -63,7 +63,16 @@ Comprehensive memory of the VoltCart e-commerce project. Update this file whenev
   - Payment status: `PENDING → PAID` / `FAILED`.
   - `/order/[id]` re-verifies Cashfree payment status on load while PENDING.
 - [x] **Verification** — `npm run lint` clean (0 errors/warnings); `npm run build` clean (66 SSG pages + 3 dynamic routes); live smoke tests passed (pages 200, 404 works, demo Cashfree checkout + COD checkout + order page render OK).
-- [x] **Admin panel** — `/admin` (password login + orders dashboard with summary cards + table) and `/admin/orders/[id]` (detail + status controls). Token issued via `ADMIN_PASSWORD` env, held in `voltcart_admin` httpOnly cookie, verified server-side on every admin route. Protected APIs: `/api/admin/login`, `/api/admin/logout`, `/api/admin/orders` (GET), `/api/admin/orders/[id]` (GET+POST update orderStatus/paymentStatus).
+- [x] **Admin panel** — full admin app under `/admin` (password login, `ADMIN_PASSWORD` env → HMAC token in `voltcart_admin` httpOnly cookie, 12 h expiry).
+  - **Shell** — `layout.tsx` + `AdminSidebar` (Dashboard / Orders / Customers / Inventory / Settings, sign-out, active states); every admin page server-gates via cookie check → `redirect("/admin")`.
+  - **Dashboard** — KPI cards (orders, paid revenue, COD expected, AOV, customers, cancellation rate), 14-day revenue bar chart, status & payment breakdown bars, top products, recent orders.
+  - **Orders** (`/admin/orders`) — search (id/customer/phone/email/city), filters (order status, payment status, method), 4 sort orders, CSV export.
+  - **Order detail** (`/admin/orders/[id]`) — customer/items/totals, status controls, **lifecycle timeline** + **audit log** (every status change recorded with actor `admin`/`system` + timestamp in `order.activity`), printable **invoice** (`/admin/orders/[id]/invoice`, print CSS).
+  - **Customers** (`/admin/customers`) — directory aggregated by phone+email: spend, order count, last-order, expandable order history.
+  - **Inventory** (`/admin/inventory`) — full catalog with editable price / MRP / stock / active toggle → persists overrides to `.data/inventory.json`; `computeCart` at checkout uses live product prices/stock (`getLiveProduct`); CSV export.
+  - **Settings** (`/admin/settings`) — announcement bar text + toggle, free-shipping threshold/fee, coupon enable/disable (STUDENT10 / HACK10); public `/api/site/settings` drives Header announcement + `CartContext.applyCoupon` acceptance + checkout server-side coupon enforcement.
+  - **Protected APIs** — `/api/admin/login`, `/logout`, `/orders` (GET), `/orders/[id]` (GET+POST), `/customers`, `/inventory`, `/inventory/[id]` (PATCH), `/settings` (GET+POST), `/export/orders`, `/export/inventory` (CSV). Shared `isAdminRequest` guard (`src/app/api/admin/guard.ts`).
+  - **Analytics/model helpers** — `src/lib/admin-metrics.ts` (pure, no fs: `computeMetrics`, `dailyStats`, `countBy`, `topProducts`, `aggregateCustomers`), `src/lib/csv.ts` (`toCSV` + BOM).
 - [x] **Dummy product images** — `scripts/generate-product-images.mjs` creates `public/products/{slug}.svg` for all 40 products (gradient + emoji); `ProductImage` uses plain `<img>`; homepage featured chips use `ProductImage` too.
 - [x] **Housekeeping** — `.env.example`, `.gitignore` covers `.env*` (except example) and `/.data/`; dead footer links (`/track-order`, `/careers`) removed; static info pages added.
 
@@ -71,17 +80,14 @@ Comprehensive memory of the VoltCart e-commerce project. Update this file whenev
 
 ## 4. Features planned / roadmap (not done yet)
 
-- [ ] **Admin dashboard** (`/admin`) — password-protected order list + detail, update order status (PLACED → … → DELIVERED / CANCELLED). Needs `listOrders()` in `orders.ts` and a `POST /api/admin/orders/[id]` endpoint.
-- [ ] **Admin hardening** — rate limiting on login, proper accounts, audit log. Current auth is a single shared `ADMIN_PASSWORD` signing an HMAC token in an httpOnly cookie (12 h expiry).
+- [ ] **Admin hardening** — rate limiting on login, real admin accounts/sessions, audit-log persistence concerns. (Audit log itself is done: every order-status/payment-status change appends to `order.activity` with actor + timestamp.)
 - [ ] **Real Cashfree keys** — configure `.env.local` with `CASHFREE_CLIENT_ID` / `CASHFREE_CLIENT_SECRET` / `CASHFREE_ENV`; test end-to-end sandbox payment + webhook. Until keys exist, checkout runs in demo mode.
-- [ ] **Enable `HACK10` coupon** in `CartContext.applyCoupon` (defined in `COUPONS` but not accepted).
-- [ ] **Replace JSON order store with a database** (order store is NOT persistent on serverless / Vercel — file fs unavailable). Candidates: Postgres (Vercel/Neon), SQLite/Turso, or Supabase.
+- [ ] **Replace JSON file stores with a database** — order/inventory/settings stores are NOT persistent on serverless / Vercel (file fs unavailable). Candidates: Postgres (Vercel/Neon), SQLite/Turso, or Supabase. Inventory price/stock overrides and settings would also move into the DB.
 - [ ] **Student ID verification flow** — page copy promises verification within 48h; no mechanism yet (email check / document upload).
 - [ ] **Real product photos** — replace the dummy SVGs in `public/products/` with real images; switch `ProductImage` from `<img>` to Next `<Image>`.
 - [ ] **Deploy + domain** — user requirement: *domain is a must*. Deploy to Vercel, connect domain, add `CASHFREE_ENV=PROD`.
 - [ ] **README rewrite** documenting setup + deploy.
-- [ ] **git init** + initial commit (repo not yet initialized).
-- [ ] Manual browser walkthrough of the full funnel (browse → cart → coupon → checkout → order).
+- [ ] Manual browser walkthrough of the full funnel (browse → cart → coupon → checkout → order → admin).
 
 ---
 
@@ -136,10 +142,11 @@ The SVG dummy uses the same gradient-emoji language as before, with category-col
 ## 6. Data & money rules (important)
 
 - **Prices stored in paise (₹ × 100)** — e.g. ₹349.00 = `34900`.
-- Coupons 10% off: `STUDENT10` (active), `HACK10` (defined, not wired).
-- Shipping: ₹0 over ₹499, else ₹49 (computed in paise: threshold `49900`, fee `4900`).
-- Cart totals always recomputed by `computeCart` on the server at checkout.
+- Coupons 10% off: `STUDENT10` and `HACK10`, each **toggleable** from `/admin/settings` (rejected server-side and hidden from the storefront when disabled).
+- Shipping defaults: ₹0 over ₹499, else ₹49 (paise: threshold `49900`, fee `4900`) — **overridable** from `/admin/settings` (threshold + fee).
+- Cart totals always recomputed on the server at checkout (`computeCart` with **live inventory overrides** from `getLiveProduct` + current shipping policy + enabled coupons). Client-side `CartContext` uses base catalog defaults.
 - Order ID format: `VOLT…` from `generateOrderId()`.
+- **Inventory overrides** (`.data/inventory.json`) feed cart pricing + stock checks at **checkout**; static SSG pages (`/product/[slug]`, `/shop`, etc.) still render base catalog values until rebuilt.
 
 ---
 
@@ -166,7 +173,11 @@ node scripts/generate-product-images.mjs   # regenerate dummy product SVGs
 ```
 
 ### Admin panel
-- Visit `/admin`; set `ADMIN_PASSWORD` in `.env.local` to enable. Login issues an HMAC-signed token (secret = `ADMIN_PASSWORD`) stored as cookie `voltcart_admin` (httpOnly, 12 h). All `/api/admin/*` routes verify it. `NextResponse.cookies` is used to set the cookie (plain `Response` has no `.cookies`).
+- Visit `/admin`; set `ADMIN_PASSWORD` in `.env.local` to enable. Login issues an HMAC-signed token (secret = `ADMIN_PASSWORD`) stored as cookie `voltcart_admin` (httpOnly, 12 h). All `/api/admin/*` routes verify it via `isAdminRequest(req)` (`src/app/api/admin/guard.ts`). `NextResponse.cookies` is used to set the cookie (plain `Response` has no `.cookies`).
+- Admin pages: `/admin` (dashboard/analytics), `/admin/orders` (list + filters), `/admin/orders/[id]` (detail + status), `/admin/orders/[id]/invoice` (print), `/admin/customers`, `/admin/inventory` (price/stock overrides), `/admin/settings`.
+- Admin APIs (all auth-gated): `GET /api/admin/orders`, `GET+POST /api/admin/orders/[id]` (POST → `updateOrder(…, "admin")` writes an audit entry), `GET /api/admin/customers`, `GET /api/admin/inventory`, `PATCH /api/admin/inventory/[id]`, `GET+POST /api/admin/settings`, `GET /api/admin/export/orders` + `GET /api/admin/export/inventory` (CSV).
+- Public settings endpoint: `GET /api/site/settings` (announcement, shipping policy, enabled coupons) — consumed by Header and `CartContext`.
+- Helper modules: `src/lib/admin-metrics.ts` (client-safe analytics), `src/lib/csv.ts` (CSV with BOM), `src/lib/inventory.ts` (fs override store; server-only), `src/lib/settings.ts` (fs settings store; server-only). Don't import fs-based libs (`inventory`, `settings`) from client components — `computeCart`/`cart.ts` stays fs-free so `CartContext` can bundle it.
 
 ---
 
@@ -176,5 +187,6 @@ node scripts/generate-product-images.mjs   # regenerate dummy product SVGs
 - Cashfree `fetchCashfreeOrder` + webhook require network access; in demo mode they're skipped.
 - `react-hooks/set-state-in-effect` is suppressed in `CartContext` hydration effect (approved pattern).
 - Turbopack may warn that `package-lock.json` is outside the git root — benign; set `turbopack.root` in `next.config.ts` if it bothers you.
-- `HACK10` coupon defined but unusable until `CartContext.applyCoupon` is updated.
+- `HACK10` coupon is now **configurable** from `/admin/settings` (was defined-but-unwired; `CartContext.applyCoupon` accepts any enabled coupon).
+- Inventory price/stock overrides affect **checkout only** — static product/shop pages can drift until a rebuild (see §6).
 - Student verification is copy-only (no verification backend yet).
