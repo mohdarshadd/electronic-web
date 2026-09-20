@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState, type FormEvent } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import { site } from "@/lib/site";
 import { categories } from "@/lib/products";
@@ -45,6 +45,26 @@ function SearchBar({ onNavigate }: { onNavigate?: () => void }) {
 export default function Header() {
   const { count, openCart } = useCart();
   const [mobileNav, setMobileNav] = useState(false);
+  const [announcement, setAnnouncement] = useState(site.announcement);
+
+  useEffect(() => {
+    let cancelled = false;
+    fetch("/api/site/settings")
+      .then(async (res) => {
+        if (!res.ok) return;
+        const data = await res.json();
+        if (!cancelled) {
+          const s = data.settings;
+          if (s?.announcementEnabled && typeof s.announcement === "string") setAnnouncement(s.announcement);
+        }
+      })
+      .catch(() => {
+        // keep the default announcement
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   return (
     <header className="sticky top-0 z-40 border-b border-gray-200 bg-white/90 backdrop-blur">
@@ -53,7 +73,7 @@ export default function Header() {
           <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
             <path d="M12 2l2.6 6.9L22 11l-7.4 2.1L12 20l-2.6-6.9L2 11l7.4-2.1L12 2z" />
           </svg>
-          {site.announcement}
+          {announcement}
         </span>
       </div>
 

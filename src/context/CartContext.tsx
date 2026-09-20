@@ -63,6 +63,28 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const [lines, setLines] = useState<CartLine[]>([]);
   const [coupon, setCoupon] = useState<string | null>(null);
   const [isOpen, setIsOpen] = useState(false);
+  const [enabledCoupons, setEnabledCoupons] = useState<string[]>([STUDENT_DISCOUNT_CODE]);
+
+  useEffect(() => {
+    let cancelled = false;
+    fetch("/api/site/settings")
+      .then(async (res) => {
+        if (!res.ok) return;
+        const data = await res.json();
+        if (!cancelled) {
+          const ce = data?.settings?.couponsEnabled;
+          if (ce && typeof ce === "object") {
+            setEnabledCoupons(Object.keys(ce).filter((code) => ce[code] !== false));
+          }
+        }
+      })
+      .catch(() => {
+        // keep the defaults (STUDENT10 only)
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   useEffect(() => {
     // Hydrate from localStorage once on mount. This is the recommended pattern for
@@ -115,13 +137,13 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const applyCoupon = useCallback(
     (code: string): boolean => {
       const valid = code.trim().toUpperCase();
-      if (valid === STUDENT_DISCOUNT_CODE) {
-        setCoupon(STUDENT_DISCOUNT_CODE);
+      if (enabledCoupons.includes(valid)) {
+        setCoupon(valid);
         return true;
       }
       return false;
     },
-    []
+    [enabledCoupons]
   );
 
   const removeCoupon = useCallback(() => setCoupon(null), []);
