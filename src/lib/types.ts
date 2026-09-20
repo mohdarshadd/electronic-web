@@ -63,6 +63,14 @@ export interface OrderLine {
   qty: number;
 }
 
+export interface ActivityEntry {
+  at: string;
+  field: "orderStatus" | "paymentStatus";
+  from: string;
+  to: string;
+  by: "system" | "admin";
+}
+
 export interface Order {
   id: string;
   orderId: string;
@@ -83,4 +91,5 @@ export interface Order {
     paymentLink?: string;
     referenceId?: string;
   };
+  activity?: ActivityEntry[];
 }

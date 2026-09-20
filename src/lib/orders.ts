@@ -1,6 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
-import type { Order } from "./types";
+import type { ActivityEntry, Order } from "./types";
 
 interface Store {
   orders: Order[];
@@ -53,11 +53,36 @@ export function fetchOrder(id: string): Order | undefined {
   return store.orders.find((o) => o.orderId === id || o.id === id);
 }
 
-export function updateOrderPayment(orderId: string, patch: Partial<Order>): Order | undefined {
+export function updateOrder(
+  orderId: string,
+  patch: Partial<Order>,
+  by: ActivityEntry["by"] = "system"
+): Order | undefined {
   const store = load();
   const order = store.orders.find((o) => o.orderId === orderId || o.id === orderId);
   if (!order) return undefined;
-  Object.assign(order, patch);
+
+  const activity: ActivityEntry[] = order.activity ? [...order.activity] : [];
+  if (patch.orderStatus !== undefined && patch.orderStatus !== order.orderStatus) {
+    activity.push({
+      at: new Date().toISOString(),
+      field: "orderStatus",
+      from: order.orderStatus,
+      to: patch.orderStatus,
+      by,
+    });
+  }
+  if (patch.paymentStatus !== undefined && patch.paymentStatus !== order.paymentStatus) {
+    activity.push({
+      at: new Date().toISOString(),
+      field: "paymentStatus",
+      from: order.paymentStatus,
+      to: patch.paymentStatus,
+      by,
+    });
+  }
+  const next = { ...patch, ...(activity.length > 0 ? { activity } : {}) };
+  Object.assign(order, next);
   CACHE.orders = store.orders;
   save(store);
   return order;

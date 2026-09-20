@@ -4,7 +4,7 @@ import { computeCart } from "@/lib/cart";
 import { getLiveProduct } from "@/lib/inventory";
 import { getShippingPolicy, getSettings } from "@/lib/settings";
 import { createCashfreeOrder, cashfreeConfigured } from "@/lib/cashfree";
-import { generateOrderId, persistOrder, updateOrderPayment } from "@/lib/orders";
+import { generateOrderId, persistOrder, updateOrder } from "@/lib/orders";
 
 interface CheckoutBody {
   lines?: { productId: string; qty: number }[];
@@ -95,7 +95,7 @@ export async function POST(req: NextRequest) {
         returnUrl: `${origin}/order/${orderId}`,
         notifyUrl: `${origin}/api/payments/webhook`,
       });
-      updateOrderPayment(orderId, {
+      updateOrder(orderId, {
         cashfree: { orderId: cf.order_id, paymentSessionId: cf.payment_session_id },
       });
       return Response.json({
@@ -113,7 +113,7 @@ export async function POST(req: NextRequest) {
 
   // No Cashfree credentials — demo mode: simulate a successful payment so the
   // whole funnel can be tested end-to-end without keys.
-  updateOrderPayment(orderId, {
+  updateOrder(orderId, {
     paymentStatus: "PAID",
     orderStatus: "CONFIRMED",
     cashfree: { paymentSessionId: "demo_payment_session" },

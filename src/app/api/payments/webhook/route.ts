@@ -1,6 +1,6 @@
 import type { NextRequest } from "next/server";
 import { fetchCashfreeOrder, verifyWebhookSignature } from "@/lib/cashfree";
-import { updateOrderPayment } from "@/lib/orders";
+import { updateOrder } from "@/lib/orders";
 
 // Cashfree sends payment webhooks to this URL (set as notify_url when the
 // order is created). We verify the HMAC signature on the raw body before
@@ -35,7 +35,7 @@ export async function POST(req: NextRequest) {
     return Response.json({ error: "Unrecognised payload" }, { status: 400 });
   }
 
-  const updated = updateOrderPayment(orderId, {
+  const updated = updateOrder(orderId, {
     paymentStatus: status === "SUCCESS" ? "PAID" : "FAILED",
     orderStatus: status === "SUCCESS" ? "CONFIRMED" : "PLACED",
   });
@@ -58,9 +58,9 @@ export async function GET(req: NextRequest) {
   }
 
   if (cf.order_status === "PAID") {
-    updateOrderPayment(cf.order_id, { paymentStatus: "PAID", orderStatus: "CONFIRMED" });
+    updateOrder(cf.order_id, { paymentStatus: "PAID", orderStatus: "CONFIRMED" });
   } else if (["FAILED", "CANCELLED", "CANCELED"].includes(cf.order_status)) {
-    updateOrderPayment(cf.order_id, { paymentStatus: "FAILED" });
+    updateOrder(cf.order_id, { paymentStatus: "FAILED" });
   }
 
   return Response.json({ order_id: cf.order_id, order_status: cf.order_status });

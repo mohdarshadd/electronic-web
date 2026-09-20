@@ -28,6 +28,23 @@ export default function OrderTimeline({ order }: { order: Order }) {
             Placed {new Date(order.createdAt).toLocaleString("en-IN", { dateStyle: "medium", timeStyle: "short" })}
           </p>
         </div>
+        {order.activity && order.activity.length > 0 && (
+          <ul className="mt-3 space-y-2">
+            {order.activity.map((a, i) => (
+              <li key={i} className="flex flex-wrap items-center gap-2 text-xs">
+                <span className="font-semibold text-gray-900">
+                  {a.by === "admin" ? "Admin" : "System"} · {a.field}
+                </span>
+                <span className="text-gray-400">
+                  {a.from} → {a.to}
+                </span>
+                <span className="ml-auto text-gray-400">
+                  {new Date(a.at).toLocaleString("en-IN", { day: "2-digit", month: "short", hour: "2-digit", minute: "2-digit" })}
+                </span>
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
     );
   }
@@ -41,6 +58,9 @@ export default function OrderTimeline({ order }: { order: Order }) {
       <ol className="mt-4 space-y-0">
         {FLOW.map((step, i) => {
           const done = i <= reached;
+          const entry = order.activity?.find((a) => a.field === "orderStatus" && a.to === step)?.at;
+          const ts =
+            i === 0 ? order.createdAt : entry;
           return (
             <li key={step} className="relative flex gap-3 pb-5 last:pb-0">
               {i < FLOW.length - 1 && <span className={`absolute left-[15px] top-7 h-[calc(100%-28px)] w-0.5 ${done ? "bg-indigo-300" : "bg-gray-200"}`} />}
@@ -62,13 +82,34 @@ export default function OrderTimeline({ order }: { order: Order }) {
                 </div>
                 <p className="text-xs text-gray-400">{FLOW_DESC[step]}</p>
                 <p className="text-xs font-medium text-gray-500">
-                  {i === 0 ? `Placed ${new Date(order.createdAt).toLocaleString("en-IN", { dateStyle: "medium", timeStyle: "short" })}` : done ? "Updated by store" : "Not reached yet"}
+                  {ts ? new Date(ts).toLocaleString("en-IN", { dateStyle: "medium", timeStyle: "short" }) : "Not reached yet"}
                 </p>
               </div>
             </li>
           );
         })}
       </ol>
+
+      {order.activity && order.activity.length > 0 && (
+        <div className="mt-5 border-t border-gray-100 pt-4">
+          <h4 className="text-xs font-bold uppercase tracking-wide text-gray-400">Audit log</h4>
+          <ul className="mt-2 space-y-2">
+            {order.activity.map((a, i) => (
+              <li key={i} className="flex flex-wrap items-center gap-2 text-xs">
+                <span className="font-semibold text-gray-900">
+                  {a.by === "admin" ? "Admin" : "System"} · {a.field}
+                </span>
+                <span className="text-gray-400">
+                  {a.from} → {a.to}
+                </span>
+                <span className="ml-auto text-gray-400">
+                  {new Date(a.at).toLocaleString("en-IN", { day: "2-digit", month: "short", hour: "2-digit", minute: "2-digit" })}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   );
 }
