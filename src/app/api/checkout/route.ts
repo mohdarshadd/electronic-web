@@ -1,6 +1,7 @@
 import type { NextRequest } from "next/server";
 import type { Address, Order, PaymentMethod } from "@/lib/types";
 import { computeCart } from "@/lib/cart";
+import { getLiveProduct } from "@/lib/inventory";
 import { createCashfreeOrder, cashfreeConfigured } from "@/lib/cashfree";
 import { generateOrderId, persistOrder, updateOrderPayment } from "@/lib/orders";
 
@@ -32,7 +33,7 @@ export async function POST(req: NextRequest) {
     return Response.json({ error: "Unknown payment method" }, { status: 400 });
   }
 
-  const cart = computeCart(lines, coupon);
+  const cart = computeCart(lines, coupon, { products: getLiveProduct });
   if (cart.lines.length === 0) {
     return Response.json({ error: "Some items in your cart are no longer available" }, { status: 400 });
   }

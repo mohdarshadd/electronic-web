@@ -10,10 +10,22 @@ export interface ComputedCart {
   total: number;
 }
 
-export function computeCart(lines: CartLine[], coupon?: string): ComputedCart {
+export type ProductResolver = (id: string) => Product | undefined;
+
+export interface CartComputeOptions {
+  products?: ProductResolver;
+  freeShippingThreshold?: number;
+  shippingFee?: number;
+}
+
+export function computeCart(lines: CartLine[], coupon?: string, opts: CartComputeOptions = {}): ComputedCart {
+  const lookup = opts.products ?? ((id: string) => products.find((p) => p.id === id));
+  const threshold = opts.freeShippingThreshold ?? FREE_SHIPPING_THRESHOLD;
+  const fee = opts.shippingFee ?? SHIPPING_FEE;
+
   const detailed = lines
     .map((l) => {
-      const product = products.find((p) => p.id === l.productId);
+      const product = lookup(l.productId);
       if (!product) return null;
       return { product, qty: Math.max(1, l.qty), lineTotal: product.price * Math.max(1, l.qty) };
     })
@@ -23,7 +35,7 @@ export function computeCart(lines: CartLine[], coupon?: string): ComputedCart {
   const couponInfo = coupon ? COUPONS[coupon] : undefined;
   const discount = couponInfo ? Math.round((subtotal * couponInfo.pct) / 100) : 0;
   const afterDiscount = subtotal - discount;
-  const shipping = afterDiscount >= FREE_SHIPPING_THRESHOLD ? 0 : SHIPPING_FEE;
+  const shipping = afterDiscount >= threshold ? 0 : fee;
   const total = afterDiscount + shipping;
 
   return { lines: detailed, subtotal, discount, shipping, total };
