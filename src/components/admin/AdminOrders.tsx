@@ -54,13 +54,8 @@ export default function AdminOrders() {
       if (paymentStatus !== "ALL" && o.paymentStatus !== paymentStatus) return false;
       if (paymentMethod !== "ALL" && o.paymentMethod !== paymentMethod) return false;
       if (!q) return true;
-      return (
-        o.orderId.toLowerCase().includes(q) ||
-        o.customer.fullName.toLowerCase().includes(q) ||
-        o.customer.phone.toLowerCase().includes(q) ||
-        o.customer.email.toLowerCase().includes(q) ||
-        o.customer.city.toLowerCase().includes(q)
-      );
+      const c = o.customer as unknown as { fullName?: string; name?: string; phone?: string; email?: string; city?: string };
+      return [c.fullName, c.name, c.phone, c.email, c.city].filter(Boolean).join(" ").toLowerCase().includes(q);
     });
     return list.sort((a, b) => {
       switch (sortBy) {

@@ -118,7 +118,11 @@ export default function AdminOrderDetail({ orderId }: { orderId: string }) {
       <div className="grid gap-6 lg:grid-cols-3">
         <div className="rounded-2xl border border-gray-200 bg-white p-6">
           <h3 className="text-xs font-bold uppercase tracking-wide text-gray-400">Customer</h3>
-          <p className="mt-2 font-bold text-gray-900">{order.customer.fullName}</p>
+          <p className="mt-2 font-bold text-gray-900">
+            {(order.customer as unknown as { fullName?: string; name?: string }).fullName ||
+              (order.customer as unknown as { name?: string }).name ||
+              "Customer"}
+          </p>
           <p className="text-sm text-gray-600">{order.customer.phone}</p>
           <p className="text-sm text-gray-600">{order.customer.email}</p>
           <p className="mt-3 text-sm leading-6 text-gray-600">

@@ -234,7 +234,9 @@ export default function AdminDashboard() {
                 <li key={o.orderId} className="flex items-center gap-3 py-2.5">
                   <Link href={`/admin/orders/${o.orderId}`} className="min-w-0 flex-1">
                     <p className="truncate text-sm font-semibold text-gray-900 hover:text-indigo-600">
-                      {o.customer.fullName}
+                      {(o.customer as unknown as { fullName?: string; name?: string }).fullName ||
+                        (o.customer as unknown as { name?: string }).name ||
+                        "Customer"}
                       <span className="ml-2 font-mono text-xs font-bold text-indigo-600">{o.orderId}</span>
                     </p>
                     <p className="text-xs text-gray-400">

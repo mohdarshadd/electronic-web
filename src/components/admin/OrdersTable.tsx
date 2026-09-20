@@ -39,7 +39,11 @@ export default function OrdersTable({ orders, limit }: { orders: Order[]; limit?
                 </Link>
               </td>
               <td className="hidden px-4 py-3 sm:table-cell">
-                <p className="font-semibold text-gray-900">{o.customer.fullName}</p>
+                <p className="font-semibold text-gray-900">
+                  {(o.customer as unknown as { fullName?: string; name?: string }).fullName ||
+                    (o.customer as unknown as { name?: string }).name ||
+                    "Customer"}
+                </p>
                 <p className="text-xs text-gray-400">{o.customer.city}</p>
               </td>
               <td className="hidden px-4 py-3 text-gray-500 md:table-cell">

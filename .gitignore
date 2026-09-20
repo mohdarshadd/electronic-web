@@ -37,6 +37,10 @@ yarn-error.log*
 # local order store (swap for a real database in production)
 /.data/
 
+# local agent notes (not for the repo)
+/memory.md
+*.log
+
 # vercel
 .vercel
 

@@ -130,7 +130,7 @@ export function aggregateCustomers(orders: Order[]): Customer[] {
     } else {
       map.set(key, {
         key,
-        fullName: c.fullName,
+        fullName: c.fullName || (c as unknown as { name?: string }).name || "Unknown",
         phone: c.phone,
         email: c.email,
         city: c.city,
