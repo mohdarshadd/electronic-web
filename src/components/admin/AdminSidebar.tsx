@@ -7,6 +7,7 @@ const NAV = [
   { href: "/admin", label: "Dashboard", icon: "M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z" },
   { href: "/admin/orders", label: "Orders", icon: "M4 6h16v2H4V6zm0 5h16v2H4v-2zm0 5h10v2H4v-2z" },
   { href: "/admin/customers", label: "Customers", icon: "M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2m20 0v-2a4 4 0 00-3-3.87M14 3.13A4 4 0 0116 7m-2 9a4 4 0 008 0 4 4 0 00-8 0z" },
+  { href: "/admin/products", label: "Products", icon: "M21 8l-9-5-9 5m18 0l-9 5m9-5v10l-9 5m0-10L3 8m9 5v10" },
   { href: "/admin/inventory", label: "Inventory", icon: "M20 7l-8-4-8 4v10l8 4 8-4V7zm-8 13V7M6 11l12-2m-12 6l12-2" },
   { href: "/admin/settings", label: "Settings", icon: "M4 21v-7m6 7V3m6 18v-4m6 4H2M4 14h4v4H4zM10 3h4v4h-4zm6 10h4v4h-4z" },
 ];
