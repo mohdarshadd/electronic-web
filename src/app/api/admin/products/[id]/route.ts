@@ -7,7 +7,7 @@ import {
   updateCustomProduct,
   type CustomProductPatch,
 } from "@/lib/custom-products";
-import { deleteProductSvg, writeProductSvg } from "@/lib/product-image";
+import { deleteProductJpg, deleteProductSvg, renameProductJpg, writeProductSvg } from "@/lib/product-image";
 
 export async function PATCH(req: NextRequest, ctx: { params: Promise<{ id: string }> }) {
   if (!isAdminRequest(req)) {
@@ -29,7 +29,10 @@ export async function PATCH(req: NextRequest, ctx: { params: Promise<{ id: strin
   try {
     const updated = updateCustomProduct(id, body);
     if (!updated) return Response.json({ error: "Product not found" }, { status: 404 });
-    if (updated.slug !== before.slug) deleteProductSvg(before.slug);
+    if (updated.slug !== before.slug) {
+      deleteProductSvg(before.slug);
+      renameProductJpg(before.slug, updated.slug);
+    }
     writeProductSvg(updated);
     return Response.json({ product: updated });
   } catch (e) {
@@ -47,5 +50,6 @@ export async function DELETE(req: NextRequest, ctx: { params: Promise<{ id: stri
 
   deleteCustomProduct(id);
   deleteProductSvg(product.slug);
+  deleteProductJpg(product.slug);
   return Response.json({ ok: true });
 }

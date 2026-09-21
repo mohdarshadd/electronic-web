@@ -35,6 +35,8 @@ export interface Product {
   tags: string[];
   imageHue: string;
   emoji: string;
+  /** "jpg" when an uploaded product photo exists (served via /api/product-images/[slug]); absent = generated SVG. */
+  image?: "jpg";
 }
 
 export interface CartLine {

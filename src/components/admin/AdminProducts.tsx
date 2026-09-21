@@ -97,6 +97,8 @@ export default function AdminProducts() {
   const [items, setItems] = useState<Product[] | null>(null);
   const [formOpen, setFormOpen] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
+  const [editing, setEditing] = useState<Product | null>(null);
+  const [photoFile, setPhotoFile] = useState<File | null>(null);
   const [form, setForm] = useState<FormState>(emptyForm());
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -142,6 +144,8 @@ export default function AdminProducts() {
 
   function openAdd() {
     setEditingId(null);
+    setEditing(null);
+    setPhotoFile(null);
     setForm(emptyForm());
     setError(null);
     setNotice(null);
@@ -150,6 +154,8 @@ export default function AdminProducts() {
 
   function openEdit(p: Product) {
     setEditingId(p.id);
+    setEditing(p);
+    setPhotoFile(null);
     setForm(formFromProduct(p));
     setError(null);
     setNotice(null);
@@ -159,6 +165,8 @@ export default function AdminProducts() {
   function closeForm() {
     setFormOpen(false);
     setEditingId(null);
+    setEditing(null);
+    setPhotoFile(null);
     setError(null);
   }
 
@@ -215,6 +223,19 @@ export default function AdminProducts() {
         setError(data.error || "Could not save product");
         return;
       }
+
+      const savedId = data.product?.id ?? editingId;
+      if (photoFile && savedId) {
+        const fd = new FormData();
+        fd.append("image", photoFile);
+        const upRes = await fetch(`/api/admin/products/${savedId}/image`, { method: "POST", body: fd }).catch(() => null);
+        if (!upRes?.ok) {
+          setError("Product saved, but the photo upload failed — check the image is a JPG and try saving again.");
+          setBusy(false);
+          return;
+        }
+      }
+
       setNotice(editingId ? "Product updated." : `"${data.product?.name ?? form.name}" added to the catalogue.`);
       closeForm();
       load();
@@ -235,6 +256,39 @@ export default function AdminProducts() {
       setError("Could not delete the product");
     }
   }
+
+  function onPhotoSelect(file: File | undefined) {
+    if (!file) return;
+    if (file.type !== "image/jpeg") {
+      setError("Only JPG images are supported — please choose a .jpg file.");
+      return;
+    }
+    if (file.size > 5 * 1024 * 1024) {
+      setError("The photo must be 5 MB or smaller.");
+      return;
+    }
+    setError(null);
+    setPhotoFile(file);
+  }
+
+  async function removePhotoNow() {
+    if (!editing) return;
+    if (!window.confirm("Remove the uploaded photo? The generated image will be used instead.")) return;
+    setError(null);
+    const res = await fetch(`/api/admin/products/${editing.id}/image`, { method: "DELETE" }).catch(() => null);
+    if (res?.ok) {
+      setPhotoFile(null);
+      setEditing({ ...editing, image: undefined });
+      load();
+    } else {
+      setError("Could not remove the photo");
+    }
+  }
+
+  const photoPreview = useMemo(() => {
+    if (photoFile != null) return URL.createObjectURL(photoFile);
+    return editing?.image === "jpg" ? `/api/product-images/${editing.slug}` : null;
+  }, [photoFile, editing]);
 
   const inputClass =
     "w-full rounded-xl border border-gray-200 px-3 py-2 text-sm outline-none transition focus:border-indigo-400";
@@ -280,9 +334,14 @@ export default function AdminProducts() {
           <ul className="divide-y divide-gray-100">
             {items.map((p) => (
               <li key={p.id} className="flex flex-wrap items-center gap-4 px-4 py-3.5 sm:px-6">
-                <span className={`grid h-14 w-14 shrink-0 place-items-center rounded-xl bg-gradient-to-br ${p.imageHue} text-2xl shadow-sm`}>
-                  {p.emoji}
-                </span>
+                {p.image === "jpg" ? (
+                  // eslint-disable-next-line @next/next/no-img-element -- product photos are plain <img> by design
+                  <img src={`/api/product-images/${p.slug}`} alt={p.name} className="h-14 w-14 shrink-0 rounded-xl object-cover shadow-sm" />
+                ) : (
+                  <span className={`grid h-14 w-14 shrink-0 place-items-center rounded-xl bg-gradient-to-br ${p.imageHue} text-2xl shadow-sm`}>
+                    {p.emoji}
+                  </span>
+                )}
                 <div className="min-w-0 flex-1">
                   <p className="truncate text-sm font-bold text-gray-900">
                     {p.name}
@@ -340,6 +399,44 @@ export default function AdminProducts() {
             {/* Image */}
             <section className="rounded-2xl border border-gray-100 bg-gray-50 p-5">
               <p className="text-xs font-bold uppercase tracking-wide text-gray-400">Product image</p>
+
+              <div className="mt-4 rounded-xl border border-dashed border-gray-300 bg-white p-4">
+                <p className="text-xs font-semibold text-gray-600">Real photo (JPG) — optional</p>
+                <p className="mt-0.5 text-[11px] leading-4 text-gray-400">
+                  Upload an actual product photo; it replaces the generated image across the store, cart and orders.
+                </p>
+                <div className="mt-3 flex flex-wrap items-center gap-3">
+                  {photoPreview && (
+                    // eslint-disable-next-line @next/next/no-img-element -- local preview; product photos are plain <img> by design
+                    <img src={photoPreview} alt={preview.name || "Product photo"} className="h-16 w-16 shrink-0 rounded-lg border border-gray-200 object-cover shadow-sm" />
+                  )}
+                  <label className="cursor-pointer rounded-xl border border-gray-200 bg-white px-3 py-2 text-xs font-semibold text-gray-600 shadow-sm transition hover:border-indigo-300 hover:text-indigo-600">
+                    {photoFile ? "Choose another photo…" : "Choose a photo…"}
+                    <input
+                      type="file"
+                      accept="image/jpeg,image/jpg"
+                      className="hidden"
+                      onChange={(e) => onPhotoSelect(e.target.files?.[0] ?? undefined)}
+                    />
+                  </label>
+                  {photoFile && (
+                    <button type="button" onClick={() => setPhotoFile(null)} className="text-xs font-semibold text-gray-500 transition hover:text-red-500">
+                      Clear
+                    </button>
+                  )}
+                  {editing?.image === "jpg" && !photoFile && (
+                    <button type="button" onClick={removePhotoNow} className="text-xs font-semibold text-red-500 transition hover:text-red-600">
+                      Remove photo
+                    </button>
+                  )}
+                </div>
+                {photoFile && (
+                  <p className="mt-2 text-[11px] text-gray-400">
+                    New photo: {photoFile.name} ({(photoFile.size / 1024).toFixed(0)} KB) — saved when you submit.
+                  </p>
+                )}
+              </div>
+
               <div className="mt-4 flex flex-wrap items-start gap-6">
                 <div className="flex flex-col items-center gap-2">
                   <div className={`grid aspect-square w-40 place-items-center rounded-2xl bg-gradient-to-br ${preview.hue} shadow`}>
@@ -383,7 +480,7 @@ export default function AdminProducts() {
                     </div>
                   </div>
                   <p className="text-[11px] leading-5 text-gray-400">
-                    An on-brand image is generated automatically from the emoji + colours and used across the store, cart and orders.
+                    No photo? An on-brand image is generated automatically from the emoji + colours and used across the store, cart and orders.
                   </p>
                 </div>
               </div>

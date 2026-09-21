@@ -112,7 +112,11 @@ export default function AdminCustomers() {
             {filtered.map((c) => {
               const isOpen = expanded === c.key;
               const customerOrders = orders
-                .filter((o) => `${o.customer.phone.trim()}::${o.customer.email.trim().toLowerCase()}` === c.key)
+                .filter(
+                  (o) =>
+                    `${String(o.customer.phone ?? o.customer.fullName ?? "").trim()}::${String(o.customer.email ?? "").trim().toLowerCase()}` ===
+                    c.key
+                )
                 .sort((a, b) => b.createdAt.localeCompare(a.createdAt));
               return (
                 <li key={c.key}>

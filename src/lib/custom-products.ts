@@ -24,6 +24,7 @@ export interface CustomProductInput {
   tags: string[];
   imageHue: string;
   emoji: string;
+  image?: "jpg";
 }
 
 function filePath(): string {
@@ -148,6 +149,7 @@ function toProduct(input: CustomProductInput, id: string, slug: string): Product
     tags: input.tags.map((t) => t.trim()).filter(Boolean),
     imageHue: input.imageHue,
     emoji: input.emoji,
+    image: input.image,
   };
 }
 
@@ -177,6 +179,7 @@ export function updateCustomProduct(id: string, patch: CustomProductPatch): Prod
     stock: patch.stock !== undefined ? num(patch.stock) : current.stock,
     rating: patch.rating !== undefined ? num(patch.rating) : current.rating,
     reviewCount: patch.reviewCount !== undefined ? num(patch.reviewCount) : current.reviewCount,
+    image: patch.image !== undefined ? patch.image : current.image,
   } as Product;
 
   if (patch.name !== undefined) requireNonEmpty(patch.name, "Product name is required");
@@ -240,6 +243,7 @@ export function updateCustomProduct(id: string, patch: CustomProductPatch): Prod
       tags: merged.tags,
       imageHue: merged.imageHue,
       emoji: merged.emoji,
+      image: merged.image,
     },
     id,
     slug
@@ -257,4 +261,15 @@ export function deleteCustomProduct(id: string): boolean {
   if (next.length === list.length) return false;
   saveCustomProducts(next);
   return true;
+}
+
+// Sets (or clears) the uploaded-JPG marker used by the storefront renderer.
+export function setProductImage(id: string, image: "jpg" | undefined): Product | undefined {
+  const list = loadCustomProducts();
+  const idx = list.findIndex((p) => p.id === id);
+  if (idx === -1) return undefined;
+  const updated: Product = { ...list[idx], ...(image ? { image } : { image: undefined }) };
+  list[idx] = updated;
+  saveCustomProducts(list);
+  return updated;
 }

@@ -3,10 +3,13 @@ import type { Product } from "@/lib/types";
 const IMAGE_DIR = "/products";
 
 export function ProductImage({ product, className = "" }: { product: Product; className?: string }) {
-  const src = `${IMAGE_DIR}/${product.slug}.svg`;
+  const src =
+    product.image === "jpg"
+      ? `/api/product-images/${product.slug}`
+      : `${IMAGE_DIR}/${product.slug}.svg`;
   return (
     <div className={`relative overflow-hidden bg-gray-100 ${className}`}>
-      {/* eslint-disable-next-line @next/next/no-img-element -- dummy local SVGs; the Next Image optimizer refuses SVGs without dangerouslyAllowSVG. Swap for <Image> when real photos land. */}
+      {/* eslint-disable-next-line @next/next/no-img-element -- local SVGs + streamed uploads; the optimizer refuses SVGs without dangerouslyAllowSVG. Swap for <Image> when real photos land. */}
       <img
         src={src}
         alt={product.name}
