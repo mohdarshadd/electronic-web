@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { useCart } from "@/context/CartContext";
-import { products } from "@/lib/products";
 import { formatINR } from "@/lib/format";
 import { ProductImage } from "@/components/ProductImage";
 import { FREE_SHIPPING_THRESHOLD, STUDENT_DISCOUNT_CODE } from "@/lib/products";
@@ -21,6 +20,7 @@ export default function CartPage() {
     shipping,
     total,
     clear,
+    catalog,
   } = useCart();
   const [codeInput, setCodeInput] = useState("");
   const [couponMsg, setCouponMsg] = useState<{ ok: boolean; text: string } | null>(null);
@@ -28,9 +28,9 @@ export default function CartPage() {
   const detailed = useMemo(
     () =>
       lines
-        .map((l) => ({ line: l, product: products.find((p) => p.id === l.productId) }))
-        .filter((x): x is { line: { productId: string; qty: number }; product: (typeof products)[number] } => Boolean(x.product)),
-    [lines]
+        .map((l) => ({ line: l, product: catalog.find((p) => p.id === l.productId) }))
+        .filter((x): x is { line: { productId: string; qty: number }; product: (typeof catalog)[number] } => Boolean(x.product)),
+    [lines, catalog]
   );
 
   const remainingForFree = FREE_SHIPPING_THRESHOLD - subtotal;

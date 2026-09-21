@@ -3,7 +3,6 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { useCart } from "@/context/CartContext";
-import { products } from "@/lib/products";
 import { formatINR } from "@/lib/format";
 import { ProductImage } from "./ProductImage";
 
@@ -21,7 +20,7 @@ function QtyButton({ on, disabled, label, children }: { on: () => void; disabled
 }
 
 export default function CartDrawer() {
-  const { isOpen, closeCart, lines, setQty, remove, subtotal, shipping, total, count, clear } = useCart();
+  const { isOpen, closeCart, lines, setQty, remove, subtotal, shipping, total, count, clear, catalog } = useCart();
 
   if (!isOpen) return null;
 
@@ -65,7 +64,7 @@ export default function CartDrawer() {
           <>
             <div className="flex-1 space-y-4 overflow-y-auto px-5 py-4">
               {lines.map((line) => {
-                const p = products.find((x) => x.id === line.productId);
+                const p = catalog.find((x) => x.id === line.productId);
                 if (!p) return null;
                 return (
                   <div key={line.productId} className="flex gap-3">

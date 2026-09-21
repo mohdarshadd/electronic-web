@@ -9,9 +9,9 @@ import {
   useState,
   type ReactNode,
 } from "react";
-import type { CartLine } from "@/lib/types";
+import type { CartLine, Product } from "@/lib/types";
 import { computeCart } from "@/lib/cart";
-import { STUDENT_DISCOUNT_CODE } from "@/lib/products";
+import { STUDENT_DISCOUNT_CODE, products } from "@/lib/products";
 
 interface CartContextValue {
   lines: CartLine[];
@@ -21,6 +21,7 @@ interface CartContextValue {
   discount: number;
   shipping: number;
   total: number;
+  catalog: Product[];
   add: (productId: string, qty?: number) => void;
   remove: (productId: string) => void;
   setQty: (productId: string, qty: number) => void;
@@ -64,6 +65,27 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const [coupon, setCoupon] = useState<string | null>(null);
   const [isOpen, setIsOpen] = useState(false);
   const [enabledCoupons, setEnabledCoupons] = useState<string[]>([STUDENT_DISCOUNT_CODE]);
+  const [catalog, setCatalog] = useState<Product[]>(products);
+
+  useEffect(() => {
+    let cancelled = false;
+    // Fetch the live catalog (includes admin-added products and inventory overrides)
+    // so the client cart can price and display every item.
+    fetch("/api/catalog")
+      .then(async (res) => {
+        if (!res.ok) return;
+        const data = await res.json();
+        if (!cancelled && Array.isArray(data?.products) && data.products.length > 0) {
+          setCatalog(data.products as Product[]);
+        }
+      })
+      .catch(() => {
+        // keep the static catalog
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   useEffect(() => {
     let cancelled = false;
@@ -154,7 +176,10 @@ export function CartProvider({ children }: { children: ReactNode }) {
     setCoupon(null);
   }, []);
 
-  const computed = useMemo(() => computeCart(lines, coupon || undefined), [lines, coupon]);
+  const computed = useMemo(
+    () => computeCart(lines, coupon || undefined, { products: (id) => catalog.find((p) => p.id === id) }),
+    [lines, coupon, catalog]
+  );
   const count = useMemo(() => lines.reduce((acc, l) => acc + l.qty, 0), [lines]);
 
   const value = useMemo<CartContextValue>(
@@ -166,6 +191,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
       discount: computed.discount,
       shipping: computed.shipping,
       total: computed.total,
+      catalog,
       add,
       remove,
       setQty,
@@ -181,6 +207,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
       coupon,
       count,
       computed,
+      catalog,
       add,
       remove,
       setQty,

@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import Link from "next/link";
-import { searchProducts } from "@/lib/products";
+import { searchCatalog } from "@/lib/catalog";
 import ProductCard from "@/components/ProductCard";
 export default function SearchPage(props: PageProps<"/search">) {
   return (
@@ -13,7 +13,7 @@ export default function SearchPage(props: PageProps<"/search">) {
 async function SearchResults({ searchParams }: Pick<PageProps<"/search">, "searchParams">) {
   const sp = await searchParams;
   const q = (Array.isArray(sp.q) ? sp.q[0] : sp.q) || "";
-  const results = searchProducts(q);
+  const results = searchCatalog(q);
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">

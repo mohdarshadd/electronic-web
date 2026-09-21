@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { categories, brandNames, getProductsByCategory, products } from "@/lib/products";
+import { categories } from "@/lib/products";
+import { getCatalog, getCatalogBrands, getCatalogProductsByCategory } from "@/lib/catalog";
 import type { Category } from "@/lib/types";
 import ProductCard from "./ProductCard";
 import ProductGridSkeleton from "./ProductGridSkeleton";
@@ -29,7 +30,7 @@ function normalize(raw: RawSearchParams): ShopParams {
 }
 
 export function filterProducts(params: ShopParams) {
-  let list = [...products];
+  let list = [...getCatalog()];
   if (params.category) list = list.filter((p) => p.categorySlug === params.category);
   if (params.brand) list = list.filter((p) => p.brand === params.brand);
   const min = Number(params.min) || 0;
@@ -115,6 +116,7 @@ export default async function ShopContent({
   const activeCat = sp.category;
   const result = filterProducts(sp);
   const sorted = (sp.sort as string) || "popular";
+  const brands = getCatalogBrands();
 
   function withParam(key: string, value: string | undefined) {
     const next = { ...sp, [key]: value !== undefined ? value : undefined };
@@ -161,7 +163,7 @@ export default async function ShopContent({
               <h3 className="text-sm font-bold text-gray-900">Category</h3>
               <div className="mt-3 space-y-1">
                 {categories.map((c) => {
-                  const count = category ? getProductsByCategory(c.slug).length : filterProducts({ category: c.slug }).length;
+                  const count = category ? getCatalogProductsByCategory(c.slug).length : filterProducts({ category: c.slug }).length;
                   const active = activeCat === c.slug;
                   return (
                     <Link
@@ -182,7 +184,7 @@ export default async function ShopContent({
             <div>
               <h3 className="text-sm font-bold text-gray-900">Brand</h3>
               <div className="mt-3 space-y-1">
-                {brandNames.map((b) => {
+                {brands.map((b) => {
                   const active = sp.brand === b;
                   return (
                     <label key={b} className="flex cursor-pointer items-center gap-2.5 px-3 py-1.5 text-sm text-gray-600 transition hover:text-gray-900">

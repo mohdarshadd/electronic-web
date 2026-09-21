@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { getCategories, getFeaturedProducts, getNewProducts } from "@/lib/products";
+import { getCategories } from "@/lib/products";
+import { getCatalogFeatured, getCatalogNew } from "@/lib/catalog";
 import { site } from "@/lib/site";
 import CategoryCard from "@/components/CategoryCard";
 import ProductCard from "@/components/ProductCard";
@@ -7,8 +8,8 @@ import { ProductImage } from "@/components/ProductImage";
 
 export default function HomePage() {
   const categories = getCategories();
-  const featured = getFeaturedProducts();
-  const fresh = getNewProducts();
+  const featured = getCatalogFeatured();
+  const fresh = getCatalogNew();
 
   return (
     <>

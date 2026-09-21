@@ -4,7 +4,6 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
 import { useCart } from "@/context/CartContext";
-import { products } from "@/lib/products";
 import { formatINR } from "@/lib/format";
 import { ProductImage } from "@/components/ProductImage";
 
@@ -24,7 +23,7 @@ function loadAddress() {
 
 export default function CheckoutPage() {
   const router = useRouter();
-  const { lines, coupon, discount, subtotal, shipping, total, clear } = useCart();
+  const { lines, coupon, discount, subtotal, shipping, total, clear, catalog } = useCart();
   const [method, setMethod] = useState<PaymentMethod>("cashfree");
   const [address, setAddress] = useState(() => loadAddress() || {});
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -35,9 +34,9 @@ export default function CheckoutPage() {
   const detailed = useMemo(
     () =>
       lines
-        .map((l) => ({ line: l, product: products.find((p) => p.id === l.productId) }))
-        .filter((x): x is { line: { productId: string; qty: number }; product: (typeof products)[number] } => Boolean(x.product)),
-    [lines]
+        .map((l) => ({ line: l, product: catalog.find((p) => p.id === l.productId) }))
+        .filter((x): x is { line: { productId: string; qty: number }; product: (typeof catalog)[number] } => Boolean(x.product)),
+    [lines, catalog]
   );
 
   function setField(k: string, v: string) {

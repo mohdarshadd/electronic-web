@@ -2,6 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import type { Product } from "./types";
 import { products } from "./products";
+import { loadCustomProducts } from "./custom-products";
 
 export interface StockOverride {
   price?: number;
@@ -50,14 +51,17 @@ export function mergeProduct(base: Product, ov: StockOverride | undefined): Prod
 }
 
 export function getLiveProduct(id: string): Product | undefined {
-  const base = products.find((p) => p.id === id);
+  const base = products.find((p) => p.id === id) ?? loadCustomProducts().find((p) => p.id === id);
   if (!base) return undefined;
   return mergeProduct(base, loadOverrides()[id]);
 }
 
 export function getLiveProducts(): Product[] {
   const overrides = loadOverrides();
-  return products.map((p) => mergeProduct(p, overrides[p.id]));
+  return [
+    ...products.map((p) => mergeProduct(p, overrides[p.id])),
+    ...loadCustomProducts().map((p) => mergeProduct(p, overrides[p.id])),
+  ];
 }
 
 export function listInventory(overridesOnly = false): Product[] {
@@ -66,7 +70,7 @@ export function listInventory(overridesOnly = false): Product[] {
 }
 
 export function applyOverride(id: string, patch: StockOverride): Product | undefined {
-  const base = products.find((p) => p.id === id);
+  const base = products.find((p) => p.id === id) ?? loadCustomProducts().find((p) => p.id === id);
   if (!base) return undefined;
 
   const clean: StockOverride = {};

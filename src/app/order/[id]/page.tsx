@@ -2,7 +2,7 @@ import { Suspense } from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { fetchOrder } from "@/lib/orders";
-import { products } from "@/lib/products";
+import { getCatalogProductBySlug } from "@/lib/catalog";
 import { formatINR } from "@/lib/format";
 import { ProductImage } from "@/components/ProductImage";
 import { cashfreeConfigured, fetchCashfreeOrder } from "@/lib/cashfree";
@@ -102,7 +102,7 @@ async function OrderContent({ id }: { id: Promise<string> }) {
         </div>
         <div className="divide-y divide-gray-100 px-6">
           {order.lines.map((l) => {
-            const product = products.find((p) => p.slug === l.slug);
+            const product = getCatalogProductBySlug(l.slug);
             return (
               <div key={l.productId} className="flex items-center gap-4 py-4">
                 {product ? (

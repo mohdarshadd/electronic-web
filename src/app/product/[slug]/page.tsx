@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getProduct, products, getRelatedProducts } from "@/lib/products";
+import { products } from "@/lib/products";
+import { getCatalogProductBySlug, getCatalogRelated } from "@/lib/catalog";
 import { formatINR, calcDiscount } from "@/lib/format";
 import { ProductImage } from "@/components/ProductImage";
 import { StarRating } from "@/components/StarRating";
@@ -18,7 +19,7 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const product = getProduct(slug);
+  const product = getCatalogProductBySlug(slug);
   if (!product) return {};
   return {
     title: `${product.name} – ₹${(product.price / 100).toLocaleString("en-IN")} | VoltCart`,
@@ -29,10 +30,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function ProductPage({ params }: Props) {
   const { slug } = await params;
-  const product = getProduct(slug);
+  const product = getCatalogProductBySlug(slug);
   if (!product) notFound();
 
-  const related = getRelatedProducts(product, 4);
+  const related = getCatalogRelated(product, 4);
   const discount = calcDiscount(product.price, product.mrp);
 
   return (
