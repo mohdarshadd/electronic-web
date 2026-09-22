@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import type { ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { useCart } from "@/context/CartContext";
 import { formatINR } from "@/lib/format";
 import { ProductImage } from "./ProductImage";
@@ -22,7 +22,26 @@ function QtyButton({ on, disabled, label, children }: { on: () => void; disabled
 export default function CartDrawer() {
   const { isOpen, closeCart, lines, setQty, remove, subtotal, shipping, total, count, clear, catalog } = useCart();
 
-  if (!isOpen) return null;
+  const [rendered, setRendered] = useState(false);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    if (!isOpen) {
+      // Deferred a frame so the close transition visually plays before the drawer unmounts.
+      const raf = requestAnimationFrame(() => setVisible(false));
+      const t = setTimeout(() => setRendered(false), 300);
+      return () => {
+        cancelAnimationFrame(raf);
+        clearTimeout(t);
+      };
+    }
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- drawer mount is animation state (same approved pattern as CartContext)
+    setRendered(true);
+    const raf2 = requestAnimationFrame(() => requestAnimationFrame(() => setVisible(true)));
+    return () => cancelAnimationFrame(raf2);
+  }, [isOpen]);
+
+  if (!rendered) return null;
 
   function checkoutUrl() {
     const p = new URLSearchParams();
@@ -30,9 +49,16 @@ export default function CartDrawer() {
   }
 
   return (
-    <div className="fixed inset-0 z-50" role="dialog" aria-modal="true" aria-label="Shopping cart">
-      <div className="absolute inset-0 bg-gray-900/40 backdrop-blur-sm" onClick={closeCart} />
-      <aside className="absolute right-0 top-0 flex h-full w-full max-w-md flex-col bg-white shadow-2xl">
+    <div className={`fixed inset-0 z-50 ${visible ? "" : "pointer-events-none"}`} role="dialog" aria-modal="true" aria-label="Shopping cart">
+      <div
+        className={`absolute inset-0 bg-gray-900/40 backdrop-blur-sm transition-opacity duration-300 ${visible ? "opacity-100" : "opacity-0"}`}
+        onClick={closeCart}
+      />
+      <aside
+        className={`absolute right-0 top-0 flex h-full w-full max-w-md flex-col bg-white shadow-2xl transition-transform duration-300 ease-out ${
+          visible ? "translate-x-0" : "translate-x-full"
+        }`}
+      >
         <div className="flex items-center justify-between border-b border-gray-100 px-5 py-4">
           <h2 className="text-lg font-bold text-gray-900">
             Your Cart{" "}
