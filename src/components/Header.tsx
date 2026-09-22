@@ -1,46 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState, type FormEvent } from "react";
-import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import { site } from "@/lib/site";
 import { categories } from "@/lib/products";
 import { useCart } from "@/context/CartContext";
-
-function SearchBar({ onNavigate }: { onNavigate?: () => void }) {
-  const [q, setQ] = useState("");
-  const router = useRouter();
-
-  function submit(e: FormEvent) {
-    e.preventDefault();
-    const query = q.trim();
-    if (!query) return;
-    router.push(`/search?q=${encodeURIComponent(query)}`);
-    onNavigate?.();
-  }
-
-  return (
-    <form onSubmit={submit} className="relative flex-1 max-w-2xl">
-      <input
-        value={q}
-        onChange={(e) => setQ(e.target.value)}
-        placeholder="Search sensors, boards, kits… (try “esp32”)"
-        className="w-full rounded-full border border-gray-200 bg-gray-50 py-2.5 pl-4 pr-11 text-sm text-gray-900 placeholder-gray-400 outline-none transition focus:border-indigo-500 focus:bg-white focus:ring-4 focus:ring-indigo-100"
-        aria-label="Search products"
-      />
-      <button
-        type="submit"
-        className="absolute right-1.5 top-1/2 -translate-y-1/2 rounded-full bg-indigo-600 p-2 text-white transition hover:bg-indigo-700"
-        aria-label="Search"
-      >
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
-          <circle cx="11" cy="11" r="7" />
-          <path d="m20 20-3.5-3.5" />
-        </svg>
-      </button>
-    </form>
-  );
-}
+import { SearchBar } from "./SearchBar";
 
 export default function Header() {
   const { count, openCart } = useCart();
