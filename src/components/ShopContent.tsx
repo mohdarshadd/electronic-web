@@ -30,7 +30,7 @@ function normalize(raw: RawSearchParams): ShopParams {
 }
 
 export function filterProducts(params: ShopParams) {
-  let list = [...getCatalog()];
+  let list = Array.from(new Map(getCatalog().map((p) => [p.id, p] as const)).values());
   if (params.category) list = list.filter((p) => p.categorySlug === params.category);
   if (params.brand) list = list.filter((p) => p.brand === params.brand);
   const min = Number(params.min) || 0;
