@@ -4,8 +4,17 @@ import { loadCustomProducts } from "./custom-products";
 
 // Unified view of the storefront catalog: live (base + overrides) products
 // followed by admin-added products. Server-only (fs-backed).
+// getLiveProducts() already contains custom products, so guard against doubles by id.
 export function getCatalog(): Product[] {
-  return [...getLiveProducts(), ...loadCustomProducts()];
+  const seen = new Set<string>();
+  const catalog: Product[] = [];
+  for (const p of [...getLiveProducts(), ...loadCustomProducts()]) {
+    if (!seen.has(p.id)) {
+      seen.add(p.id);
+      catalog.push(p);
+    }
+  }
+  return catalog;
 }
 
 export function getCatalogProductBySlug(slug: string): Product | undefined {
