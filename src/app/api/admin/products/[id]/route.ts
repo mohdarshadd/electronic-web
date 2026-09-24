@@ -8,6 +8,7 @@ import {
   type CustomProductPatch,
 } from "@/lib/custom-products";
 import { deleteProductJpg, deleteProductSvg, renameProductJpg, writeProductSvg } from "@/lib/product-image";
+import { deleteDatasheet, renameDatasheet } from "@/lib/datasheet";
 
 export async function PATCH(req: NextRequest, ctx: { params: Promise<{ id: string }> }) {
   if (!isAdminRequest(req)) {
@@ -32,6 +33,7 @@ export async function PATCH(req: NextRequest, ctx: { params: Promise<{ id: strin
     if (updated.slug !== before.slug) {
       deleteProductSvg(before.slug);
       renameProductJpg(before.slug, updated.slug);
+      renameDatasheet(before.slug, updated.slug);
     }
     writeProductSvg(updated);
     return Response.json({ product: updated });
@@ -51,5 +53,6 @@ export async function DELETE(req: NextRequest, ctx: { params: Promise<{ id: stri
   deleteCustomProduct(id);
   deleteProductSvg(product.slug);
   deleteProductJpg(product.slug);
+  deleteDatasheet(product.slug);
   return Response.json({ ok: true });
 }
