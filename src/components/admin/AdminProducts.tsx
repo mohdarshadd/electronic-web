@@ -29,6 +29,7 @@ interface FormState {
   specs: Spec[];
   imageHue: string;
   emoji: string;
+  datasheetUrl: string;
 }
 
 function slugify(value: string): string {
@@ -63,6 +64,7 @@ function emptyForm(): FormState {
     specs: [{ label: "", value: "" }],
     imageHue: "from-teal-400 to-emerald-600",
     emoji: "📦",
+    datasheetUrl: "",
   };
 }
 
@@ -89,6 +91,7 @@ function formFromProduct(p: Product): FormState {
     specs: p.specs.length ? p.specs : [{ label: "", value: "" }],
     imageHue: p.imageHue,
     emoji: p.emoji || "📦",
+    datasheetUrl: p.datasheetUrl || "",
   };
 }
 
@@ -99,6 +102,7 @@ export default function AdminProducts() {
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editing, setEditing] = useState<Product | null>(null);
   const [photoFile, setPhotoFile] = useState<File | null>(null);
+  const [pdfFile, setPdfFile] = useState<File | null>(null);
   const [form, setForm] = useState<FormState>(emptyForm());
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -146,6 +150,7 @@ export default function AdminProducts() {
     setEditingId(null);
     setEditing(null);
     setPhotoFile(null);
+    setPdfFile(null);
     setForm(emptyForm());
     setError(null);
     setNotice(null);
@@ -156,6 +161,7 @@ export default function AdminProducts() {
     setEditingId(p.id);
     setEditing(p);
     setPhotoFile(null);
+    setPdfFile(null);
     setForm(formFromProduct(p));
     setError(null);
     setNotice(null);
@@ -167,6 +173,7 @@ export default function AdminProducts() {
     setEditingId(null);
     setEditing(null);
     setPhotoFile(null);
+    setPdfFile(null);
     setError(null);
   }
 
@@ -204,6 +211,7 @@ export default function AdminProducts() {
       specs: form.specs.filter((s) => s.label.trim() && s.value.trim()),
       imageHue: form.imageHue,
       emoji: form.emoji,
+      datasheetUrl: form.datasheetUrl.trim() || undefined,
     };
 
     try {
@@ -231,6 +239,17 @@ export default function AdminProducts() {
         const upRes = await fetch(`/api/admin/products/${savedId}/image`, { method: "POST", body: fd }).catch(() => null);
         if (!upRes?.ok) {
           setError("Product saved, but the photo upload failed — check the image is a JPG and try saving again.");
+          setBusy(false);
+          return;
+        }
+      }
+
+      if (pdfFile && savedId) {
+        const fd = new FormData();
+        fd.append("file", pdfFile);
+        const upRes = await fetch(`/api/admin/products/${savedId}/datasheet`, { method: "POST", body: fd }).catch(() => null);
+        if (!upRes?.ok) {
+          setError("Product saved, but the datasheet upload failed — check the file is a PDF and try saving again.");
           setBusy(false);
           return;
         }
@@ -271,6 +290,20 @@ export default function AdminProducts() {
     setPhotoFile(file);
   }
 
+  function onPdfSelect(file: File | undefined) {
+    if (!file) return;
+    if (file.type !== "application/pdf") {
+      setError("Only PDF datasheets are supported — please choose a .pdf file.");
+      return;
+    }
+    if (file.size > 20 * 1024 * 1024) {
+      setError("The datasheet must be 20 MB or smaller.");
+      return;
+    }
+    setError(null);
+    setPdfFile(file);
+  }
+
   async function removePhotoNow() {
     if (!editing) return;
     if (!window.confirm("Remove the uploaded photo? The generated image will be used instead.")) return;
@@ -282,6 +315,20 @@ export default function AdminProducts() {
       load();
     } else {
       setError("Could not remove the photo");
+    }
+  }
+
+  async function removeDatasheetNow() {
+    if (!editing) return;
+    if (!window.confirm("Remove the uploaded datasheet PDF?")) return;
+    setError(null);
+    const res = await fetch(`/api/admin/products/${editing.id}/datasheet`, { method: "DELETE" }).catch(() => null);
+    if (res?.ok) {
+      setPdfFile(null);
+      setEditing({ ...editing, datasheet: undefined });
+      load();
+    } else {
+      setError("Could not remove the datasheet");
     }
   }
 
@@ -350,6 +397,7 @@ export default function AdminProducts() {
                   </p>
                   <p className="mt-0.5 truncate text-xs text-gray-400">
                     {p.sku} · {p.brand} · {categories.find((c) => c.slug === p.categorySlug)?.name ?? p.categorySlug} · <span className="text-gray-500">/product/{p.slug}</span>
+                    {(p.datasheet === "pdf" || p.datasheetUrl) && <span className="ml-2 text-indigo-500">· datasheet</span>}
                   </p>
                 </div>
                 <div className="hidden text-right sm:block">
@@ -482,6 +530,61 @@ export default function AdminProducts() {
                   <p className="text-[11px] leading-5 text-gray-400">
                     No photo? An on-brand image is generated automatically from the emoji + colours and used across the store, cart and orders.
                   </p>
+                </div>
+              </div>
+            </section>
+
+            {/* Datasheet */}
+            <section className="rounded-2xl border border-gray-100 bg-gray-50 p-5">
+              <p className="text-xs font-bold uppercase tracking-wide text-gray-400">Datasheet (PDF)</p>
+
+              <div className="mt-4 rounded-xl border border-dashed border-gray-300 bg-white p-4">
+                <p className="text-xs font-semibold text-gray-600">Technical datasheet — optional</p>
+                <p className="mt-0.5 text-[11px] leading-4 text-gray-400">
+                  Upload a PDF (offered as a download on the product page) or link to an external datasheet URL.
+                </p>
+                <div className="mt-3 space-y-3">
+                  <label className="block space-y-1.5">
+                    <span className="text-[11px] font-semibold text-gray-500">External datasheet URL</span>
+                    <input
+                      className={inputClass}
+                      type="url"
+                      value={form.datasheetUrl}
+                      onChange={(e) => set("datasheetUrl", e.target.value)}
+                      placeholder="https://www.manufacturer.com/xyz-datasheet.pdf"
+                    />
+                  </label>
+                  <div className="flex flex-wrap items-center gap-3">
+                    <label className="cursor-pointer rounded-xl border border-gray-200 bg-white px-3 py-2 text-xs font-semibold text-gray-600 shadow-sm transition hover:border-indigo-300 hover:text-indigo-600">
+                      {pdfFile ? "Choose another PDF…" : "Upload a PDF…"}
+                      <input
+                        type="file"
+                        accept="application/pdf"
+                        className="hidden"
+                        onChange={(e) => onPdfSelect(e.target.files?.[0] ?? undefined)}
+                      />
+                    </label>
+                    {pdfFile && (
+                      <button type="button" onClick={() => setPdfFile(null)} className="text-xs font-semibold text-gray-500 transition hover:text-red-500">
+                        Clear
+                      </button>
+                    )}
+                    {editing?.datasheet === "pdf" && !pdfFile && (
+                      <button type="button" onClick={removeDatasheetNow} className="text-xs font-semibold text-red-500 transition hover:text-red-600">
+                        Remove uploaded PDF
+                      </button>
+                    )}
+                  </div>
+                  {pdfFile && (
+                    <p className="text-[11px] text-gray-400">
+                      New datasheet: {pdfFile.name} ({(pdfFile.size / 1024).toFixed(0)} KB) — saved when you submit.
+                    </p>
+                  )}
+                  {editing?.datasheet === "pdf" && !pdfFile && (
+                    <p className="text-[11px] text-gray-400">
+                      An uploaded PDF is attached and shown as “Download datasheet” on the product page.
+                    </p>
+                  )}
                 </div>
               </div>
             </section>

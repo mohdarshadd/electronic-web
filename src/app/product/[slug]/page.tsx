@@ -63,6 +63,18 @@ export default async function ProductPage({ params }: Props) {
               </span>
               <span className="rounded-lg bg-gray-100 px-2.5 py-1 font-medium">SKU: {product.sku}</span>
               <span className="rounded-lg bg-gray-100 px-2.5 py-1 font-medium">Brand: {product.brand}</span>
+              {product.datasheet === "pdf" || product.datasheetUrl ? (
+                <a
+                  href={product.datasheet === "pdf" ? `/api/datasheets/${product.slug}` : product.datasheetUrl}
+                  download={product.datasheet === "pdf"}
+                  target={product.datasheet === "pdf" ? undefined : "_blank"}
+                  rel={product.datasheet === "pdf" ? undefined : "noreferrer"}
+                  className="inline-flex items-center gap-1.5 rounded-lg bg-indigo-50 px-2.5 py-1 font-semibold text-indigo-700 transition hover:bg-indigo-100"
+                >
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 3v12m0 0 4-4m-4 4-4-4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2" /></svg>
+                  {product.datasheet === "pdf" ? "Download datasheet" : "Datasheet PDF"}
+                </a>
+              ) : null}
             </div>
           </div>
 
