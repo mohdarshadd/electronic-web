@@ -25,6 +25,8 @@ export interface CustomProductInput {
   imageHue: string;
   emoji: string;
   image?: "jpg";
+  datasheetUrl?: string;
+  datasheet?: "pdf";
 }
 
 function filePath(): string {
@@ -150,6 +152,8 @@ function toProduct(input: CustomProductInput, id: string, slug: string): Product
     imageHue: input.imageHue,
     emoji: input.emoji,
     image: input.image,
+    datasheetUrl: input.datasheetUrl ? input.datasheetUrl.trim() || undefined : undefined,
+    datasheet: input.datasheet,
   };
 }
 
@@ -180,6 +184,8 @@ export function updateCustomProduct(id: string, patch: CustomProductPatch): Prod
     rating: patch.rating !== undefined ? num(patch.rating) : current.rating,
     reviewCount: patch.reviewCount !== undefined ? num(patch.reviewCount) : current.reviewCount,
     image: patch.image !== undefined ? patch.image : current.image,
+    datasheetUrl: patch.datasheetUrl !== undefined ? patch.datasheetUrl : current.datasheetUrl,
+    datasheet: patch.datasheet !== undefined ? patch.datasheet : current.datasheet,
   } as Product;
 
   if (patch.name !== undefined) requireNonEmpty(patch.name, "Product name is required");
@@ -244,6 +250,8 @@ export function updateCustomProduct(id: string, patch: CustomProductPatch): Prod
       imageHue: merged.imageHue,
       emoji: merged.emoji,
       image: merged.image,
+      datasheetUrl: merged.datasheetUrl,
+      datasheet: merged.datasheet,
     },
     id,
     slug
@@ -269,6 +277,17 @@ export function setProductImage(id: string, image: "jpg" | undefined): Product |
   const idx = list.findIndex((p) => p.id === id);
   if (idx === -1) return undefined;
   const updated: Product = { ...list[idx], ...(image ? { image } : { image: undefined }) };
+  list[idx] = updated;
+  saveCustomProducts(list);
+  return updated;
+}
+
+// Sets (or clears) the uploaded-PDF marker used by the storefront download link.
+export function setProductDatasheet(id: string, datasheet: "pdf" | undefined): Product | undefined {
+  const list = loadCustomProducts();
+  const idx = list.findIndex((p) => p.id === id);
+  if (idx === -1) return undefined;
+  const updated: Product = { ...list[idx], ...(datasheet ? { datasheet } : { datasheet: undefined }) };
   list[idx] = updated;
   saveCustomProducts(list);
   return updated;

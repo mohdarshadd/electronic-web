@@ -37,6 +37,9 @@ export interface Product {
   emoji: string;
   /** "jpg" when an uploaded product photo exists (served via /api/product-images/[slug]); absent = generated SVG. */
   image?: "jpg";
+  /** External datasheet URL, or "pdf" marker when a PDF was uploaded (served via /api/datasheets/[slug]). */
+  datasheetUrl?: string;
+  datasheet?: "pdf";
 }
 
 export interface CartLine {
