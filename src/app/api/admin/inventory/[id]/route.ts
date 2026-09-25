@@ -1,7 +1,8 @@
 import type { NextRequest } from "next/server";
 import { isAdminRequest } from "../../guard";
-import { applyOverride, loadOverrides } from "@/lib/inventory";
+import { applyOverride, getLiveProduct, loadOverrides } from "@/lib/inventory";
 import type { StockOverride } from "@/lib/inventory";
+import { markNotifiedForProduct } from "@/lib/restock-requests";
 
 export async function PATCH(req: NextRequest, ctx: { params: Promise<{ id: string }> }) {
   if (!isAdminRequest(req)) {
@@ -15,9 +16,14 @@ export async function PATCH(req: NextRequest, ctx: { params: Promise<{ id: strin
   }
 
   try {
+    const before = getLiveProduct(id);
     const product = applyOverride(id, body);
     if (!product) return Response.json({ error: "Product not found" }, { status: 404 });
-    return Response.json({ product, override: loadOverrides()[id] ?? null });
+    let notifiedCount = 0;
+    if (product.inStock && before && !before.inStock) {
+      notifiedCount = markNotifiedForProduct(id);
+    }
+    return Response.json({ product, override: loadOverrides()[id] ?? null, notifiedCount });
   } catch (e) {
     return Response.json({ error: e instanceof Error ? e.message : "Invalid values" }, { status: 400 });
   }

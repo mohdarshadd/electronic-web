@@ -26,6 +26,7 @@ export default function AdminInventory() {
   const [overridesOnly, setOverridesOnly] = useState(false);
   const [search, setSearch] = useState("");
   const [drafts, setDrafts] = useState<Record<string, Draft>>({});
+  const [pendingCounts, setPendingCounts] = useState<Record<string, number>>({});
   const [busyId, setBusyId] = useState<string | null>(null);
   const [savedId, setSavedId] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -48,6 +49,21 @@ export default function AdminInventory() {
       })
       .catch(() => {
         if (!cancelled) setError("Could not load inventory");
+      });
+    fetch("/api/admin/restock-requests?status=pending")
+      .then(async (res) => {
+        if (!res.ok) return;
+        const data = await res.json();
+        if (!cancelled && Array.isArray(data.requests)) {
+          const counts: Record<string, number> = {};
+          for (const r of data.requests) {
+            counts[r.productId] = (counts[r.productId] ?? 0) + 1;
+          }
+          setPendingCounts(counts);
+        }
+      })
+      .catch(() => {
+        // ignore — the chip is optional
       });
     return () => {
       cancelled = true;
@@ -114,6 +130,13 @@ export default function AdminInventory() {
       }
       const data = await res.json();
       setItems((prev) => (prev ? prev.map((x) => (x.id === p.id ? data.product : x)) : prev));
+      if (data.product?.inStock) {
+        setPendingCounts((prev) => {
+          const next = { ...prev };
+          delete next[p.id];
+          return next;
+        });
+      }
       setSavedId(p.id);
       setTimeout(() => setSavedId(null), 1500);
     } catch (e) {
@@ -201,6 +224,11 @@ export default function AdminInventory() {
                         {p.sku} · {p.categorySlug}
                         {lowStock && <span className="ml-2 rounded-full bg-amber-50 px-1.5 py-0.5 text-[10px] font-bold text-amber-700">low stock</span>}
                         {p.stock === 0 && <span className="ml-2 rounded-full bg-red-50 px-1.5 py-0.5 text-[10px] font-bold text-red-700">out of stock</span>}
+                        {(pendingCounts[p.id] ?? 0) > 0 && (
+                          <span className="ml-2 rounded-full bg-indigo-50 px-1.5 py-0.5 text-[10px] font-bold text-indigo-700">
+                            {pendingCounts[p.id]} waiting
+                          </span>
+                        )}
                       </p>
                       <p className="text-xs text-gray-400">
                         base {formatINR(p.price)} · MRP {formatINR(p.mrp)} · {discount}% off
