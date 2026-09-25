@@ -57,10 +57,17 @@ export default async function ProductPage({ params }: Props) {
           <div className="space-y-4">
             <ProductImage product={product} className="aspect-square w-full rounded-3xl shadow-lg" />
             <div className="flex flex-wrap items-center gap-3 text-sm text-gray-500">
-              <span className="inline-flex items-center gap-1.5 rounded-lg bg-emerald-50 px-2.5 py-1 font-semibold text-emerald-700">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><path d="M20 6 9 17l-5-5" /></svg>
-                In Stock
-              </span>
+              {product.inStock ? (
+                <span className={`inline-flex items-center gap-1.5 rounded-lg px-2.5 py-1 font-semibold ${product.stock <= 10 ? "bg-amber-50 text-amber-700" : "bg-emerald-50 text-emerald-700"}`}>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><path d="M20 6 9 17l-5-5" /></svg>
+                  {product.stock <= 10 ? `Only ${product.stock} left` : "In Stock"}
+                </span>
+              ) : (
+                <span className="inline-flex items-center gap-1.5 rounded-lg bg-red-50 px-2.5 py-1 font-semibold text-red-700">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><path d="M6 6l12 12M18 6L6 18" /></svg>
+                  Out of stock
+                </span>
+              )}
               <span className="rounded-lg bg-gray-100 px-2.5 py-1 font-medium">SKU: {product.sku}</span>
               <span className="rounded-lg bg-gray-100 px-2.5 py-1 font-medium">Brand: {product.brand}</span>
               {product.datasheet === "pdf" || product.datasheetUrl ? (
