@@ -7,19 +7,73 @@ import type { Product } from "@/lib/types";
 export default function BuyBox({ product }: { product: Product }) {
   const { add, openCart } = useCart();
   const [qty, setQty] = useState(1);
+  const [email, setEmail] = useState("");
+  const [state, setState] = useState<"idle" | "saving" | "done" | "error">("idle");
+  const [msg, setMsg] = useState<string | null>(null);
+
+  async function subscribe() {
+    setState("saving");
+    setMsg(null);
+    try {
+      const res = await fetch("/api/restock/notify", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: email.trim(), productId: product.id }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        setMsg(data.error || "Could not save your request");
+        setState("error");
+        return;
+      }
+      setState("done");
+    } catch {
+      setMsg("Could not reach the server");
+      setState("error");
+    }
+  }
 
   if (!product.inStock) {
     return (
       <div className="space-y-3">
         <div className="rounded-xl border border-red-100 bg-red-50 px-4 py-3 text-sm font-medium text-red-700">
-          Currently out of stock — back in 1–2 weeks.
+          Currently out of stock — expected back in 1–2 weeks.
         </div>
-        <button className="w-full rounded-xl border-2 border-indigo-600 px-4 py-3 text-sm font-semibold text-indigo-600 transition hover:bg-indigo-50">
-          Email me when available
-        </button>
+        {state === "done" ? (
+          <div className="rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm font-medium text-emerald-700">
+            You’re on the list — we’ll email you when it’s back in stock.
+          </div>
+        ) : (
+          <div className="space-y-2">
+            <label htmlFor="restock-email" className="block text-xs font-semibold text-gray-600">
+              Notify me when it’s back
+            </label>
+            <div className="flex gap-2">
+              <input
+                id="restock-email"
+                type="email"
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="you@example.com"
+                className="w-full rounded-xl border border-gray-300 px-3.5 py-2.5 text-sm outline-none transition focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100"
+              />
+              <button
+                onClick={subscribe}
+                disabled={state === "saving" || !email.trim()}
+                className="shrink-0 rounded-xl bg-indigo-600 px-4 py-2.5 text-sm font-bold text-white transition hover:bg-indigo-700 disabled:opacity-50"
+              >
+                {state === "saving" ? "Saving…" : "Notify me"}
+              </button>
+            </div>
+            {state === "error" && msg && <p className="text-xs font-medium text-red-600">{msg}</p>}
+          </div>
+        )}
       </div>
     );
   }
+
+  const lowStock = product.stock > 0 && product.stock <= 10;
 
   return (
     <div className="space-y-3">
@@ -42,7 +96,9 @@ export default function BuyBox({ product }: { product: Product }) {
           </button>
         </div>
         <div className="text-xs text-gray-500">
-          <span className="font-semibold text-emerald-600">{product.stock}+ in stock</span>
+          <span className={`font-semibold ${lowStock ? "text-amber-600" : "text-emerald-600"}`}>
+            {lowStock ? `Only ${product.stock} left` : `${product.stock} in stock`}
+          </span>
           <br />Ships in 24 hours
         </div>
       </div>
