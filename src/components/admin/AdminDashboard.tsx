@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import type { Order } from "@/lib/types";
+import type { RestockRequest } from "@/lib/restock-requests";
 import { formatINR } from "@/lib/format";
 import { computeMetrics, countBy, dailyStats, topProducts } from "@/lib/admin-metrics";
 import { ORDER_STATUSES, PAYMENT_STATUSES, ORDER_STATUS_CLASS, PAYMENT_STATUS_CLASS } from "./status";
@@ -28,6 +29,7 @@ function KpiCard({ label, value, sub, tone = "gray" }: { label: string; value: s
 export default function AdminDashboard() {
   const router = useRouter();
   const [orders, setOrders] = useState<Order[] | null>(null);
+  const [restock, setRestock] = useState<RestockRequest[] | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [reloadKey, setReloadKey] = useState(0);
 
@@ -45,6 +47,15 @@ export default function AdminDashboard() {
       })
       .catch(() => {
         if (!cancelled) setError("Could not load orders");
+      });
+    fetch("/api/admin/restock-requests?status=pending")
+      .then(async (res) => {
+        if (!res.ok) return;
+        const data = await res.json();
+        if (!cancelled && Array.isArray(data.requests)) setRestock(data.requests);
+      })
+      .catch(() => {
+        // ignore — the alerts panel is optional
       });
     return () => {
       cancelled = true;
@@ -114,6 +125,12 @@ export default function AdminDashboard() {
         <KpiCard label="Average order value" value={formatINR(m.aov)} />
         <KpiCard label="Customers" value={String(m.distinctCustomers)} tone="indigo" />
         <KpiCard label="Cancellation rate" value={`${m.cancellationRate}%`} sub={`${m.cancelledOrders} cancelled`} tone={m.cancellationRate > 10 ? "red" : "gray"} />
+        <KpiCard
+          label="Restock alerts"
+          value={String(restock?.length ?? 0)}
+          sub="awaiting stock"
+          tone={(restock?.length ?? 0) > 0 ? "amber" : "gray"}
+        />
       </div>
 
       <div className="rounded-2xl border border-gray-200 bg-white p-5">
@@ -189,6 +206,35 @@ export default function AdminDashboard() {
             <span className="font-bold text-gray-900">{orders.filter((o) => o.paymentMethod === "cashfree").length}</span>
           </div>
         </div>
+      </div>
+
+      <div className="rounded-2xl border border-gray-200 bg-white p-5">
+        <div className="mb-3 flex items-center justify-between">
+          <h2 className="text-sm font-bold uppercase tracking-wide text-gray-400">Restock alerts</h2>
+          <Link href="/admin/restock-requests" className="text-xs font-bold text-indigo-600 hover:text-indigo-700">
+            View all →
+          </Link>
+        </div>
+        {!restock || restock.length === 0 ? (
+          <p className="py-6 text-center text-sm text-gray-400">No customers waiting for restock right now.</p>
+        ) : (
+          <ul className="divide-y divide-gray-100">
+            {restock.slice(0, 5).map((r) => (
+              <li key={r.id} className="flex items-center gap-3 py-2.5">
+                <div className="min-w-0 flex-1">
+                  <Link href={`/product/${r.productSlug}`} className="block truncate text-sm font-semibold text-gray-900 hover:text-indigo-600">
+                    {r.productName}
+                  </Link>
+                  <p className="truncate text-xs text-gray-400">{r.email}</p>
+                </div>
+                <span className="rounded-full bg-amber-50 px-2 py-1 text-xs font-bold text-amber-700">pending</span>
+                <span className="text-xs font-medium text-gray-400">
+                  {new Date(r.requestedAt).toLocaleDateString("en-IN", { day: "2-digit", month: "short" })}
+                </span>
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
 
       <div className="grid gap-6 lg:grid-cols-2">
