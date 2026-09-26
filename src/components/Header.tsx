@@ -43,9 +43,9 @@ export default function Header() {
       </div>
 
       <header className="sticky top-3 z-40 px-3 sm:px-6">
-      <div className="mx-auto flex max-w-7xl items-center gap-3 rounded-full border border-white/40 bg-white/60 px-3 py-2 shadow-lg shadow-indigo-950/5 ring-1 ring-black/5 backdrop-blur-xl sm:px-5">
+      <div className="mx-auto flex max-w-7xl items-center gap-3 rounded-full border border-white/40 bg-gradient-to-b from-white/80 to-white/50 px-3 py-2 shadow-lg shadow-indigo-950/5 ring-1 ring-black/5 backdrop-blur-xl transition-shadow hover:shadow-xl hover:shadow-indigo-950/10 sm:px-5">
         <button
-          className="rounded-lg p-2 text-gray-600 transition hover:bg-gray-100 lg:hidden"
+          className="rounded-full p-2 text-gray-600 transition hover:bg-white/80 lg:hidden"
           onClick={() => setMobileNav((v) => !v)}
           aria-label="Toggle menu"
         >
@@ -99,7 +99,7 @@ export default function Header() {
       </div>
 
       <div className="mt-3 hidden lg:block">
-        <nav className="mx-auto flex max-w-7xl items-center gap-1 overflow-x-auto rounded-full border border-white/40 bg-white/50 px-4 py-1.5 shadow-lg shadow-indigo-950/5 ring-1 ring-black/5 backdrop-blur-xl">
+        <nav className="mx-auto flex max-w-7xl items-center gap-1 overflow-x-auto rounded-full border border-white/40 bg-gradient-to-b from-white/60 to-white/30 px-4 py-1.5 shadow-lg shadow-indigo-950/5 ring-1 ring-black/5 backdrop-blur-xl">
           {categories.slice(0, 8).map((c) => (
             <Link
               key={c.slug}
