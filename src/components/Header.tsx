@@ -55,7 +55,7 @@ export default function Header() {
         </button>
 
         <Link href="/" className="flex shrink-0 items-center gap-2.5" aria-label={site.name}>
-          <span className="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-indigo-600 to-violet-600 text-white shadow-sm">
+          <span className="grid h-9 w-9 place-items-center rounded-full bg-gradient-to-br from-indigo-600 to-violet-600 text-white shadow-md shadow-indigo-600/30 ring-2 ring-white/60">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
               <path d="M13 2 3.5 13.5H11L9.5 22 19 10.5H11.5L13 2z" />
             </svg>
@@ -82,7 +82,7 @@ export default function Header() {
 
         <button
           onClick={openCart}
-          className="relative rounded-xl border border-gray-200 bg-white p-2.5 text-gray-700 shadow-sm transition hover:border-indigo-300 hover:text-indigo-600"
+          className="relative shrink-0 rounded-full border border-white/60 bg-white/70 p-2.5 text-gray-700 shadow-sm shadow-indigo-950/5 transition hover:border-indigo-300 hover:bg-white hover:text-indigo-600"
           aria-label="Open cart"
         >
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
