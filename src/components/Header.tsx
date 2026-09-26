@@ -98,19 +98,19 @@ export default function Header() {
         </button>
       </div>
 
-      <div className="hidden border-t border-gray-100 lg:block">
-        <nav className="mx-auto flex max-w-7xl items-center gap-6 overflow-x-auto px-4 py-2 sm:px-6 lg:px-8">
+      <div className="mt-3 hidden lg:block">
+        <nav className="mx-auto flex max-w-7xl items-center gap-1 overflow-x-auto rounded-full border border-white/40 bg-white/50 px-4 py-1.5 shadow-lg shadow-indigo-950/5 ring-1 ring-black/5 backdrop-blur-xl">
           {categories.slice(0, 8).map((c) => (
             <Link
               key={c.slug}
               href={`/category/${c.slug}`}
-              className="shrink-0 rounded-md px-2 py-1 text-[13px] font-medium text-gray-600 transition hover:bg-gray-100 hover:text-gray-900"
+              className="shrink-0 rounded-full px-3 py-1.5 text-[13px] font-medium text-gray-600 transition hover:bg-white/80 hover:text-gray-900"
             >
               <span className="mr-1.5">{c.emoji}</span>
               {c.name}
             </Link>
           ))}
-          <Link href="/shop" className="shrink-0 px-2 py-1 text-[13px] font-semibold text-indigo-600 hover:text-indigo-700">
+          <Link href="/shop" className="shrink-0 rounded-full bg-indigo-600/10 px-3 py-1.5 text-[13px] font-semibold text-indigo-700 transition hover:bg-indigo-600/20">
             View all →
           </Link>
         </nav>
