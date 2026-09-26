@@ -32,7 +32,7 @@ export default function Header() {
   }, []);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-gray-200 bg-white/90 backdrop-blur">
+    <>
       <div className="bg-indigo-950 px-4 py-2 text-center text-xs font-medium text-indigo-100">
         <span className="inline-flex items-center gap-2">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
@@ -42,7 +42,8 @@ export default function Header() {
         </span>
       </div>
 
-      <div className="mx-auto flex max-w-7xl items-center gap-4 px-4 py-3 sm:px-6 lg:px-8">
+      <header className="sticky top-3 z-40 px-3 sm:px-6">
+      <div className="mx-auto flex max-w-7xl items-center gap-3 rounded-full border border-white/40 bg-white/60 px-3 py-2 shadow-lg shadow-indigo-950/5 ring-1 ring-black/5 backdrop-blur-xl sm:px-5">
         <button
           className="rounded-lg p-2 text-gray-600 transition hover:bg-gray-100 lg:hidden"
           onClick={() => setMobileNav((v) => !v)}
@@ -141,6 +142,7 @@ export default function Header() {
           </div>
         </div>
       )}
-    </header>
+      </header>
+    </>
   );
 }
