@@ -117,12 +117,12 @@ export default function Header() {
       </div>
 
       {mobileNav && (
-        <div className="border-t border-gray-100 bg-white px-4 pb-4 pt-2 lg:hidden">
-          <div className="mb-3 md:hidden">
+        <div className="mt-3 space-y-3 rounded-3xl border border-white/40 bg-white/70 p-4 shadow-xl shadow-indigo-950/10 ring-1 ring-black/5 backdrop-blur-xl lg:hidden">
+          <div className="md:hidden">
             <SearchBar onNavigate={() => setMobileNav(false)} />
           </div>
           <div className="grid grid-cols-1 gap-1">
-            <Link href="/shop" onClick={() => setMobileNav(false)} className="rounded-lg px-3 py-2 text-sm font-medium text-gray-800 hover:bg-gray-100">
+            <Link href="/shop" onClick={() => setMobileNav(false)} className="rounded-full px-3 py-2 text-sm font-medium text-gray-800 transition hover:bg-white/80">
               All Products
             </Link>
             {categories.slice(0, 6).map((c) => (
@@ -130,13 +130,13 @@ export default function Header() {
                 key={c.slug}
                 href={`/category/${c.slug}`}
                 onClick={() => setMobileNav(false)}
-                className="rounded-lg px-3 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                className="rounded-full px-3 py-2 text-sm text-gray-700 transition hover:bg-white/80"
               >
                 <span className="mr-2">{c.emoji}</span>
                 {c.name}
               </Link>
             ))}
-            <Link href="/student-offers" onClick={() => setMobileNav(false)} className="rounded-lg bg-emerald-50 px-3 py-2 text-sm font-semibold text-emerald-700">
+            <Link href="/student-offers" onClick={() => setMobileNav(false)} className="rounded-full bg-emerald-100/60 px-3 py-2 text-sm font-semibold text-emerald-700">
               🎓 Student Offers
             </Link>
           </div>
