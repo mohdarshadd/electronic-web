@@ -69,11 +69,11 @@ export default function Header() {
           <SearchBar />
         </div>
 
-        <nav className="ml-auto hidden items-center gap-1 lg:flex">
-          <Link href="/shop" className="rounded-lg px-3 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-100 hover:text-gray-900">
+        <nav className="ml-auto hidden items-center gap-1.5 lg:flex">
+          <Link href="/shop" className="rounded-full px-4 py-2 text-sm font-medium text-gray-700 transition hover:bg-white/80 hover:text-gray-900">
             All Products
           </Link>
-          <Link href="/student-offers" className="rounded-lg px-3 py-2 text-sm font-medium text-emerald-700 transition hover:bg-emerald-50">
+          <Link href="/student-offers" className="rounded-full border border-emerald-200/70 bg-emerald-100/50 px-4 py-2 text-sm font-medium text-emerald-700 transition hover:bg-emerald-100/80">
             <span className="inline-flex items-center gap-1.5">
               <span aria-hidden>🎓</span> Student Offers
             </span>
