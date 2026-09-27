@@ -32,7 +32,7 @@ export default function Header() {
   }, []);
 
   return (
-    <>
+    <header className="sticky top-0 z-40 border-b border-gray-200 bg-white/90 backdrop-blur">
       <div className="bg-indigo-950 px-4 py-2 text-center text-xs font-medium text-indigo-100">
         <span className="inline-flex items-center gap-2">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
@@ -42,10 +42,9 @@ export default function Header() {
         </span>
       </div>
 
-      <header className="sticky top-3 z-40 px-3 sm:px-6">
-      <div className="mx-auto flex max-w-7xl items-center gap-3 rounded-full border border-white/40 bg-gradient-to-b from-white/80 to-white/50 px-3 py-1.5 shadow-lg shadow-indigo-950/5 ring-1 ring-black/5 backdrop-blur-xl transition-shadow hover:shadow-xl hover:shadow-indigo-950/10 sm:px-5">
+      <div className="mx-auto flex max-w-7xl items-center gap-4 px-4 py-3 sm:px-6 lg:px-8">
         <button
-          className="rounded-full p-2 text-gray-600 transition hover:bg-white/80 lg:hidden"
+          className="rounded-lg p-2 text-gray-600 transition hover:bg-gray-100 lg:hidden"
           onClick={() => setMobileNav((v) => !v)}
           aria-label="Toggle menu"
         >
@@ -55,7 +54,7 @@ export default function Header() {
         </button>
 
         <Link href="/" className="flex shrink-0 items-center gap-2.5" aria-label={site.name}>
-          <span className="grid h-9 w-9 place-items-center rounded-full bg-gradient-to-br from-indigo-600 to-violet-600 text-white shadow-md shadow-indigo-600/30 ring-2 ring-white/60">
+          <span className="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-indigo-600 to-violet-600 text-white shadow-sm">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
               <path d="M13 2 3.5 13.5H11L9.5 22 19 10.5H11.5L13 2z" />
             </svg>
@@ -69,11 +68,11 @@ export default function Header() {
           <SearchBar />
         </div>
 
-        <nav className="ml-auto hidden items-center gap-1.5 lg:flex">
-          <Link href="/shop" className="rounded-full px-4 py-2 text-sm font-medium text-gray-700 transition hover:bg-white/80 hover:text-gray-900">
+        <nav className="ml-auto hidden items-center gap-1 lg:flex">
+          <Link href="/shop" className="rounded-lg px-3 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-100 hover:text-gray-900">
             All Products
           </Link>
-          <Link href="/student-offers" className="rounded-full border border-emerald-200/70 bg-emerald-100/50 px-4 py-2 text-sm font-medium text-emerald-700 transition hover:bg-emerald-100/80">
+          <Link href="/student-offers" className="rounded-lg px-3 py-2 text-sm font-medium text-emerald-700 transition hover:bg-emerald-50">
             <span className="inline-flex items-center gap-1.5">
               <span aria-hidden>🎓</span> Student Offers
             </span>
@@ -82,7 +81,7 @@ export default function Header() {
 
         <button
           onClick={openCart}
-          className="relative shrink-0 rounded-full border border-white/60 bg-white/70 p-2.5 text-gray-700 shadow-sm shadow-indigo-950/5 transition hover:border-indigo-300 hover:bg-white hover:text-indigo-600"
+          className="relative rounded-xl border border-gray-200 bg-white p-2.5 text-gray-700 shadow-sm transition hover:border-indigo-300 hover:text-indigo-600"
           aria-label="Open cart"
         >
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
@@ -98,31 +97,31 @@ export default function Header() {
         </button>
       </div>
 
-      <div className="mt-2 hidden lg:block">
-        <nav className="mx-auto flex max-w-7xl items-center gap-0.5 overflow-x-auto overscroll-x-contain scroll-px-6 rounded-full border border-white/40 bg-gradient-to-b from-white/60 to-white/30 px-4 py-1.5 shadow-lg shadow-indigo-950/5 ring-1 ring-black/5 backdrop-blur-xl min-h-[2.375rem] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+      <div className="hidden border-t border-gray-100 lg:block">
+        <nav className="mx-auto flex max-w-7xl items-center gap-6 overflow-x-auto px-4 py-2 sm:px-6 lg:px-8">
           {categories.slice(0, 8).map((c) => (
             <Link
               key={c.slug}
               href={`/category/${c.slug}`}
-              className="shrink-0 whitespace-nowrap rounded-full px-3 py-1.5 text-[13px] font-medium text-gray-600 transition hover:bg-white/80 hover:text-gray-900"
+              className="shrink-0 rounded-md px-2 py-1 text-[13px] font-medium text-gray-600 transition hover:bg-gray-100 hover:text-gray-900"
             >
               <span className="mr-1.5">{c.emoji}</span>
               {c.name}
             </Link>
           ))}
-          <Link href="/shop" className="shrink-0 whitespace-nowrap rounded-full bg-indigo-600/10 px-3 py-1.5 text-[13px] font-semibold text-indigo-700 transition hover:bg-indigo-600/20">
+          <Link href="/shop" className="shrink-0 px-2 py-1 text-[13px] font-semibold text-indigo-600 hover:text-indigo-700">
             View all →
           </Link>
         </nav>
       </div>
 
       {mobileNav && (
-        <div className="mt-3 space-y-3 rounded-3xl border border-white/40 bg-white/70 p-4 shadow-xl shadow-indigo-950/10 ring-1 ring-black/5 backdrop-blur-xl lg:hidden">
-          <div className="md:hidden">
+        <div className="border-t border-gray-100 bg-white px-4 pb-4 pt-2 lg:hidden">
+          <div className="mb-3 md:hidden">
             <SearchBar onNavigate={() => setMobileNav(false)} />
           </div>
           <div className="grid grid-cols-1 gap-1">
-            <Link href="/shop" onClick={() => setMobileNav(false)} className="rounded-full px-3 py-2 text-sm font-medium text-gray-800 transition hover:bg-white/80">
+            <Link href="/shop" onClick={() => setMobileNav(false)} className="rounded-lg px-3 py-2 text-sm font-medium text-gray-800 hover:bg-gray-100">
               All Products
             </Link>
             {categories.slice(0, 6).map((c) => (
@@ -130,19 +129,18 @@ export default function Header() {
                 key={c.slug}
                 href={`/category/${c.slug}`}
                 onClick={() => setMobileNav(false)}
-                className="rounded-full px-3 py-2 text-sm text-gray-700 transition hover:bg-white/80"
+                className="rounded-lg px-3 py-2 text-sm text-gray-700 hover:bg-gray-100"
               >
                 <span className="mr-2">{c.emoji}</span>
                 {c.name}
               </Link>
             ))}
-            <Link href="/student-offers" onClick={() => setMobileNav(false)} className="rounded-full bg-emerald-100/60 px-3 py-2 text-sm font-semibold text-emerald-700">
+            <Link href="/student-offers" onClick={() => setMobileNav(false)} className="rounded-lg bg-emerald-50 px-3 py-2 text-sm font-semibold text-emerald-700">
               🎓 Student Offers
             </Link>
           </div>
         </div>
       )}
-      </header>
-    </>
+    </header>
   );
 }

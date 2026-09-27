@@ -116,7 +116,7 @@ export function SearchBar({ onNavigate }: { onNavigate?: () => void }) {
             }
           }}
           placeholder="Search sensors, boards, kits… (try “esp32”)"
-          className="w-full rounded-full border border-white/60 bg-white/60 py-2.5 pl-4 pr-11 text-sm text-gray-900 placeholder-gray-400 shadow-sm shadow-indigo-950/5 outline-none backdrop-blur transition hover:bg-white/80 focus:border-indigo-300 focus:bg-white focus:ring-4 focus:ring-indigo-500/15"
+          className="w-full rounded-full border border-gray-200 bg-gray-50 py-2.5 pl-4 pr-11 text-sm text-gray-900 placeholder-gray-400 outline-none transition focus:border-indigo-500 focus:bg-white focus:ring-4 focus:ring-indigo-100"
           aria-label="Search products"
           autoComplete="off"
           role="combobox"
