@@ -99,7 +99,7 @@ export default function Header() {
       </div>
 
       <div className="mt-3 hidden lg:block">
-        <nav className="mx-auto flex max-w-7xl items-center gap-1 overflow-x-auto rounded-full border border-white/40 bg-gradient-to-b from-white/60 to-white/30 px-4 py-1.5 shadow-lg shadow-indigo-950/5 ring-1 ring-black/5 backdrop-blur-xl">
+        <nav className="mx-auto flex max-w-7xl items-center gap-1 overflow-x-auto overscroll-x-contain rounded-full border border-white/40 bg-gradient-to-b from-white/60 to-white/30 px-4 py-1.5 shadow-lg shadow-indigo-950/5 ring-1 ring-black/5 backdrop-blur-xl [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           {categories.slice(0, 8).map((c) => (
             <Link
               key={c.slug}
