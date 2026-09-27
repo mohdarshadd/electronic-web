@@ -43,7 +43,7 @@ export default function Header() {
       </div>
 
       <header className="sticky top-3 z-40 px-3 sm:px-6">
-      <div className="mx-auto flex max-w-7xl items-center gap-3 rounded-full border border-white/40 bg-gradient-to-b from-white/80 to-white/50 px-3 py-2 shadow-lg shadow-indigo-950/5 ring-1 ring-black/5 backdrop-blur-xl transition-shadow hover:shadow-xl hover:shadow-indigo-950/10 sm:px-5">
+      <div className="mx-auto flex max-w-7xl items-center gap-3 rounded-full border border-white/40 bg-gradient-to-b from-white/80 to-white/50 px-3 py-1.5 shadow-lg shadow-indigo-950/5 ring-1 ring-black/5 backdrop-blur-xl transition-shadow hover:shadow-xl hover:shadow-indigo-950/10 sm:px-5">
         <button
           className="rounded-full p-2 text-gray-600 transition hover:bg-white/80 lg:hidden"
           onClick={() => setMobileNav((v) => !v)}
@@ -98,7 +98,7 @@ export default function Header() {
         </button>
       </div>
 
-      <div className="mt-3 hidden lg:block">
+      <div className="mt-2 hidden lg:block">
         <nav className="mx-auto flex max-w-7xl items-center gap-0.5 overflow-x-auto overscroll-x-contain scroll-px-6 rounded-full border border-white/40 bg-gradient-to-b from-white/60 to-white/30 px-4 py-1.5 shadow-lg shadow-indigo-950/5 ring-1 ring-black/5 backdrop-blur-xl min-h-[2.375rem] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           {categories.slice(0, 8).map((c) => (
             <Link
