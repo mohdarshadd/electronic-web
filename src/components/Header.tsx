@@ -104,13 +104,13 @@ export default function Header() {
             <Link
               key={c.slug}
               href={`/category/${c.slug}`}
-              className="shrink-0 rounded-full px-3 py-1.5 text-[13px] font-medium text-gray-600 transition hover:bg-white/80 hover:text-gray-900"
+              className="shrink-0 whitespace-nowrap rounded-full px-3 py-1.5 text-[13px] font-medium text-gray-600 transition hover:bg-white/80 hover:text-gray-900"
             >
               <span className="mr-1.5">{c.emoji}</span>
               {c.name}
             </Link>
           ))}
-          <Link href="/shop" className="shrink-0 rounded-full bg-indigo-600/10 px-3 py-1.5 text-[13px] font-semibold text-indigo-700 transition hover:bg-indigo-600/20">
+          <Link href="/shop" className="shrink-0 whitespace-nowrap rounded-full bg-indigo-600/10 px-3 py-1.5 text-[13px] font-semibold text-indigo-700 transition hover:bg-indigo-600/20">
             View all →
           </Link>
         </nav>
