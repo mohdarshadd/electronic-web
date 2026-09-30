@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: elecweb
+    runtime: node
+    plan: free
+    region: singapore
+    buildCommand: npm install && npm run build
+    startCommand: npm run start
+    healthCheckPath: /
+    envVars:
+      - key: NODE_VERSION
+        value: 22
+      - key: ADMIN_PASSWORD
+        sync: false
+        comment: Admin login password, set in the Render dashboard before first deploy
