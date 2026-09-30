@@ -34,3 +34,17 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## Deploy on Render
+
+This repo ships a [`render.yaml`](./render.yaml) blueprint, so deployment is a button click:
+
+1. Push this branch to GitHub.
+2. In the Render dashboard, go to **New → Blueprint** and connect the GitHub repo.
+3. Render auto-detects `render.yaml` and provisions the `elecweb` web service (Node 22, `npm install && npm run build`, `npm run start`).
+4. On the first deploy, set `ADMIN_PASSWORD` in **Environment** — the admin login at `/admin` requires it.
+
+Notes:
+
+- Free instances go to sleep after ~15 minutes idle, so the first request after a pause can take a few seconds to wake up.
+- Runtime data (products, orders, restock requests, uploaded datasheets/images) is stored in the local `.data/` folder. Render's free instances have an ephemeral filesystem, so that data resets whenever the service restarts or redeploys. For persistent storage, attach a [Disk](https://render.com/docs/disks) to the service and mount it at the repo's `.data/` path.
