@@ -3,14 +3,25 @@
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 
-const NAV = [
-  { href: "/admin", label: "Dashboard", icon: "M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z" },
-  { href: "/admin/orders", label: "Orders", icon: "M4 6h16v2H4V6zm0 5h16v2H4v-2zm0 5h10v2H4v-2z" },
-  { href: "/admin/customers", label: "Customers", icon: "M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2m20 0v-2a4 4 0 00-3-3.87M14 3.13A4 4 0 0116 7m-2 9a4 4 0 008 0 4 4 0 00-8 0z" },
-  { href: "/admin/products", label: "Products", icon: "M21 8l-9-5-9 5m18 0l-9 5m9-5v10l-9 5m0-10L3 8m9 5v10" },
-  { href: "/admin/restock-requests", label: "Restock alerts", icon: "M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9M13.7 21a2 2 0 0 1-3.4 0" },
-  { href: "/admin/inventory", label: "Inventory", icon: "M20 7l-8-4-8 4v10l8 4 8-4V7zm-8 13V7M6 11l12-2m-12 6l12-2" },
-  { href: "/admin/settings", label: "Settings", icon: "M4 21v-7m6 7V3m6 18v-4m6 4H2M4 14h4v4H4zM10 3h4v4h-4zm6 10h4v4h-4z" },
+const NAV: { label: string; items: { href: string; label: string; icon: string }[] }[] = [
+  {
+    label: "Overview",
+    items: [{ href: "/admin", label: "Dashboard", icon: "M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z" }],
+  },
+  {
+    label: "Manage",
+    items: [
+      { href: "/admin/orders", label: "Orders", icon: "M4 6h16v2H4V6zm0 5h16v2H4v-2zm0 5h10v2H4v-2z" },
+      { href: "/admin/customers", label: "Customers", icon: "M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2m20 0v-2a4 4 0 00-3-3.87M14 3.13A4 4 0 0116 7m-2 9a4 4 0 008 0 4 4 0 00-8 0z" },
+      { href: "/admin/products", label: "Products", icon: "M21 8l-9-5-9 5m18 0l-9 5m9-5v10l-9 5m0-10L3 8m9 5v10" },
+      { href: "/admin/restock-requests", label: "Restock alerts", icon: "M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9M13.7 21a2 2 0 0 1-3.4 0" },
+      { href: "/admin/inventory", label: "Inventory", icon: "M20 7l-8-4-8 4v10l8 4 8-4V7zm-8 13V7M6 11l12-2m-12 6l12-2" },
+    ],
+  },
+  {
+    label: "System",
+    items: [{ href: "/admin/settings", label: "Settings", icon: "M4 21v-7m6 7V3m6 18v-4m6 4H2M4 14h4v4H4zM10 3h4v4h-4zm6 10h4v4h-4z" }],
+  },
 ];
 
 export default function AdminSidebar({ authed }: { authed: boolean }) {
@@ -23,7 +34,7 @@ export default function AdminSidebar({ authed }: { authed: boolean }) {
   }
 
   return (
-    <aside className="flex w-full shrink-0 flex-col gap-1 border-b border-gray-200 bg-white p-3 lg:h-[calc(100vh-0px)] lg:w-60 lg:border-b-0 lg:border-r lg:py-6">
+    <aside className="flex w-full shrink-0 flex-col gap-1 border-b border-gray-200 bg-white p-3 lg:h-screen lg:sticky lg:top-0 lg:w-60 lg:border-b-0 lg:border-r lg:py-6">
       <div className="mb-3 flex items-center gap-2.5 px-2 lg:mb-6">
         <span className="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-indigo-600 to-violet-600 text-white shadow-sm">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
@@ -39,23 +50,30 @@ export default function AdminSidebar({ authed }: { authed: boolean }) {
       </div>
 
       <nav className="flex gap-1 overflow-x-auto lg:flex-col">
-        {NAV.map((n) => {
-          const active = pathname === n.href || (n.href !== "/admin" && pathname.startsWith(n.href));
-          return (
-            <Link
-              key={n.href}
-              href={n.href}
-              className={`flex shrink-0 items-center gap-2.5 rounded-xl px-3 py-2.5 text-sm font-semibold transition ${
-                active ? "bg-indigo-50 text-indigo-700" : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
-              }`}
-            >
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" className={active ? "text-indigo-600" : "text-gray-400"}>
-                <path d={n.icon} />
-              </svg>
-              <span className="whitespace-nowrap">{n.label}</span>
-            </Link>
-          );
-        })}
+        {NAV.map((group) => (
+          <div key={group.label} className="flex gap-1 lg:flex-col">
+            <p className="hidden px-3 pt-4 pb-1 text-[10px] font-bold uppercase tracking-widest text-gray-400 lg:block">
+              {group.label}
+            </p>
+            {group.items.map((n) => {
+              const active = pathname === n.href || (n.href !== "/admin" && pathname.startsWith(n.href));
+              return (
+                <Link
+                  key={n.href}
+                  href={n.href}
+                  className={`flex shrink-0 items-center gap-2.5 rounded-xl px-3 py-2.5 text-sm font-semibold transition ${
+                    active ? "bg-indigo-50 text-indigo-700" : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+                  }`}
+                >
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" className={active ? "text-indigo-600" : "text-gray-400"}>
+                    <path d={n.icon} />
+                  </svg>
+                  <span className="whitespace-nowrap">{n.label}</span>
+                </Link>
+              );
+            })}
+          </div>
+        ))}
       </nav>
 
       <div className="mt-auto flex flex-col gap-1 pt-6">
