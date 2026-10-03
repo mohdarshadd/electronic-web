@@ -193,7 +193,7 @@ export default function Header() {
       </div>
 
       {mobileNav && (
-        <div className="border-t border-gray-100 bg-white px-4 pb-4 pt-2 lg:hidden">
+        <div className="animate-[menu-in_0.25s_ease-out] border-t border-gray-100 bg-white px-4 pb-4 pt-2 lg:hidden">
           <div className="mb-3 md:hidden">
             <SearchBar onNavigate={() => setMobileNav(false)} />
           </div>
