@@ -55,7 +55,7 @@ export default function Header() {
 
       <div className="mx-auto flex max-w-7xl items-center gap-4 px-4 py-3 sm:px-6 lg:px-8">
         <button
-          className="rounded-lg p-2 text-gray-600 transition-all duration-200 hover:bg-gray-100 active:scale-90 lg:hidden"
+          className="rounded-lg p-2 text-gray-600 transition-all duration-200 hover:bg-gray-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 active:scale-90 lg:hidden"
           onClick={() => setMobileNav((v) => !v)}
           aria-label="Toggle menu"
         >
@@ -109,7 +109,7 @@ export default function Header() {
         <nav className="ml-auto hidden items-center gap-1 lg:flex">
           <Link
             href="/shop"
-            className="group relative rounded-lg px-3 py-2 text-sm font-medium text-gray-700 transition-colors duration-200 hover:text-gray-900"
+            className="group relative rounded-lg px-3 py-2 text-sm font-medium text-gray-700 transition-colors duration-200 hover:text-gray-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/50 focus-visible:ring-offset-2"
           >
             All Products
             <span
@@ -119,7 +119,7 @@ export default function Header() {
           </Link>
           <Link
             href="/student-offers"
-            className="group relative rounded-lg px-3 py-2 text-sm font-medium text-emerald-700 transition-colors duration-200 hover:text-emerald-800"
+            className="group relative rounded-lg px-3 py-2 text-sm font-medium text-emerald-700 transition-colors duration-200 hover:text-emerald-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/50 focus-visible:ring-offset-2"
           >
             <span className="inline-flex items-center gap-1.5">
               <span aria-hidden className="inline-block transition-transform duration-200 group-hover:-translate-y-0.5">
@@ -136,7 +136,7 @@ export default function Header() {
 
         <button
           onClick={openCart}
-          className="group relative rounded-xl border border-gray-200 bg-white p-2.5 text-gray-700 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-indigo-300 hover:text-indigo-600 hover:shadow-md"
+          className="group relative rounded-xl border border-gray-200 bg-white p-2.5 text-gray-700 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-indigo-300 hover:text-indigo-600 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2"
           aria-label="Open cart"
         >
           <svg
@@ -171,7 +171,7 @@ export default function Header() {
             <Link
               key={c.slug}
               href={`/category/${c.slug}`}
-              className="group relative shrink-0 rounded-lg px-2 py-1 text-[13px] font-medium text-gray-600 transition-colors duration-200 hover:text-gray-900"
+              className="group relative shrink-0 rounded-lg px-2 py-1 text-[13px] font-medium text-gray-600 transition-colors duration-200 hover:text-gray-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/40 focus-visible:ring-offset-2"
             >
               <span
                 aria-hidden
