@@ -80,13 +80,30 @@ export default function Header() {
         </div>
 
         <nav className="ml-auto hidden items-center gap-1 lg:flex">
-          <Link href="/shop" className="rounded-lg px-3 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-100 hover:text-gray-900">
+          <Link
+            href="/shop"
+            className="group relative rounded-lg px-3 py-2 text-sm font-medium text-gray-700 transition-colors duration-200 hover:text-gray-900"
+          >
             All Products
+            <span
+              aria-hidden
+              className="absolute inset-x-3 bottom-1 h-0.5 origin-left scale-x-0 rounded-full bg-indigo-600 transition-transform duration-300 group-hover:scale-x-100"
+            />
           </Link>
-          <Link href="/student-offers" className="rounded-lg px-3 py-2 text-sm font-medium text-emerald-700 transition hover:bg-emerald-50">
+          <Link
+            href="/student-offers"
+            className="group relative rounded-lg px-3 py-2 text-sm font-medium text-emerald-700 transition-colors duration-200 hover:text-emerald-800"
+          >
             <span className="inline-flex items-center gap-1.5">
-              <span aria-hidden>🎓</span> Student Offers
+              <span aria-hidden className="inline-block transition-transform duration-200 group-hover:-translate-y-0.5">
+                🎓
+              </span>
+              Student Offers
             </span>
+            <span
+              aria-hidden
+              className="absolute inset-x-3 bottom-1 h-0.5 origin-left scale-x-0 rounded-full bg-emerald-500 transition-transform duration-300 group-hover:scale-x-100"
+            />
           </Link>
         </nav>
 
