@@ -109,16 +109,29 @@ export default function Header() {
 
         <button
           onClick={openCart}
-          className="relative rounded-xl border border-gray-200 bg-white p-2.5 text-gray-700 shadow-sm transition hover:border-indigo-300 hover:text-indigo-600"
+          className="group relative rounded-xl border border-gray-200 bg-white p-2.5 text-gray-700 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-indigo-300 hover:text-indigo-600 hover:shadow-md"
           aria-label="Open cart"
         >
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.8"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="transition-transform duration-200 group-hover:-rotate-12 group-hover:scale-110"
+          >
             <circle cx="9" cy="21" r="1.6" />
             <circle cx="19" cy="21" r="1.6" />
             <path d="M2.5 3h2l2.4 12.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L22 7H6" />
           </svg>
           {count > 0 && (
-            <span className="absolute -right-1.5 -top-1.5 grid h-5 min-w-5 place-items-center rounded-full bg-indigo-600 px-1 text-[11px] font-bold text-white">
+            <span
+              key={count}
+              className="absolute -right-1.5 -top-1.5 grid h-5 min-w-5 animate-[badge-pop_0.4s_ease-out] place-items-center rounded-full bg-indigo-600 px-1 text-[11px] font-bold text-white"
+            >
               {count}
             </span>
           )}
