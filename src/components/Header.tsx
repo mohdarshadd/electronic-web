@@ -55,22 +55,49 @@ export default function Header() {
 
       <div className="mx-auto flex max-w-7xl items-center gap-4 px-4 py-3 sm:px-6 lg:px-8">
         <button
-          className="rounded-lg p-2 text-gray-600 transition hover:bg-gray-100 lg:hidden"
+          className="rounded-lg p-2 text-gray-600 transition-all duration-200 hover:bg-gray-100 active:scale-90 lg:hidden"
           onClick={() => setMobileNav((v) => !v)}
           aria-label="Toggle menu"
         >
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-            {mobileNav ? <path d="M6 6l12 12M18 6L6 18" /> : <path d="M4 7h16M4 12h16M4 17h16" />}
-          </svg>
+          <span className="relative block h-[22px] w-[22px]">
+            <svg
+              width="22"
+              height="22"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              className={`absolute inset-0 transition-all duration-300 ${
+                mobileNav ? "-rotate-90 scale-50 opacity-0" : "rotate-0 scale-100 opacity-100"
+              }`}
+            >
+              <path d="M4 7h16M4 12h16M4 17h16" />
+            </svg>
+            <svg
+              width="22"
+              height="22"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              className={`absolute inset-0 transition-all duration-300 ${
+                mobileNav ? "rotate-0 scale-100 opacity-100" : "rotate-90 scale-50 opacity-0"
+              }`}
+            >
+              <path d="M6 6l12 12M18 6L6 18" />
+            </svg>
+          </span>
         </button>
 
-        <Link href="/" className="flex shrink-0 items-center gap-2.5" aria-label={site.name}>
-          <span className="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-indigo-600 to-violet-600 text-white shadow-sm">
+        <Link href="/" className="group flex shrink-0 items-center gap-2.5" aria-label={site.name}>
+          <span className="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-indigo-600 to-violet-600 text-white shadow-sm transition-transform duration-200 group-hover:-rotate-3 group-hover:scale-105">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
               <path d="M13 2 3.5 13.5H11L9.5 22 19 10.5H11.5L13 2z" />
             </svg>
           </span>
-          <span className="text-xl font-extrabold tracking-tight text-gray-900">
+          <span className="text-xl font-extrabold tracking-tight text-gray-900 transition-colors duration-200 group-hover:text-indigo-700">
             Volt<span className="text-indigo-600">Cart</span>
           </span>
         </Link>
