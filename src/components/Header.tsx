@@ -11,6 +11,13 @@ export default function Header() {
   const { count, openCart } = useCart();
   const [mobileNav, setMobileNav] = useState(false);
   const [announcement, setAnnouncement] = useState(site.announcement);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   useEffect(() => {
     let cancelled = false;
@@ -32,7 +39,11 @@ export default function Header() {
   }, []);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-gray-200 bg-white/90 backdrop-blur">
+    <header
+      className={`sticky top-0 z-40 border-b border-gray-200 bg-white/95 backdrop-blur transition-shadow duration-300 ${
+        scrolled ? "shadow-lg shadow-gray-200/70" : "shadow-sm"
+      }`}
+    >
       <div className="bg-indigo-950 px-4 py-2 text-center text-xs font-medium text-indigo-100">
         <span className="inline-flex items-center gap-2">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
