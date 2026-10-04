@@ -48,3 +48,14 @@ Notes:
 
 - Free instances go to sleep after ~15 minutes idle, so the first request after a pause can take a few seconds to wake up.
 - Runtime data (products, orders, restock requests, uploaded datasheets/images) is stored in the local `.data/` folder. Render's free instances have an ephemeral filesystem, so that data resets whenever the service restarts or redeploys. For persistent storage, attach a [Disk](https://render.com/docs/disks) to the service and mount it at the repo's `.data/` path.
+
+## Keeping VoltCart awake
+
+Render's free web service sleeps after ~15 minutes without traffic, and a GitHub Actions cron alone won't reliably prevent that (scheduled runs can be delayed 15–30 minutes by GitHub). Use an external uptime monitor for a strict cadence:
+
+1. **cron-job.org (recommended)** — free. Create a job that hits `https://elecweb.onrender.com` on a **1-minute** interval. A 1-minute cadence sits well inside the 15-minute sleep window and gives you downtime alerts.
+2. **UptimeRobot** — free. Add an HTTP(S) monitor on the same URL; it checks every 5 minutes and alerts on downtime.
+
+The repo also ships a [keep-awake workflow](./.github/workflows/keep-awake.yml) pinging every 5 minutes as a best-effort fallback on top of the external monitor.
+
+Heads-up: keeping the instance awake around the clock consumes nearly the whole monthly free allowance (750 hours). If the store doesn't need to be live 24/7, skip the pinger and accept a ~5–10 second cold start on the first visit instead.
