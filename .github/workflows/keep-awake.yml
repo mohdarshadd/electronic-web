@@ -1,4 +1,4 @@
-name: Keep site awake
+name: Keep site awake (paused — re-enable when Render hours renew)
 
 on:
   workflow_dispatch:
