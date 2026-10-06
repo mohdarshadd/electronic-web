@@ -71,4 +71,6 @@ Render's free instances have a monthly hour allowance; once it's spent the servi
    ```
 2. **External monitors** — pause/delete the cron-job.org job and UptimeRobot monitor while the instance is suspended, then recreate them when the hours renew.
 
+When the hours renew: redeploy from the Render dashboard, then confirm `https://elecweb.onrender.com/api/health` returns `{"ok":true}` before re-enabling any pings.
+
 Heads-up: keeping the instance awake around the clock consumes nearly the whole monthly free allowance (750 hours). If the store doesn't need to be live 24/7, skip the pinger and accept a ~5–10 second cold start on the first visit instead.
