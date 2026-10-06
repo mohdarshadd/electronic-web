@@ -171,11 +171,11 @@ export default function Header() {
             <Link
               key={c.slug}
               href={`/category/${c.slug}`}
-              className="group relative shrink-0 rounded-lg px-2 py-1 text-[13px] font-medium text-gray-600 transition-colors duration-200 hover:text-gray-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/40 focus-visible:ring-offset-2"
+              className="group relative shrink-0 rounded-lg px-2 py-1 text-[13px] font-medium text-gray-600 transition-colors duration-200 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/40 focus-visible:ring-offset-2"
             >
               <span
                 aria-hidden
-                className="absolute inset-0 origin-left scale-x-0 rounded-lg bg-gray-100/80 transition-transform duration-200 group-hover:scale-x-100"
+                className="absolute inset-0 origin-left scale-x-0 rounded-lg bg-indigo-600 transition-transform duration-200 group-hover:scale-x-100"
               />
               <span className="relative z-10">
                 <span className="mr-1.5 inline-block transition-transform duration-200 group-hover:-translate-y-0.5">{c.emoji}</span>
