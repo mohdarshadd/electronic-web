@@ -58,4 +58,17 @@ Render's free web service sleeps after ~15 minutes without traffic, and a GitHub
 
 The repo also ships a [keep-awake workflow](./.github/workflows/keep-awake.yml) pinging every 5 minutes as a best-effort fallback on top of the external monitor.
 
+### When Render's free hours run out
+
+Render's free instances have a monthly hour allowance; once it's spent the service is suspended and every ping (GitHub Actions or external monitor) starts failing and emailing you. To pause cleanly:
+
+1. **GitHub Actions** — the scheduled trigger is already removed in this workflow (it only runs on `workflow_dispatch`). To resume next month, re-add the cron block:
+   ```yaml
+   on:
+     schedule:
+       - cron: "*/5 * * * *"
+     workflow_dispatch:
+   ```
+2. **External monitors** — pause/delete the cron-job.org job and UptimeRobot monitor while the instance is suspended, then recreate them when the hours renew.
+
 Heads-up: keeping the instance awake around the clock consumes nearly the whole monthly free allowance (750 hours). If the store doesn't need to be live 24/7, skip the pinger and accept a ~5–10 second cold start on the first visit instead.
