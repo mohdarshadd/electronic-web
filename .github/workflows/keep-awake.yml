@@ -2,6 +2,11 @@ name: Keep site awake (paused — re-enable when Render hours renew)
 
 on:
   workflow_dispatch:
+    inputs:
+      url:
+        description: "URL to ping"
+        required: false
+        default: "https://elecweb.onrender.com/api/health"
 
 jobs:
   ping:
@@ -9,6 +14,8 @@ jobs:
     timeout-minutes: 2
     steps:
       - name: Ping VoltCart
+        env:
+          URL: ${{ inputs.url }}
         run: |
-          URL="https://elecweb.onrender.com/api/health"
+          URL="${URL:-https://elecweb.onrender.com/api/health}"
           curl -sSf --max-time 60 -o /dev/null -w "GET $URL -> HTTP %{http_code} in %{time_total}s\n" "$URL"
