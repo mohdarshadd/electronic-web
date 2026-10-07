@@ -53,8 +53,8 @@ Notes:
 
 Render's free web service sleeps after ~15 minutes without traffic, and a GitHub Actions cron alone won't reliably prevent that (scheduled runs can be delayed 15–30 minutes by GitHub). Use an external uptime monitor for a strict cadence:
 
-1. **cron-job.org (recommended)** — free. Create a job that hits `https://elecweb.onrender.com` on a **1-minute** interval. A 1-minute cadence sits well inside the 15-minute sleep window and gives you downtime alerts.
-2. **UptimeRobot** — free. Add an HTTP(S) monitor on the same URL; it checks every 5 minutes and alerts on downtime.
+1. **cron-job.org (recommended)** — free. Create a job that hits `https://elecweb.onrender.com/api/health` on a **10-minute** interval. A 10-minute cadence sits comfortably inside the 15-minute sleep window and gives you downtime alerts. Use the health endpoint (not the homepage) — it returns a tiny `{"ok":true}` payload and stays under cron-job.org's response-size limit.
+2. **UptimeRobot** — free. Add an HTTP(S) monitor on the same `/api/health` URL; it checks every 5 minutes and alerts on downtime.
 
 The repo also ships a [keep-awake workflow](./.github/workflows/keep-awake.yml) pinging every 5 minutes as a best-effort fallback on top of the external monitor.
 
