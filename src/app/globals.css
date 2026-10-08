@@ -47,3 +47,117 @@ body {
     transform: translateY(0);
   }
 }
+@keyframes trace-flow {
+  to {
+    stroke-dashoffset: -24;
+  }
+}
+
+@keyframes led-blink {
+  0%,
+  100% {
+    opacity: 0.25;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes chip-glow {
+  0%,
+  100% {
+    filter: drop-shadow(0 0 0 rgba(99, 102, 241, 0));
+  }
+  50% {
+    filter: drop-shadow(0 0 7px rgba(99, 102, 241, 0.85));
+  }
+}
+
+@keyframes electron-1 {
+  0% {
+    transform: translate(10px, 28px);
+  }
+  33% {
+    transform: translate(36px, 28px);
+  }
+  66% {
+    transform: translate(36px, 54px);
+  }
+  100% {
+    transform: translate(46px, 54px);
+  }
+}
+
+@keyframes electron-2 {
+  0% {
+    transform: translate(10px, 92px);
+  }
+  33% {
+    transform: translate(36px, 92px);
+  }
+  66% {
+    transform: translate(36px, 66px);
+  }
+  100% {
+    transform: translate(46px, 66px);
+  }
+}
+
+@keyframes electron-3 {
+  0% {
+    transform: translate(110px, 28px);
+  }
+  33% {
+    transform: translate(84px, 28px);
+  }
+  66% {
+    transform: translate(84px, 54px);
+  }
+  100% {
+    transform: translate(74px, 54px);
+  }
+}
+
+@keyframes electron-4 {
+  0% {
+    transform: translate(110px, 92px);
+  }
+  33% {
+    transform: translate(84px, 92px);
+  }
+  66% {
+    transform: translate(84px, 66px);
+  }
+  100% {
+    transform: translate(74px, 66px);
+  }
+}
+
+.loader-trace {
+  stroke-dasharray: 6 6;
+  animation: trace-flow 0.9s linear infinite;
+}
+
+.loader-led {
+  animation: led-blink 1.2s ease-in-out infinite;
+}
+
+.loader-chip {
+  animation: chip-glow 1.6s ease-in-out infinite;
+}
+
+.loader-electron {
+  animation: electron-1 1.8s linear infinite;
+}
+
+.loader-electron.electron-2 {
+  animation-name: electron-2;
+}
+
+.loader-electron.electron-3 {
+  animation-name: electron-3;
+}
+
+.loader-electron.electron-4 {
+  animation-name: electron-4;
+}
