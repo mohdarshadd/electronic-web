@@ -72,22 +72,31 @@ export default function ElectroLoader({ size = "md" }: ElectroLoaderProps) {
           r="3"
           className="fill-indigo-500 loader-electron electron-4"
         />
-        <circle cx="10" cy="28" r="3.5" className="fill-indigo-400" />
-        <circle cx="10" cy="92" r="3.5" className="fill-indigo-400" />
-        <circle cx="110" cy="28" r="3.5" className="fill-indigo-400" />
-        <circle cx="110" cy="92" r="3.5" className="fill-indigo-400" />
-        <rect
-          x="46"
-          y="46"
-          width="28"
-          height="28"
-          rx="6"
-          className="fill-indigo-600"
+        <circle cx="10" cy="28" r="3.5" className="fill-indigo-400 loader-led" />
+        <circle cx="10" cy="92" r="3.5" className="fill-indigo-400 loader-led" />
+        <circle
+          cx="110"
+          cy="28"
+          r="3.5"
+          className="fill-indigo-400 loader-led"
         />
-        <path
-          d="M62 52 54 64h6l-2 8 8-12h-6l2-8z"
-          className="fill-white"
+        <circle
+          cx="110"
+          cy="92"
+          r="3.5"
+          className="fill-indigo-400 loader-led"
         />
+        <g className="loader-chip">
+          <rect
+            x="46"
+            y="46"
+            width="28"
+            height="28"
+            rx="6"
+            className="fill-indigo-600"
+          />
+          <path d="M62 52 54 64h6l-2 8 8-12h-6l2-8z" className="fill-white" />
+        </g>
       </svg>
     </div>
   );
