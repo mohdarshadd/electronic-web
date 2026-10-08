@@ -5,10 +5,18 @@ export type ElectroLoaderProps = {
   label?: string;
 };
 
-export default function ElectroLoader({ size = "md" }: ElectroLoaderProps) {
+export default function ElectroLoader({
+  size = "md",
+  label = "Powering up",
+}: ElectroLoaderProps) {
   const px = SIZES[size];
   return (
-    <div className="flex flex-col items-center justify-center gap-3 py-10">
+    <div
+      className="flex flex-col items-center justify-center gap-3 py-10"
+      role="status"
+      aria-live="polite"
+      aria-label={label}
+    >
       <svg
         width={px}
         height={px}
@@ -98,6 +106,14 @@ export default function ElectroLoader({ size = "md" }: ElectroLoaderProps) {
           <path d="M62 52 54 64h6l-2 8 8-12h-6l2-8z" className="fill-white" />
         </g>
       </svg>
+      <p className="text-sm font-medium text-gray-500">
+        {label}
+        <span className="loader-dots" aria-hidden>
+          <span>.</span>
+          <span>.</span>
+          <span>.</span>
+        </span>
+      </p>
     </div>
   );
 }
