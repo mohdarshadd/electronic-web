@@ -17,6 +17,7 @@ export default function ElectroLoader({ size = "md" }: ElectroLoaderProps) {
         aria-hidden
       >
         <path
+          className="loader-trace"
           d="M10 28 H36 V54 H46"
           stroke="#a5b4fc"
           strokeWidth="2.5"
@@ -24,6 +25,7 @@ export default function ElectroLoader({ size = "md" }: ElectroLoaderProps) {
           strokeLinejoin="round"
         />
         <path
+          className="loader-trace"
           d="M10 92 H36 V66 H46"
           stroke="#a5b4fc"
           strokeWidth="2.5"
@@ -31,6 +33,7 @@ export default function ElectroLoader({ size = "md" }: ElectroLoaderProps) {
           strokeLinejoin="round"
         />
         <path
+          className="loader-trace"
           d="M110 28 H84 V54 H74"
           stroke="#a5b4fc"
           strokeWidth="2.5"
@@ -38,11 +41,36 @@ export default function ElectroLoader({ size = "md" }: ElectroLoaderProps) {
           strokeLinejoin="round"
         />
         <path
+          className="loader-trace"
           d="M110 92 H84 V66 H74"
           stroke="#a5b4fc"
           strokeWidth="2.5"
           strokeLinecap="round"
           strokeLinejoin="round"
+        />
+        <circle
+          cx="0"
+          cy="0"
+          r="3"
+          className="fill-indigo-500 loader-electron"
+        />
+        <circle
+          cx="0"
+          cy="0"
+          r="3"
+          className="fill-indigo-500 loader-electron electron-2"
+        />
+        <circle
+          cx="0"
+          cy="0"
+          r="3"
+          className="fill-indigo-500 loader-electron electron-3"
+        />
+        <circle
+          cx="0"
+          cy="0"
+          r="3"
+          className="fill-indigo-500 loader-electron electron-4"
         />
         <circle cx="10" cy="28" r="3.5" className="fill-indigo-400" />
         <circle cx="10" cy="92" r="3.5" className="fill-indigo-400" />
