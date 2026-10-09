@@ -6,6 +6,7 @@ import { useMemo, useState } from "react";
 import { useCart } from "@/context/CartContext";
 import { formatINR } from "@/lib/format";
 import { ProductImage } from "@/components/ProductImage";
+import ElectroLoader from "@/components/ElectroLoader";
 
 type PaymentMethod = "cashfree" | "cod";
 
@@ -268,13 +269,20 @@ export default function CheckoutPage() {
               </div>
             ) : null}
 
-            <button
-              onClick={placeOrder}
-              disabled={status !== "idle"}
-              className="w-full rounded-xl bg-indigo-600 px-4 py-3.5 text-sm font-bold text-white shadow-sm transition hover:bg-indigo-700 disabled:cursor-not-allowed disabled:opacity-60"
-            >
-              {status === "submitting" ? "Creating order…" : status === "processing" ? "Redirecting…" : `Place order · ${formatINR(total)}`}
-            </button>
+            {status !== "idle" ? (
+              <ElectroLoader
+                size="sm"
+                label={status === "submitting" ? "Creating order" : "Redirecting"}
+              />
+            ) : (
+              <button
+                onClick={placeOrder}
+                disabled={status !== "idle"}
+                className="w-full rounded-xl bg-indigo-600 px-4 py-3.5 text-sm font-bold text-white shadow-sm transition hover:bg-indigo-700 disabled:cursor-not-allowed disabled:opacity-60"
+              >
+                {`Place order · ${formatINR(total)}`}
+              </button>
+            )}
             <p className="text-center text-[11px] text-gray-400">By placing an order you agree to our Terms & Privacy Policy.</p>
           </aside>
         </div>
