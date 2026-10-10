@@ -19,7 +19,7 @@ export default function BulkOrdersPage() {
       </Section>
       <Section heading="How to get a quote">
         <ol className="list-decimal space-y-2 pl-5">
-          <li>Email us at <a className="font-semibold text-indigo-600" href={`mailto:bulk@volcart.in`}>bulk@volcart.in</a> with your quantity and deadline</li>
+          <li>Email us at <a className="font-semibold text-indigo-600" href={`mailto:${site.contactEmail}`}>{site.contactEmail}</a> with your quantity and deadline</li>
           <li>Share your list, or we&apos;ll recommend a kit</li>
           <li>Receive a formal quote with GST — valid for 15 days</li>
           <li>Approve, and we dispatch with a dedicated coordinator</li>

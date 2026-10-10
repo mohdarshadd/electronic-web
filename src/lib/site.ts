@@ -7,7 +7,7 @@ export const site = {
   announcement:
     "Flat 10% off for students with code STUDENT10 · Free shipping above ₹499 · UPI, Cards, NetBanking & COD",
   contactPhone: "+91 1800–266–6123",
-  contactEmail: "hello@volcart.in",
+  contactEmail: "mohdarshad.connect@gmail.com",
   address: "Innovation Park, Mumbai, Maharashtra 400001",
 };
 
