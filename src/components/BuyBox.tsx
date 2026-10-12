@@ -56,12 +56,12 @@ export default function BuyBox({ product }: { product: Product }) {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="you@example.com"
-                className="w-full rounded-xl border border-gray-300 px-3.5 py-2.5 text-sm outline-none transition focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100"
+                className="w-full rounded-xl border border-gray-300 px-3.5 py-2.5 text-sm outline-none transition focus:border-indigo-400 focus:bg-white focus:ring-4 focus:ring-indigo-500/10"
               />
               <button
                 onClick={subscribe}
                 disabled={state === "saving" || !email.trim()}
-                className="shrink-0 rounded-xl bg-indigo-600 px-4 py-2.5 text-sm font-bold text-white transition hover:bg-indigo-700 disabled:opacity-50"
+                className="shrink-0 rounded-xl bg-gradient-to-r from-indigo-600 to-violet-600 px-4 py-2.5 text-sm font-bold text-white shadow-glow transition hover:from-indigo-500 hover:to-violet-500 disabled:opacity-50"
               >
                 {state === "saving" ? "Saving…" : "Notify me"}
               </button>
@@ -78,10 +78,10 @@ export default function BuyBox({ product }: { product: Product }) {
   return (
     <div className="space-y-3">
       <div className="flex items-center gap-3">
-        <div className="flex items-center gap-1 rounded-xl border border-gray-300 px-2 py-1.5">
+        <div className="flex items-center gap-1 rounded-full border border-gray-300/80 bg-white p-1 shadow-sm">
           <button
             onClick={() => setQty((q) => Math.max(1, q - 1))}
-            className="grid h-8 w-8 place-items-center rounded-lg text-gray-600 transition hover:bg-gray-100"
+            className="grid h-9 w-9 place-items-center rounded-full text-gray-600 transition hover:bg-gray-100"
             aria-label="Decrease quantity"
           >
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><path d="M5 12h14" /></svg>
@@ -89,7 +89,7 @@ export default function BuyBox({ product }: { product: Product }) {
           <span className="w-10 text-center text-base font-bold text-gray-900">{qty}</span>
           <button
             onClick={() => setQty((q) => Math.min(product.stock, q + 1))}
-            className="grid h-8 w-8 place-items-center rounded-lg text-gray-600 transition hover:bg-gray-100"
+            className="grid h-9 w-9 place-items-center rounded-full text-gray-600 transition hover:bg-gray-100"
             aria-label="Increase quantity"
           >
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><path d="M12 5v14M5 12h14" /></svg>
@@ -108,7 +108,7 @@ export default function BuyBox({ product }: { product: Product }) {
           add(product.id, qty);
           openCart();
         }}
-        className="w-full rounded-xl bg-indigo-600 px-4 py-3.5 text-sm font-bold text-white shadow-sm transition hover:bg-indigo-700 active:scale-[0.99]"
+        className="w-full rounded-xl bg-gradient-to-r from-indigo-600 to-violet-600 px-4 py-3.5 text-sm font-bold text-white shadow-glow transition hover:from-indigo-500 hover:to-violet-500 active:scale-[0.99]"
       >
         Add to cart
       </button>
@@ -116,16 +116,16 @@ export default function BuyBox({ product }: { product: Product }) {
         onClick={() => {
           add(product.id, qty);
         }}
-        className="w-full rounded-xl border-2 border-emerald-600 px-4 py-3 text-sm font-bold text-emerald-700 transition hover:bg-emerald-50"
+        className="w-full rounded-xl border-2 border-emerald-600 bg-white px-4 py-3 text-sm font-bold text-emerald-700 transition hover:bg-emerald-50"
       >
         Buy now
       </button>
 
       <div className="grid grid-cols-2 gap-3 pt-1 text-center text-xs text-gray-500">
-        <div className="rounded-xl border border-gray-200 bg-gray-50 px-2 py-2.5">
+        <div className="rounded-xl bg-gray-50/80 px-2 py-2.5 ring-1 ring-gray-900/5">
           <span className="block text-base">🚚</span>Free shipping over ₹499
         </div>
-        <div className="rounded-xl border border-gray-200 bg-gray-50 px-2 py-2.5">
+        <div className="rounded-xl bg-gray-50/80 px-2 py-2.5 ring-1 ring-gray-900/5">
           <span className="block text-base">↩️</span>7-day easy returns
         </div>
       </div>
