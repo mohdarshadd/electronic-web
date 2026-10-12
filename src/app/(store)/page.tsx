@@ -125,7 +125,7 @@ export default function HomePage() {
             { icon: "🤝", title: "Live support", desc: "Real humans on chat & phone" },
           ].map((t) => (
             <div key={t.title} className="flex items-start gap-3">
-              <span className="text-2xl">{t.icon}</span>
+              <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-gray-50 text-xl ring-1 ring-gray-900/5">{t.icon}</span>
               <div>
                 <p className="text-sm font-bold text-gray-900">{t.title}</p>
                 <p className="mt-0.5 text-xs text-gray-500">{t.desc}</p>
@@ -136,14 +136,15 @@ export default function HomePage() {
       </section>
 
       {/* CATEGORIES */}
-      <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-        <div className="mb-8 flex items-end justify-between">
+      <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8 lg:py-16">
+        <div className="mb-8 flex items-end justify-between gap-4">
           <div>
-            <h2 className="text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl">Shop by category</h2>
+            <p className="eyebrow">Catalog</p>
+            <h2 className="mt-2 text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl">Shop by category</h2>
             <p className="mt-2 text-sm text-gray-500">Everything you need to build, prototype and compete.</p>
           </div>
-          <Link href="/shop" className="hidden text-sm font-semibold text-indigo-600 hover:text-indigo-700 sm:block">
-            View all →
+          <Link href="/shop" className="hidden shrink-0 items-center gap-1 rounded-full border border-gray-200 bg-white px-3.5 py-1.5 text-xs font-semibold text-gray-700 shadow-sm transition hover:border-gray-300 hover:text-gray-900 sm:inline-flex">
+            View all <span aria-hidden>→</span>
           </Link>
         </div>
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
@@ -154,15 +155,16 @@ export default function HomePage() {
       </section>
 
       {/* FEATURED */}
-      <section className="border-y border-gray-200 bg-white">
-        <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-          <div className="mb-8 flex items-end justify-between">
+      <section className="border-y border-gray-200/70 bg-white">
+        <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8 lg:py-16">
+          <div className="mb-8 flex items-end justify-between gap-4">
             <div>
-              <h2 className="text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl">Bestsellers for builders</h2>
+              <p className="eyebrow">Bestsellers</p>
+              <h2 className="mt-2 text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl">Bestsellers for builders</h2>
               <p className="mt-2 text-sm text-gray-500">Most-loved parts among students & makers.</p>
             </div>
-            <Link href="/shop" className="text-sm font-semibold text-indigo-600 hover:text-indigo-700">
-              View all →
+            <Link href="/shop" className="inline-flex shrink-0 items-center gap-1 rounded-full border border-gray-200 bg-white px-3.5 py-1.5 text-xs font-semibold text-gray-700 shadow-sm transition hover:border-gray-300 hover:text-gray-900">
+              View all <span aria-hidden>→</span>
             </Link>
           </div>
           <div className="grid grid-cols-2 gap-5 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
@@ -174,8 +176,8 @@ export default function HomePage() {
       </section>
 
       {/* STUDENT BANNER */}
-      <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-emerald-600 to-teal-600 px-6 py-12 text-white sm:px-12">
+      <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8 lg:py-16">
+        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-emerald-600 to-teal-600 px-6 py-12 text-white shadow-soft ring-1 ring-black/5 sm:px-12">
           <div
             className="pointer-events-none absolute inset-0 opacity-20"
             style={{
@@ -197,7 +199,7 @@ export default function HomePage() {
               </p>
               <Link
                 href="/student-offers"
-                className="mt-6 inline-block rounded-xl bg-white px-6 py-3 text-sm font-bold text-emerald-700 shadow-lg transition hover:bg-emerald-50"
+                className="mt-6 inline-block rounded-xl bg-white px-6 py-3 text-sm font-bold text-emerald-700 shadow-lift transition hover:-translate-y-0.5 hover:bg-emerald-50"
               >
                 Claim student discount
               </Link>
@@ -215,10 +217,11 @@ export default function HomePage() {
       </section>
 
       {/* NEW MERCH */}
-      <section className="border-t border-gray-200 bg-white">
-        <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+      <section className="border-t border-gray-200/70 bg-white">
+        <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8 lg:py-16">
           <div className="mb-8">
-            <h2 className="text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl">Just in</h2>
+            <p className="eyebrow">Fresh drops</p>
+            <h2 className="mt-2 text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl">Just in</h2>
             <p className="mt-2 text-sm text-gray-500">Fresh arrivals for your next project.</p>
           </div>
           <div className="grid grid-cols-2 gap-5 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
