@@ -116,7 +116,7 @@ export function SearchBar({ onNavigate }: { onNavigate?: () => void }) {
             }
           }}
           placeholder="Search sensors, boards, kits… (try “esp32”)"
-          className="w-full rounded-full border border-gray-200 bg-gray-50 py-2.5 pl-4 pr-11 text-sm text-gray-900 placeholder-gray-400 outline-none transition focus:border-indigo-500 focus:bg-white focus:ring-4 focus:ring-indigo-100"
+          className="w-full rounded-full border border-gray-200/80 bg-gray-50 py-2.5 pl-4 pr-11 text-sm text-gray-900 placeholder-gray-400 outline-none transition focus:border-indigo-400 focus:bg-white focus:shadow-soft focus:ring-4 focus:ring-indigo-500/10"
           aria-label="Search products"
           autoComplete="off"
           role="combobox"
@@ -125,7 +125,7 @@ export function SearchBar({ onNavigate }: { onNavigate?: () => void }) {
         />
         <button
           type="submit"
-          className="absolute right-1.5 top-1/2 -translate-y-1/2 rounded-full bg-indigo-600 p-2 text-white transition hover:bg-indigo-700"
+          className="absolute right-1.5 top-1/2 -translate-y-1/2 rounded-full bg-indigo-600 p-2 text-white shadow-sm shadow-indigo-600/25 transition hover:bg-indigo-700 active:scale-95"
           aria-label="Search"
         >
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
@@ -138,7 +138,7 @@ export function SearchBar({ onNavigate }: { onNavigate?: () => void }) {
       {show && (
         <div
           id="search-suggestions"
-          className="absolute left-0 right-0 top-full z-50 mt-2 overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-xl"
+          className="absolute left-0 right-0 top-full z-50 mt-2 overflow-hidden rounded-2xl border border-gray-200/80 bg-white shadow-lift ring-1 ring-gray-900/5"
         >
           <div className="max-h-[60vh] overflow-y-auto p-2">
             {suggestions === null && (
