@@ -40,13 +40,13 @@ export default function Header() {
 
   return (
     <header
-      className={`sticky top-0 z-40 border-b border-gray-200 bg-white/95 backdrop-blur transition-shadow duration-300 ${
-        scrolled ? "shadow-lg shadow-gray-200/70" : "shadow-sm"
+      className={`sticky top-0 z-40 border-b border-gray-200/70 bg-white/80 backdrop-blur-xl transition-shadow duration-300 ${
+        scrolled ? "shadow-soft" : "shadow-none"
       }`}
     >
-      <div className="bg-indigo-950 px-4 py-2 text-center text-xs font-medium text-indigo-100">
+      <div className="bg-gradient-to-r from-indigo-950 via-indigo-900 to-violet-950 px-4 py-1.5 text-center text-[11px] font-medium tracking-wide text-indigo-100/90">
         <span className="inline-flex items-center gap-2">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" className="text-emerald-300">
             <path d="M12 2l2.6 6.9L22 11l-7.4 2.1L12 20l-2.6-6.9L2 11l7.4-2.1L12 2z" />
           </svg>
           {announcement}
@@ -92,7 +92,7 @@ export default function Header() {
         </button>
 
         <Link href="/" className="group flex shrink-0 items-center gap-2.5" aria-label={site.name}>
-          <span className="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-indigo-600 to-violet-600 text-white shadow-sm transition-transform duration-200 group-hover:-rotate-3 group-hover:scale-105">
+          <span className="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-indigo-600 to-violet-600 text-white shadow-soft ring-1 ring-white/20 transition-transform duration-200 group-hover:-rotate-3 group-hover:scale-105">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
               <path d="M13 2 3.5 13.5H11L9.5 22 19 10.5H11.5L13 2z" />
             </svg>
@@ -136,7 +136,7 @@ export default function Header() {
 
         <button
           onClick={openCart}
-          className="group relative rounded-xl border border-gray-200 bg-white p-2.5 text-gray-700 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-indigo-300 hover:text-indigo-600 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2"
+          className="group relative rounded-xl border border-gray-200/80 bg-white p-2.5 text-gray-700 shadow-soft transition-all duration-200 hover:-translate-y-0.5 hover:border-indigo-300 hover:text-indigo-600 hover:shadow-lift focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2"
           aria-label="Open cart"
         >
           <svg
@@ -157,7 +157,7 @@ export default function Header() {
           {count > 0 && (
             <span
               key={count}
-              className="absolute -right-1.5 -top-1.5 grid h-5 min-w-5 animate-[badge-pop_0.4s_ease-out] place-items-center rounded-full bg-indigo-600 px-1 text-[11px] font-bold text-white"
+              className="absolute -right-1.5 -top-1.5 grid h-5 min-w-5 animate-[badge-pop_0.4s_ease-out] place-items-center rounded-full bg-indigo-600 px-1 text-[11px] font-bold text-white ring-2 ring-white"
             >
               {count}
             </span>
@@ -165,25 +165,21 @@ export default function Header() {
         </button>
       </div>
 
-      <div className="hidden border-t border-gray-100 lg:block">
-        <nav className="mx-auto flex max-w-7xl flex-wrap items-center gap-x-4 gap-y-1 px-4 py-2 sm:px-6 lg:px-8">
+      <div className="hidden border-t border-gray-100/80 bg-white/60 lg:block">
+        <nav className="mx-auto flex max-w-7xl flex-wrap items-center gap-x-1 gap-y-1 px-4 py-1.5 sm:px-6 lg:px-8">
           {categories.slice(0, 6).map((c) => (
             <Link
               key={c.slug}
               href={`/category/${c.slug}`}
-              className="group relative shrink-0 rounded-lg px-2 py-1 text-[13px] font-medium text-gray-600 transition-colors duration-200 hover:text-gray-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/40 focus-visible:ring-offset-2"
+              className="group relative shrink-0 rounded-full px-2.5 py-1.5 text-xs font-medium text-gray-500 transition-colors duration-200 hover:bg-gray-100/80 hover:text-gray-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/40 focus-visible:ring-offset-2"
             >
-              <span
-                aria-hidden
-                className="absolute inset-0 origin-left scale-x-0 rounded-lg bg-gray-100/80 transition-transform duration-200 group-hover:scale-x-100"
-              />
               <span className="relative z-10">
                 <span className="mr-1.5 inline-block transition-transform duration-200 group-hover:-translate-y-0.5">{c.emoji}</span>
                 {c.name}
               </span>
             </Link>
           ))}
-          <Link href="/shop" className="group shrink-0 rounded-lg px-2 py-1 text-[13px] font-semibold text-indigo-600 transition-colors duration-200 hover:text-indigo-700">
+          <Link href="/shop" className="group ml-auto shrink-0 rounded-full bg-indigo-50 px-3 py-1.5 text-xs font-semibold text-indigo-700 transition-colors duration-200 hover:bg-indigo-100">
             <span className="relative z-10">
               View all{" "}
               <span className="inline-block transition-transform duration-200 group-hover:translate-x-0.5">→</span>
