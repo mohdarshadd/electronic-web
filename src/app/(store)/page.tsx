@@ -16,25 +16,35 @@ export default function HomePage() {
       {/* HERO */}
       <section className="relative overflow-hidden bg-indigo-950 text-white">
         <div
-          className="pointer-events-none absolute inset-0 opacity-40"
+          className="pointer-events-none absolute inset-0 opacity-60"
           style={{
             backgroundImage:
-              "radial-gradient(circle at 15% 10%, rgba(99,102,241,0.55) 0, transparent 40%), radial-gradient(circle at 85% 20%, rgba(16,185,129,0.35) 0, transparent 40%), radial-gradient(circle at 60% 90%, rgba(168,85,247,0.4) 0, transparent 45%)",
+              "radial-gradient(circle at 12% 8%, rgba(99,102,241,0.55) 0, transparent 42%), radial-gradient(circle at 88% 18%, rgba(16,185,129,0.32) 0, transparent 40%), radial-gradient(circle at 58% 96%, rgba(139,92,246,0.45) 0, transparent 48%)",
           }}
         />
-        <div className="relative mx-auto grid max-w-7xl items-center gap-10 px-4 py-16 sm:px-6 lg:grid-cols-2 lg:gap-16 lg:px-8 lg:py-24">
-          <div>
-            <p className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-indigo-100 backdrop-blur">
-              <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+        <div
+          className="pointer-events-none absolute inset-0 opacity-[0.07]"
+          style={{
+            backgroundImage:
+              "linear-gradient(to right, #fff 1px, transparent 1px), linear-gradient(to bottom, #fff 1px, transparent 1px)",
+            backgroundSize: "56px 56px",
+            maskImage: "radial-gradient(ellipse at center, #000 35%, transparent 78%)",
+            WebkitMaskImage: "radial-gradient(ellipse at center, #000 35%, transparent 78%)",
+          }}
+        />
+        <div className="relative mx-auto grid max-w-7xl items-center gap-12 px-4 py-16 sm:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16 lg:px-8 lg:py-24">
+          <div className="animate-fade-up">
+            <p className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-indigo-100/90 backdrop-blur">
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.9)]" />
               Built for students, makers & hackathons
             </p>
-            <h1 className="mt-6 text-4xl font-extrabold leading-[1.1] tracking-tight sm:text-5xl lg:text-6xl">
+            <h1 className="mt-6 text-balance text-4xl font-extrabold leading-[1.05] tracking-tight sm:text-5xl lg:text-6xl">
               Your ideas.{" "}
-              <span className="bg-gradient-to-r from-emerald-300 via-amber-200 to-violet-300 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-emerald-300 via-teal-200 to-sky-300 bg-clip-text text-transparent">
                 Our parts.
               </span>
             </h1>
-            <p className="mt-6 max-w-lg text-base leading-7 text-indigo-100/80 sm:text-lg">
+            <p className="mt-6 max-w-lg text-base leading-7 text-indigo-100/75 sm:text-lg">
               Sensors, boards, motors and robot kits — stocked for competitions, exhibitions and
               hackathons. Enjoy student pricing, fast delivery and UPI-friendly checkout built
               around how India&apos;s students actually build.
@@ -42,25 +52,31 @@ export default function HomePage() {
             <div className="mt-8 flex flex-wrap gap-3">
               <Link
                 href="/shop"
-                className="rounded-xl bg-white px-6 py-3.5 text-sm font-bold text-indigo-950 shadow-lg transition hover:bg-indigo-50"
+                className="group inline-flex items-center gap-2 rounded-xl bg-white px-6 py-3.5 text-sm font-bold text-indigo-950 shadow-lift transition hover:-translate-y-0.5 hover:bg-indigo-50"
               >
                 Shop all products
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" className="transition-transform duration-200 group-hover:translate-x-0.5">
+                  <path d="M5 12h14M13 6l6 6-6 6" />
+                </svg>
               </Link>
               <Link
                 href="/student-offers"
-                className="rounded-xl border border-white/25 bg-white/10 px-6 py-3.5 text-sm font-bold text-white backdrop-blur transition hover:bg-white/20"
+                className="inline-flex items-center gap-2 rounded-xl border border-white/20 bg-white/5 px-6 py-3.5 text-sm font-bold text-white backdrop-blur transition hover:-translate-y-0.5 hover:border-white/30 hover:bg-white/10"
               >
                 🎓 Student offers
               </Link>
             </div>
-            <div className="mt-10 grid max-w-md grid-cols-3 gap-4 border-t border-white/10 pt-6">
+            <div className="mt-10 flex flex-wrap gap-2">
               {[
                 { icon: "📦", label: "5000+ parts" },
                 { icon: "🚚", label: "1–3 day delivery" },
                 { icon: "🎓", label: "10% student off" },
               ].map((s) => (
-                <div key={s.label} className="flex items-center gap-2">
-                  <span className="text-xl">{s.icon}</span>
+                <div
+                  key={s.label}
+                  className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3.5 py-1.5 backdrop-blur"
+                >
+                  <span className="text-base leading-none">{s.icon}</span>
                   <span className="text-xs font-medium text-indigo-100/80">{s.label}</span>
                 </div>
               ))}
@@ -68,17 +84,20 @@ export default function HomePage() {
           </div>
 
           {/* Floating product chips */}
-          <div className="relative hidden lg:block">
-            <div className="grid grid-cols-2 gap-4">
+          <div className="relative hidden animate-fade-up lg:block" style={{ animationDelay: "120ms" }}>
+            <div className="pointer-events-none absolute -inset-8 rounded-[3rem] bg-gradient-to-tr from-indigo-500/25 via-violet-500/10 to-emerald-400/20 blur-2xl" />
+            <div className="relative grid grid-cols-2 gap-4">
               {featured.slice(0, 2).map((p, i) => (
                 <Link
                   key={p.id}
                   href={`/product/${p.slug}`}
-                  className={`rounded-2xl border border-white/10 bg-white p-4 shadow-2xl backdrop-blur transition hover:-translate-y-1 ${
+                  className={`group rounded-2xl border border-white/40 bg-white/95 p-3.5 shadow-lift ring-1 ring-gray-900/5 backdrop-blur transition duration-300 hover:-translate-y-1 hover:shadow-glow ${
                     i % 2 ? "mt-10" : ""
                   }`}
                 >
-                  <ProductImage product={p} className="h-32 w-full rounded-xl" />
+                  <div className="overflow-hidden rounded-xl">
+                    <ProductImage product={p} className="h-32 w-full transition duration-300 group-hover:scale-105" />
+                  </div>
                   <p className="mt-3 line-clamp-2 text-sm font-bold text-gray-900">{p.name}</p>
                   <p className="mt-1 text-sm font-extrabold text-indigo-600">
                     ₹{(p.price / 100).toLocaleString("en-IN")}
@@ -86,10 +105,10 @@ export default function HomePage() {
                 </Link>
               ))}
             </div>
-            <div className="absolute -right-4 -top-6 rounded-2xl bg-emerald-500 px-4 py-3 text-sm font-bold text-white shadow-xl">
+            <div className="absolute -right-4 -top-6 rounded-2xl bg-emerald-500 px-4 py-3 text-sm font-bold text-white shadow-lift ring-1 ring-white/30">
               Free shipping over ₹499
             </div>
-            <div className="absolute -bottom-5 left-6 rounded-2xl bg-white px-4 py-3 text-sm font-bold text-gray-900 shadow-xl">
+            <div className="absolute -bottom-5 left-6 rounded-2xl bg-white px-4 py-3 text-sm font-bold text-gray-900 shadow-lift ring-1 ring-gray-900/5">
               ⚡ Hackathon-ready kits
             </div>
           </div>
