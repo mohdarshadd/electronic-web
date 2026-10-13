@@ -9,7 +9,7 @@ export default function AddToCartButton({ product, qty = 1 }: { product: Product
     return (
       <button
         disabled
-        className="w-full cursor-not-allowed rounded-xl bg-gray-200 px-4 py-3 text-sm font-semibold text-gray-400"
+        className="w-full cursor-not-allowed rounded-xl bg-cream-200 px-4 py-3 text-sm font-semibold text-navy-400"
       >
         Out of stock — notify me
       </button>
@@ -21,7 +21,7 @@ export default function AddToCartButton({ product, qty = 1 }: { product: Product
         add(product.id, qty);
         openCart();
       }}
-      className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-indigo-600 to-violet-600 px-4 py-3 text-sm font-semibold text-white shadow-sm shadow-indigo-600/25 transition hover:from-indigo-500 hover:to-violet-500 active:scale-[0.99]"
+      className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-navy-900 px-4 py-3 text-sm font-semibold text-cream-100 shadow-sm shadow-coral-500/25 transition hover:bg-navy-800 active:scale-[0.99]"
     >
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <circle cx="9" cy="21" r="1.6" />

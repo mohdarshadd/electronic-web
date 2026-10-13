@@ -34,17 +34,17 @@ export default function FaqPage() {
       <Section heading="Quick answers">
         <div className="space-y-4">
           {faqs.map((f) => (
-            <details key={f.q} className="group rounded-xl border border-gray-200 p-4 open:bg-gray-50">
-              <summary className="flex cursor-pointer items-center justify-between gap-3 text-sm font-bold text-gray-900">
+            <details key={f.q} className="group rounded-xl border border-navy-200 p-4 open:bg-cream-100">
+              <summary className="flex cursor-pointer items-center justify-between gap-3 text-sm font-bold text-navy-900">
                 {f.q}
-                <span className="text-gray-400 transition group-open:rotate-45">＋</span>
+                <span className="text-navy-400 transition group-open:rotate-45">＋</span>
               </summary>
-              <p className="mt-3 text-sm leading-6 text-gray-600">{f.a}</p>
+              <p className="mt-3 text-sm leading-6 text-navy-600">{f.a}</p>
             </details>
           ))}
         </div>
-        <p className="mt-4 text-sm text-gray-500">
-          Anything else? Email <a className="font-semibold text-indigo-600" href={`mailto:${site.contactEmail}`}>{site.contactEmail}</a> or call {site.contactPhone}.
+        <p className="mt-4 text-sm text-navy-500">
+          Anything else? Email <a className="font-semibold text-coral-700" href={`mailto:${site.contactEmail}`}>{site.contactEmail}</a> or call {site.contactPhone}.
         </p>
       </Section>
     </StaticShell>

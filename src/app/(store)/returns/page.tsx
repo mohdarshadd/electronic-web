@@ -26,7 +26,7 @@ export default function ReturnsPage() {
       </Section>
       <Section heading="Start a return">
         <p>
-          Email <a className="font-semibold text-indigo-600" href={`mailto:${site.contactEmail}`}>{site.contactEmail}</a> with
+          Email <a className="font-semibold text-coral-700" href={`mailto:${site.contactEmail}`}>{site.contactEmail}</a> with
           your order ID and reason — we reply within one working day.
         </p>
       </Section>

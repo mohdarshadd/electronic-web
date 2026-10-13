@@ -16,7 +16,7 @@ export default function ShippingPage() {
       </Section>
       <Section heading="Tracking">
         <p>You&apos;ll receive a tracking link by SMS/email the moment your parcel ships. Current location, expected delivery — everything live.</p>
-        <p>Support email: <a className="font-semibold text-indigo-600" href={`mailto:${site.contactEmail}`}>{site.contactEmail}</a></p>
+        <p>Support email: <a className="font-semibold text-coral-700" href={`mailto:${site.contactEmail}`}>{site.contactEmail}</a></p>
       </Section>
     </StaticShell>
   );

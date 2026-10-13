@@ -23,9 +23,9 @@ export default function AboutPage() {
       </Section>
       <Section heading="What we believe">
         <ul className="space-y-3">
-          <li><span className="font-bold text-gray-900">Students first.</span> Discounts, kits sized for budgets, and guides written for beginners — not just datasheets.</li>
-          <li><span className="font-bold text-gray-900">Honest specs.</span> Real ratings, real photos-info, real stock. If a clone is a clone, we say so.</li>
-          <li><span className="font-bold text-gray-900">Built in India, for India.</span> Local support in your language and currency, priced for our market.</li>
+          <li><span className="font-bold text-navy-900">Students first.</span> Discounts, kits sized for budgets, and guides written for beginners — not just datasheets.</li>
+          <li><span className="font-bold text-navy-900">Honest specs.</span> Real ratings, real photos-info, real stock. If a clone is a clone, we say so.</li>
+          <li><span className="font-bold text-navy-900">Built in India, for India.</span> Local support in your language and currency, priced for our market.</li>
         </ul>
       </Section>
       <Section heading="The team">
@@ -38,7 +38,7 @@ export default function AboutPage() {
         <p>
           {site.legalName} · {site.address}
           <br />
-          Email: <a className="font-semibold text-indigo-600" href={`mailto:${site.contactEmail}`}>{site.contactEmail}</a>
+          Email: <a className="font-semibold text-coral-700" href={`mailto:${site.contactEmail}`}>{site.contactEmail}</a>
           <br />
           Phone: {site.contactPhone}
         </p>

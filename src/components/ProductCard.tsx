@@ -7,7 +7,7 @@ import AddToCartButton from "./AddToCartButton";
 
 export default function ProductCard({ product }: { product: Product }) {
   return (
-    <div className="group flex flex-col overflow-hidden rounded-2xl bg-white shadow-soft ring-1 ring-gray-900/5 transition duration-300 hover:-translate-y-1 hover:shadow-lift">
+    <div className="group flex flex-col overflow-hidden rounded-2xl bg-white shadow-soft ring-1 ring-navy-900/5 transition duration-300 hover:-translate-y-1 hover:shadow-lift">
       <Link href={`/product/${product.slug}`} className="block overflow-hidden">
         <ProductImage
           product={product}
@@ -16,12 +16,12 @@ export default function ProductCard({ product }: { product: Product }) {
       </Link>
       <div className="flex flex-1 flex-col gap-2 p-4">
         <div className="flex items-center justify-between gap-2">
-          <span className="truncate text-[10px] font-bold uppercase tracking-[0.14em] text-gray-400">{product.brand}</span>
+          <span className="truncate text-[10px] font-bold uppercase tracking-[0.14em] text-navy-400">{product.brand}</span>
           <StarRating rating={product.rating} />
         </div>
         <Link
           href={`/product/${product.slug}`}
-          className="line-clamp-2 text-sm font-semibold leading-snug text-gray-900 transition hover:text-indigo-600"
+          className="line-clamp-2 text-sm font-semibold leading-snug text-navy-900 transition hover:text-coral-700"
         >
           {product.name}
         </Link>

@@ -16,7 +16,7 @@ export default function CategoryCard({ category }: { category: Category }) {
             "radial-gradient(circle at 85% 15%, rgba(255,255,255,0.8) 0, transparent 45%)",
         }}
       />
-      <span className="absolute right-4 top-4 z-10 grid h-8 w-8 place-items-center rounded-full bg-white/15 text-white/90 backdrop-blur transition duration-300 group-hover:translate-x-0.5 group-hover:bg-white group-hover:text-gray-900">
+      <span className="absolute right-4 top-4 z-10 grid h-8 w-8 place-items-center rounded-full bg-white/15 text-white/90 backdrop-blur transition duration-300 group-hover:translate-x-0.5 group-hover:bg-white group-hover:text-navy-900">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <path d="M5 12h14M13 6l6 6-6 6" />
         </svg>

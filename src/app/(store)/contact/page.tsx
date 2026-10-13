@@ -7,7 +7,7 @@ export default function ContactPage() {
       <Section heading="Support">
         <p>Real engineers, not bots. For order questions, wiring help or a part you can&apos;t find.</p>
         <ul className="space-y-1.5">
-          <li>• Email: <a className="font-semibold text-indigo-600" href={`mailto:${site.contactEmail}`}>{site.contactEmail}</a></li>
+          <li>• Email: <a className="font-semibold text-coral-700" href={`mailto:${site.contactEmail}`}>{site.contactEmail}</a></li>
           <li>• Phone: {site.contactPhone} (Mon–Sat, 10 AM – 7 PM IST)</li>
           <li>• Live chat: bottom-right of every page</li>
         </ul>

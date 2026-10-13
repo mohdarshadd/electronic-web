@@ -92,8 +92,8 @@ export function Chip({
       href={href}
       className={`rounded-full border px-3.5 py-1.5 text-xs font-semibold transition ${
         active
-          ? "border-indigo-600 bg-indigo-600 text-white shadow-sm shadow-indigo-600/25"
-          : "border-gray-200/80 bg-white text-gray-600 hover:border-gray-300 hover:text-gray-900"
+          ? "border-navy-900 bg-navy-900 text-cream-100 shadow-sm shadow-navy-900/25"
+          : "border-navy-200 bg-white text-navy-600 hover:border-navy-300 hover:text-navy-900"
       }`}
     >
       {children}
@@ -126,26 +126,26 @@ export default async function ShopContent({
   return (
     <>
       {/* Header */}
-      <div className="border-b border-gray-200/70 bg-white">
+      <div className="border-b border-navy-900/10 bg-white">
         <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
-          <div className="flex flex-wrap items-center gap-2 text-xs text-gray-400">
-            <Link href="/" className="hover:text-indigo-600">Home</Link>
+          <div className="flex flex-wrap items-center gap-2 text-xs text-navy-400">
+            <Link href="/" className="hover:text-coral-700">Home</Link>
             <span>/</span>
-            <span className="text-gray-600">{title}</span>
+            <span className="text-navy-600">{title}</span>
           </div>
           <p className="eyebrow mt-4">{category ? "Category" : "Catalog"}</p>
-          <h1 className="mt-2 text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl">
+          <h1 className="mt-2 text-2xl font-extrabold tracking-tight text-navy-900 sm:text-3xl">
             {category?.emoji ? `${category.emoji} ` : ""}{title}
           </h1>
-          {subtitle && <p className="mt-2 max-w-2xl text-sm text-gray-500">{subtitle}</p>}
+          {subtitle && <p className="mt-2 max-w-2xl text-sm text-navy-500">{subtitle}</p>}
 
           {/* Sort + count */}
           <div className="mt-6 flex flex-wrap items-center justify-between gap-3">
-            <p className="text-sm text-gray-600">
-              <span className="font-bold text-gray-900">{result.length}</span> product{result.length === 1 ? "" : "s"}
+            <p className="text-sm text-navy-600">
+              <span className="font-bold text-navy-900">{result.length}</span> product{result.length === 1 ? "" : "s"}
             </p>
             <div className="flex flex-wrap items-center gap-2">
-              <span className="text-[11px] font-bold uppercase tracking-[0.14em] text-gray-400">Sort by</span>
+              <span className="text-[11px] font-bold uppercase tracking-[0.14em] text-navy-400">Sort by</span>
               {SORT_OPTIONS.map((o) => (
                 <Chip key={o.value} href={buildQuery({ ...sp, sort: o.value })} active={sorted === o.value}>
                   {o.label}
@@ -161,7 +161,7 @@ export default async function ShopContent({
           {/* Sidebar */}
           <aside className="space-y-8">
             <div>
-              <h3 className="text-[11px] font-bold uppercase tracking-[0.14em] text-gray-400">Category</h3>
+              <h3 className="text-[11px] font-bold uppercase tracking-[0.14em] text-navy-400">Category</h3>
               <div className="mt-3 space-y-1">
                 {categories.map((c) => {
                   const count = category ? getCatalogProductsByCategory(c.slug).length : filterProducts({ category: c.slug }).length;
@@ -171,11 +171,11 @@ export default async function ShopContent({
                       key={c.slug}
                       href={withParam("category", active ? undefined : c.slug)}
                       className={`flex items-center justify-between rounded-lg px-3 py-2 text-sm transition ${
-                        active ? "bg-indigo-50 font-semibold text-indigo-700" : "text-gray-600 hover:bg-gray-100"
+                        active ? "bg-coral-50 font-semibold text-coral-700" : "text-navy-600 hover:bg-cream-100"
                       }`}
                     >
                       <span>{c.name}</span>
-                      <span className="text-xs text-gray-400">{count}</span>
+                      <span className="text-xs text-navy-400">{count}</span>
                     </Link>
                   );
                 })}
@@ -183,17 +183,17 @@ export default async function ShopContent({
             </div>
 
             <div>
-              <h3 className="text-[11px] font-bold uppercase tracking-[0.14em] text-gray-400">Brand</h3>
+              <h3 className="text-[11px] font-bold uppercase tracking-[0.14em] text-navy-400">Brand</h3>
               <div className="mt-3 space-y-1">
                 {brands.map((b) => {
                   const active = sp.brand === b;
                   return (
-                    <label key={b} className="flex cursor-pointer items-center gap-2.5 px-3 py-1.5 text-sm text-gray-600 transition hover:text-gray-900">
+                    <label key={b} className="flex cursor-pointer items-center gap-2.5 px-3 py-1.5 text-sm text-navy-600 transition hover:text-navy-900">
                       <input
                         type="checkbox"
                         checked={active}
                         readOnly
-                        className="h-4 w-4 rounded border-gray-300 accent-indigo-600"
+                        className="h-4 w-4 rounded border-navy-300 accent-navy-900"
                       />
                       <a href={buildQuery({ ...sp, brand: active ? undefined : b })} className="flex-1">{b}</a>
                     </label>
@@ -203,21 +203,21 @@ export default async function ShopContent({
             </div>
 
             <div>
-              <h3 className="text-[11px] font-bold uppercase tracking-[0.14em] text-gray-400">Price range</h3>
+              <h3 className="text-[11px] font-bold uppercase tracking-[0.14em] text-navy-400">Price range</h3>
               <form action={buildQuery({ ...sp, min: undefined, max: undefined })} className="mt-3 flex items-center gap-2">
-                <input name="min" type="number" placeholder="Min ₹" defaultValue={sp.min || ""} className="w-full rounded-lg border border-gray-200/80 px-2.5 py-2 text-sm outline-none transition focus:border-indigo-400 focus:bg-white focus:ring-4 focus:ring-indigo-500/10" />
-                <span className="text-gray-400">–</span>
-                <input name="max" type="number" placeholder="Max ₹" defaultValue={sp.max || ""} className="w-full rounded-lg border border-gray-200/80 px-2.5 py-2 text-sm outline-none transition focus:border-indigo-400 focus:bg-white focus:ring-4 focus:ring-indigo-500/10" />
-                <button type="submit" className="rounded-lg bg-gray-900 px-3 py-2 text-sm font-semibold text-white transition hover:bg-gray-700">Go</button>
+                <input name="min" type="number" placeholder="Min ₹" defaultValue={sp.min || ""} className="w-full rounded-lg border border-navy-200 px-2.5 py-2 text-sm outline-none transition focus:border-coral-400 focus:bg-white focus:ring-4 focus:ring-coral-500/10" />
+                <span className="text-navy-400">–</span>
+                <input name="max" type="number" placeholder="Max ₹" defaultValue={sp.max || ""} className="w-full rounded-lg border border-navy-200 px-2.5 py-2 text-sm outline-none transition focus:border-coral-400 focus:bg-white focus:ring-4 focus:ring-coral-500/10" />
+                <button type="submit" className="rounded-lg bg-navy-900 px-3 py-2 text-sm font-semibold text-cream-100 transition hover:bg-navy-800">Go</button>
               </form>
             </div>
 
-            <label className="flex cursor-pointer items-center gap-2.5 text-sm font-semibold text-gray-700">
+            <label className="flex cursor-pointer items-center gap-2.5 text-sm font-semibold text-navy-700">
               <input
                 type="checkbox"
                 checked={sp.instock === "1"}
                 readOnly
-                className="h-4 w-4 rounded border-gray-300 accent-emerald-600"
+                className="h-4 w-4 rounded border-navy-300 accent-emerald-600"
               />
               <a href={buildQuery({ ...sp, instock: sp.instock === "1" ? undefined : "1" })}>In stock only</a>
             </label>
@@ -226,11 +226,11 @@ export default async function ShopContent({
           {/* Products */}
           <div>
             {result.length === 0 ? (
-              <div className="grid place-items-center rounded-3xl border border-dashed border-gray-200/80 bg-white px-6 py-20 text-center shadow-soft">
+              <div className="grid place-items-center rounded-3xl border border-dashed border-navy-200 bg-white px-6 py-20 text-center shadow-soft">
                 <span className="text-5xl">🔍</span>
-                <p className="mt-4 text-lg font-bold text-gray-900">No products match those filters</p>
-                <p className="mt-1 text-sm text-gray-500">Try removing a filter or two.</p>
-                <Link href="/shop" className="mt-6 rounded-xl bg-indigo-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-indigo-700">
+                <p className="mt-4 text-lg font-bold text-navy-900">No products match those filters</p>
+                <p className="mt-1 text-sm text-navy-500">Try removing a filter or two.</p>
+                <Link href="/shop" className="mt-6 rounded-xl bg-navy-900 px-5 py-2.5 text-sm font-semibold text-cream-100 hover:bg-navy-800">
                   Clear filters
                 </Link>
               </div>

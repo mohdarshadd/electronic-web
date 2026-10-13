@@ -45,7 +45,7 @@ export default function BuyBox({ product }: { product: Product }) {
           </div>
         ) : (
           <div className="space-y-2">
-            <label htmlFor="restock-email" className="block text-xs font-semibold text-gray-600">
+            <label htmlFor="restock-email" className="block text-xs font-semibold text-navy-600">
               Notify me when it’s back
             </label>
             <div className="flex gap-2">
@@ -56,12 +56,12 @@ export default function BuyBox({ product }: { product: Product }) {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="you@example.com"
-                className="w-full rounded-xl border border-gray-300 px-3.5 py-2.5 text-sm outline-none transition focus:border-indigo-400 focus:bg-white focus:ring-4 focus:ring-indigo-500/10"
+                className="w-full rounded-xl border border-navy-300 px-3.5 py-2.5 text-sm outline-none transition focus:border-coral-400 focus:bg-white focus:ring-4 focus:ring-coral-500/10"
               />
               <button
                 onClick={subscribe}
                 disabled={state === "saving" || !email.trim()}
-                className="shrink-0 rounded-xl bg-gradient-to-r from-indigo-600 to-violet-600 px-4 py-2.5 text-sm font-bold text-white shadow-glow transition hover:from-indigo-500 hover:to-violet-500 disabled:opacity-50"
+                className="shrink-0 rounded-xl bg-navy-900 px-4 py-2.5 text-sm font-bold text-cream-100 shadow-glow transition hover:bg-navy-800 disabled:opacity-50"
               >
                 {state === "saving" ? "Saving…" : "Notify me"}
               </button>
@@ -78,24 +78,24 @@ export default function BuyBox({ product }: { product: Product }) {
   return (
     <div className="space-y-3">
       <div className="flex items-center gap-3">
-        <div className="flex items-center gap-1 rounded-full border border-gray-300/80 bg-white p-1 shadow-sm">
+        <div className="flex items-center gap-1 rounded-full border border-navy-300/80 bg-white p-1 shadow-sm">
           <button
             onClick={() => setQty((q) => Math.max(1, q - 1))}
-            className="grid h-9 w-9 place-items-center rounded-full text-gray-600 transition hover:bg-gray-100"
+            className="grid h-9 w-9 place-items-center rounded-full text-navy-600 transition hover:bg-cream-100"
             aria-label="Decrease quantity"
           >
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><path d="M5 12h14" /></svg>
           </button>
-          <span className="w-10 text-center text-base font-bold text-gray-900">{qty}</span>
+          <span className="w-10 text-center text-base font-bold text-navy-900">{qty}</span>
           <button
             onClick={() => setQty((q) => Math.min(product.stock, q + 1))}
-            className="grid h-9 w-9 place-items-center rounded-full text-gray-600 transition hover:bg-gray-100"
+            className="grid h-9 w-9 place-items-center rounded-full text-navy-600 transition hover:bg-cream-100"
             aria-label="Increase quantity"
           >
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><path d="M12 5v14M5 12h14" /></svg>
           </button>
         </div>
-        <div className="text-xs text-gray-500">
+        <div className="text-xs text-navy-500">
           <span className={`font-semibold ${lowStock ? "text-amber-600" : "text-emerald-600"}`}>
             {lowStock ? `Only ${product.stock} left` : `${product.stock} in stock`}
           </span>
@@ -108,7 +108,7 @@ export default function BuyBox({ product }: { product: Product }) {
           add(product.id, qty);
           openCart();
         }}
-        className="w-full rounded-xl bg-gradient-to-r from-indigo-600 to-violet-600 px-4 py-3.5 text-sm font-bold text-white shadow-glow transition hover:from-indigo-500 hover:to-violet-500 active:scale-[0.99]"
+        className="w-full rounded-xl bg-navy-900 px-4 py-3.5 text-sm font-bold text-cream-100 shadow-glow transition hover:bg-navy-800 active:scale-[0.99]"
       >
         Add to cart
       </button>
@@ -116,16 +116,16 @@ export default function BuyBox({ product }: { product: Product }) {
         onClick={() => {
           add(product.id, qty);
         }}
-        className="w-full rounded-xl border-2 border-emerald-600 bg-white px-4 py-3 text-sm font-bold text-emerald-700 transition hover:bg-emerald-50"
+        className="w-full rounded-xl border-2 border-coral-500 bg-white px-4 py-3 text-sm font-bold text-coral-700 transition hover:bg-coral-50"
       >
         Buy now
       </button>
 
-      <div className="grid grid-cols-2 gap-3 pt-1 text-center text-xs text-gray-500">
-        <div className="rounded-xl bg-gray-50/80 px-2 py-2.5 ring-1 ring-gray-900/5">
+      <div className="grid grid-cols-2 gap-3 pt-1 text-center text-xs text-navy-500">
+        <div className="rounded-xl bg-cream-100/80 px-2 py-2.5 ring-1 ring-navy-900/5">
           <span className="block text-base">🚚</span>Free shipping over ₹499
         </div>
-        <div className="rounded-xl bg-gray-50/80 px-2 py-2.5 ring-1 ring-gray-900/5">
+        <div className="rounded-xl bg-cream-100/80 px-2 py-2.5 ring-1 ring-navy-900/5">
           <span className="block text-base">↩️</span>7-day easy returns
         </div>
       </div>

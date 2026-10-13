@@ -13,12 +13,12 @@ export function StarRating({ rating, reviewCount }: { rating: number; reviewCoun
     <span className="inline-flex items-center gap-1.5">
       <span className="inline-flex items-center gap-0.5 text-amber-400">
         {[1, 2, 3, 4, 5].map((i) => (
-          <Star key={i} className={`h-3.5 w-3.5 ${i <= Math.round(rating) ? "" : "text-gray-200"}`} />
+          <Star key={i} className={`h-3.5 w-3.5 ${i <= Math.round(rating) ? "" : "text-navy-200"}`} />
         ))}
       </span>
-      <span className="text-xs font-semibold text-gray-900">{rating.toFixed(1)}</span>
+      <span className="text-xs font-semibold text-navy-900">{rating.toFixed(1)}</span>
       {reviewCount !== undefined && (
-        <span className="text-xs text-gray-500">({reviewCount.toLocaleString("en-IN")})</span>
+        <span className="text-xs text-navy-500">({reviewCount.toLocaleString("en-IN")})</span>
       )}
     </span>
   );

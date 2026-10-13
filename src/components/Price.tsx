@@ -6,15 +6,15 @@ export function Price({ price, mrp, size = "md" }: { price: number; mrp: number;
 
   return (
     <div className={clamp("flex flex-wrap items-baseline gap-x-2 gap-y-0.5")}>
-      <span className={`font-bold text-gray-900 ${size === "lg" ? "text-3xl" : size === "sm" ? "text-sm" : "text-lg"}`}>
+      <span className={`font-bold text-navy-900 ${size === "lg" ? "text-3xl" : size === "sm" ? "text-sm" : "text-lg"}`}>
         {formatINR(price)}
       </span>
-      <span className={`text-gray-400 line-through ${size === "lg" ? "text-base" : size === "sm" ? "text-[11px]" : "text-sm"}`}>
+      <span className={`text-navy-400 line-through ${size === "lg" ? "text-base" : size === "sm" ? "text-[11px]" : "text-sm"}`}>
         {formatINR(mrp)}
       </span>
       {discount > 0 && (
         <span
-          className={`rounded-md bg-emerald-50 px-1.5 py-0.5 font-semibold text-emerald-700 ${
+          className={`rounded-md bg-coral-50 px-1.5 py-0.5 font-semibold text-coral-700 ${
             size === "lg" ? "text-sm" : size === "sm" ? "text-[10px]" : "text-xs"
           }`}
         >

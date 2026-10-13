@@ -39,14 +39,14 @@ export default async function ProductPage({ params }: Props) {
   return (
     <>
       {/* Breadcrumb */}
-      <div className="border-b border-gray-200/70 bg-white">
+      <div className="border-b border-navy-900/10 bg-white">
         <div className="mx-auto max-w-7xl px-4 py-3 sm:px-6 lg:px-8">
-          <nav className="flex flex-wrap items-center gap-1.5 text-xs text-gray-400">
-            <Link href="/" className="hover:text-indigo-600">Home</Link>
+          <nav className="flex flex-wrap items-center gap-1.5 text-xs text-navy-400">
+            <Link href="/" className="hover:text-coral-700">Home</Link>
             <span>/</span>
-            <Link href="/shop" className="hover:text-indigo-600">All Products</Link>
+            <Link href="/shop" className="hover:text-coral-700">All Products</Link>
             <span>/</span>
-            <span className="font-medium text-gray-700">{product.name}</span>
+            <span className="font-medium text-navy-700">{product.name}</span>
           </nav>
         </div>
       </div>
@@ -55,8 +55,8 @@ export default async function ProductPage({ params }: Props) {
         <div className="grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14">
           {/* Gallery */}
           <div className="space-y-4">
-            <ProductImage product={product} className="aspect-square w-full rounded-3xl shadow-soft ring-1 ring-gray-900/5" />
-            <div className="flex flex-wrap items-center gap-2 text-sm text-gray-500">
+            <ProductImage product={product} className="aspect-square w-full rounded-3xl shadow-soft ring-1 ring-navy-900/5" />
+            <div className="flex flex-wrap items-center gap-2 text-sm text-navy-500">
               {product.inStock ? (
                 <span className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 font-semibold ${product.stock <= 10 ? "bg-amber-50 text-amber-700" : "bg-emerald-50 text-emerald-700"}`}>
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><path d="M20 6 9 17l-5-5" /></svg>
@@ -68,15 +68,15 @@ export default async function ProductPage({ params }: Props) {
                   Out of stock
                 </span>
               )}
-              <span className="rounded-full bg-gray-100 px-2.5 py-1 font-medium">SKU: {product.sku}</span>
-              <span className="rounded-full bg-gray-100 px-2.5 py-1 font-medium">Brand: {product.brand}</span>
+              <span className="rounded-full bg-cream-100 px-2.5 py-1 font-medium text-navy-600">SKU: {product.sku}</span>
+              <span className="rounded-full bg-cream-100 px-2.5 py-1 font-medium text-navy-600">Brand: {product.brand}</span>
               {product.datasheet === "pdf" || product.datasheetUrl ? (
                 <a
                   href={product.datasheet === "pdf" ? `/api/datasheets/${product.slug}` : product.datasheetUrl}
                   download={product.datasheet === "pdf"}
                   target={product.datasheet === "pdf" ? undefined : "_blank"}
                   rel={product.datasheet === "pdf" ? undefined : "noreferrer"}
-                  className="inline-flex items-center gap-1.5 rounded-full bg-indigo-50 px-2.5 py-1 font-semibold text-indigo-700 transition hover:bg-indigo-100"
+                  className="inline-flex items-center gap-1.5 rounded-full bg-coral-50 px-2.5 py-1 font-semibold text-coral-700 transition hover:bg-coral-100"
                 >
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 3v12m0 0 4-4m-4 4-4-4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2" /></svg>
                   {product.datasheet === "pdf" ? "Download datasheet" : "Datasheet PDF"}
@@ -88,7 +88,7 @@ export default async function ProductPage({ params }: Props) {
           {/* Info */}
           <div>
             <p className="eyebrow">{product.brand}</p>
-            <h1 className="mt-2 text-balance text-2xl font-extrabold leading-tight tracking-tight text-gray-900 sm:text-3xl">
+            <h1 className="mt-2 text-balance text-2xl font-extrabold leading-tight tracking-tight text-navy-900 sm:text-3xl">
               {product.name}
             </h1>
 
@@ -96,12 +96,12 @@ export default async function ProductPage({ params }: Props) {
               <StarRating rating={product.rating} reviewCount={product.reviewCount} />
             </div>
 
-            <div className="mt-5 rounded-3xl bg-gradient-to-b from-white to-gray-50/70 p-5 shadow-soft ring-1 ring-gray-900/5 sm:p-6">
+            <div className="mt-5 rounded-3xl bg-gradient-to-b from-white to-cream-100/70 p-5 shadow-soft ring-1 ring-navy-900/5 sm:p-6">
               <div className="flex flex-wrap items-baseline gap-2">
-                <span className="text-3xl font-extrabold text-gray-900">{formatINR(product.price)}</span>
-                <span className="text-base text-gray-400 line-through">{formatINR(product.mrp)}</span>
+                <span className="text-3xl font-extrabold text-navy-900">{formatINR(product.price)}</span>
+                <span className="text-base text-navy-400 line-through">{formatINR(product.mrp)}</span>
                 {discount > 0 && (
-                  <span className="rounded-lg bg-emerald-100 px-2 py-0.5 text-sm font-bold text-emerald-700">
+                  <span className="rounded-lg bg-coral-100 px-2 py-0.5 text-sm font-bold text-coral-700">
                     {discount}% off
                   </span>
                 )}
@@ -122,8 +122,8 @@ export default async function ProductPage({ params }: Props) {
                 { icon: "↩️", text: "7-day no-questions returns & warranty support" },
                 { icon: "🎓", text: "Students save 10% — verify ID at checkout" },
               ].map((f) => (
-                <div key={f.text} className="flex items-center gap-3 text-sm text-gray-600">
-                  <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-white text-base ring-1 ring-gray-900/5">{f.icon}</span>
+                <div key={f.text} className="flex items-center gap-3 text-sm text-navy-600">
+                  <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-white text-base ring-1 ring-navy-900/5">{f.icon}</span>
                   {f.text}
                 </div>
               ))}
@@ -133,13 +133,13 @@ export default async function ProductPage({ params }: Props) {
 
         {/* Description + Highlights */}
         <div className="mt-14 grid gap-8 lg:grid-cols-[1.4fr_1fr]">
-          <section className="rounded-2xl bg-white p-6 shadow-soft ring-1 ring-gray-900/5 sm:p-8">
-            <h2 className="text-lg font-bold text-gray-900">Description</h2>
-            <p className="mt-3 leading-7 text-gray-600">{product.description}</p>
-            <h3 className="mt-6 text-sm font-bold uppercase tracking-[0.14em] text-gray-400">Highlights</h3>
+          <section className="rounded-2xl bg-white p-6 shadow-soft ring-1 ring-navy-900/5 sm:p-8">
+            <h2 className="text-lg font-bold text-navy-900">Description</h2>
+            <p className="mt-3 leading-7 text-navy-600">{product.description}</p>
+            <h3 className="mt-6 text-sm font-bold uppercase tracking-[0.14em] text-navy-400">Highlights</h3>
             <ul className="mt-3 grid gap-2.5 sm:grid-cols-2">
               {product.highlights.map((h) => (
-                <li key={h} className="flex items-start gap-2 text-sm text-gray-600">
+                <li key={h} className="flex items-start gap-2 text-sm text-navy-600">
                   <span className="mt-0.5 grid h-4 w-4 shrink-0 place-items-center rounded-full bg-emerald-100 text-[10px] font-bold text-emerald-700">✓</span>
                   {h}
                 </li>
@@ -147,13 +147,13 @@ export default async function ProductPage({ params }: Props) {
             </ul>
           </section>
 
-          <section className="rounded-2xl bg-white p-6 shadow-soft ring-1 ring-gray-900/5 sm:p-8">
-            <h2 className="text-lg font-bold text-gray-900">Specifications</h2>
-            <dl className="mt-4 divide-y divide-gray-100">
+          <section className="rounded-2xl bg-white p-6 shadow-soft ring-1 ring-navy-900/5 sm:p-8">
+            <h2 className="text-lg font-bold text-navy-900">Specifications</h2>
+            <dl className="mt-4 divide-y divide-navy-100">
               {product.specs.map((s) => (
                 <div key={s.label} className="grid grid-cols-[110px_1fr] gap-3 py-2.5 text-sm">
-                  <dt className="font-medium text-gray-400">{s.label}</dt>
-                  <dd className="font-semibold text-gray-800">{s.value}</dd>
+                  <dt className="font-medium text-navy-400">{s.label}</dt>
+                  <dd className="font-semibold text-navy-800">{s.value}</dd>
                 </div>
               ))}
             </dl>
@@ -166,9 +166,9 @@ export default async function ProductPage({ params }: Props) {
             <div className="mb-6 flex items-end justify-between gap-4">
               <div>
                 <p className="eyebrow">More to explore</p>
-                <h2 className="mt-2 text-xl font-extrabold tracking-tight text-gray-900 sm:text-2xl">You may also need</h2>
+                <h2 className="mt-2 text-xl font-extrabold tracking-tight text-navy-900 sm:text-2xl">You may also need</h2>
               </div>
-              <Link href={`/category/${product.categorySlug}`} className="inline-flex shrink-0 items-center gap-1 rounded-full border border-gray-200 bg-white px-3.5 py-1.5 text-xs font-semibold text-gray-700 shadow-sm transition hover:border-gray-300 hover:text-gray-900">
+              <Link href={`/category/${product.categorySlug}`} className="inline-flex shrink-0 items-center gap-1 rounded-full border border-navy-200 bg-white px-3.5 py-1.5 text-xs font-semibold text-navy-700 shadow-soft transition hover:border-coral-300 hover:text-coral-700">
                 View category <span aria-hidden>→</span>
               </Link>
             </div>
