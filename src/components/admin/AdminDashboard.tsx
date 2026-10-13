@@ -11,17 +11,17 @@ import { ORDER_STATUSES, PAYMENT_STATUSES, ORDER_STATUS_CLASS, PAYMENT_STATUS_CL
 
 function KpiCard({ label, value, sub, tone = "gray" }: { label: string; value: string; sub?: string; tone?: "gray" | "emerald" | "amber" | "red" | "indigo" }) {
   const tones: Record<string, string> = {
-    gray: "text-gray-900",
+    gray: "text-navy-900",
     emerald: "text-emerald-600",
     amber: "text-amber-600",
     red: "text-red-600",
-    indigo: "text-indigo-600",
+    indigo: "text-coral-700",
   };
   return (
-    <div className="rounded-2xl border border-gray-200 bg-white p-4 sm:p-5">
-      <p className="text-[11px] font-bold uppercase tracking-wide text-gray-400">{label}</p>
+    <div className="rounded-2xl border border-navy-200 bg-white p-4 sm:p-5">
+      <p className="text-[11px] font-bold uppercase tracking-wide text-navy-400">{label}</p>
       <p className={`mt-2 truncate text-xl font-extrabold sm:text-2xl ${tones[tone]}`}>{value}</p>
-      {sub && <p className="mt-1 text-xs font-medium text-gray-400">{sub}</p>}
+      {sub && <p className="mt-1 text-xs font-medium text-navy-400">{sub}</p>}
     </div>
   );
 }
@@ -90,13 +90,13 @@ export default function AdminDashboard() {
       <div className="space-y-4">
         <div className="grid grid-cols-2 gap-4 lg:grid-cols-3 xl:grid-cols-6">
           {[0, 1, 2, 3, 4, 5].map((i) => (
-            <div key={i} className="h-24 animate-pulse rounded-2xl border border-gray-200 bg-white" />
+            <div key={i} className="h-24 animate-pulse rounded-2xl border border-navy-200 bg-white" />
           ))}
         </div>
-        <div className="h-64 animate-pulse rounded-2xl border border-gray-200 bg-white" />
+        <div className="h-64 animate-pulse rounded-2xl border border-navy-200 bg-white" />
         <div className="grid gap-4 lg:grid-cols-2">
           {[0, 1].map((i) => (
-            <div key={i} className="h-64 animate-pulse rounded-2xl border border-gray-200 bg-white" />
+            <div key={i} className="h-64 animate-pulse rounded-2xl border border-navy-200 bg-white" />
           ))}
         </div>
       </div>
@@ -107,12 +107,12 @@ export default function AdminDashboard() {
     <div className="space-y-6">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h1 className="text-xl font-extrabold text-gray-900">Dashboard</h1>
-          <p className="mt-0.5 text-sm text-gray-500">Sales, fulfilment and stock at a glance.</p>
+          <h1 className="text-xl font-extrabold text-navy-900">Dashboard</h1>
+          <p className="mt-0.5 text-sm text-navy-500">Sales, fulfilment and stock at a glance.</p>
         </div>
         <button
           onClick={reload}
-          className="rounded-xl border border-gray-200 bg-white px-4 py-2 text-sm font-bold text-gray-700 transition hover:bg-gray-50"
+          className="rounded-xl border border-navy-200 bg-white px-4 py-2 text-sm font-bold text-navy-700 transition hover:bg-cream-50"
         >
           Refresh
         </button>
@@ -133,25 +133,25 @@ export default function AdminDashboard() {
         />
       </div>
 
-      <div className="rounded-2xl border border-gray-200 bg-white p-5">
+      <div className="rounded-2xl border border-navy-200 bg-white p-5">
         <div className="mb-4 flex items-center justify-between">
-          <h2 className="text-sm font-bold uppercase tracking-wide text-gray-400">Revenue — last 14 days</h2>
-          <span className="text-xs font-medium text-gray-400">paid orders</span>
+          <h2 className="text-sm font-bold uppercase tracking-wide text-navy-400">Revenue — last 14 days</h2>
+          <span className="text-xs font-medium text-navy-400">paid orders</span>
         </div>
         {days.every((d) => d.paid === 0) ? (
-          <p className="py-8 text-center text-sm text-gray-400">No paid revenue yet in the last 14 days.</p>
+          <p className="py-8 text-center text-sm text-navy-400">No paid revenue yet in the last 14 days.</p>
         ) : (
           <div className="flex h-40 items-end gap-1.5">
             {days.map((d) => (
               <div key={d.key} className="group relative flex h-full flex-1 flex-col justify-end" title={`${d.label}: ${formatINR(d.paid)} (${d.orders} orders)`}>
-                <span className="mb-1 hidden text-center text-[10px] font-bold text-gray-400 group-hover:block">
+                <span className="mb-1 hidden text-center text-[10px] font-bold text-navy-400 group-hover:block">
                   {d.paid > 0 ? "₹" + Math.round(d.paid / 100) : "—"}
                 </span>
                 <div
                   style={{ height: `${d.paid > 0 ? Math.max((d.paid / maxDay) * 100, 4) : 2}%` }}
-                  className={`w-full rounded-t-md ${d.paid > 0 ? "bg-gradient-to-t from-indigo-600 to-violet-500" : "bg-gray-200"}`}
+                  className={`w-full rounded-t-md ${d.paid > 0 ? "bg-gradient-to-t from-navy-900 to-navy-700" : "bg-navy-100"}`}
                 />
-                <span className="mt-1.5 text-center text-[10px] font-semibold text-gray-400">{d.label}</span>
+                <span className="mt-1.5 text-center text-[10px] font-semibold text-navy-400">{d.label}</span>
               </div>
             ))}
           </div>
@@ -159,19 +159,19 @@ export default function AdminDashboard() {
       </div>
 
       <div className="grid gap-6 lg:grid-cols-2">
-        <div className="rounded-2xl border border-gray-200 bg-white p-5">
-          <h2 className="text-sm font-bold uppercase tracking-wide text-gray-400">Orders by status</h2>
+        <div className="rounded-2xl border border-navy-200 bg-white p-5">
+          <h2 className="text-sm font-bold uppercase tracking-wide text-navy-400">Orders by status</h2>
           <ul className="mt-4 space-y-3">
             {statusCounts.map(({ key, count }) => (
               <li key={key}>
                 <div className="flex items-center justify-between text-sm">
                   <span className={`rounded-full px-2 py-0.5 text-xs font-bold ${ORDER_STATUS_CLASS[key]}`}>{key}</span>
-                  <span className="font-bold text-gray-900">{count}</span>
+                  <span className="font-bold text-navy-900">{count}</span>
                 </div>
-                <div className="mt-1.5 h-2 overflow-hidden rounded-full bg-gray-100">
+                <div className="mt-1.5 h-2 overflow-hidden rounded-full bg-cream-100">
                   <div
                     style={{ width: `${orders.length > 0 ? (count / orders.length) * 100 : 0}%` }}
-                    className="h-full rounded-full bg-gradient-to-r from-indigo-500 to-violet-500"
+                    className="h-full rounded-full bg-gradient-to-r from-navy-800 to-coral-500"
                   />
                 </div>
               </li>
@@ -179,16 +179,16 @@ export default function AdminDashboard() {
           </ul>
         </div>
 
-        <div className="rounded-2xl border border-gray-200 bg-white p-5">
-          <h2 className="text-sm font-bold uppercase tracking-wide text-gray-400">Payments</h2>
+        <div className="rounded-2xl border border-navy-200 bg-white p-5">
+          <h2 className="text-sm font-bold uppercase tracking-wide text-navy-400">Payments</h2>
           <ul className="mt-4 space-y-3">
             {paymentCounts.map(({ key, count }) => (
               <li key={key}>
                 <div className="flex items-center justify-between text-sm">
                   <span className={`rounded-full px-2 py-0.5 text-xs font-bold ${PAYMENT_STATUS_CLASS[key]}`}>{key}</span>
-                  <span className="font-bold text-gray-900">{count}</span>
+                  <span className="font-bold text-navy-900">{count}</span>
                 </div>
-                <div className="mt-1.5 h-2 overflow-hidden rounded-full bg-gray-100">
+                <div className="mt-1.5 h-2 overflow-hidden rounded-full bg-cream-100">
                   <div
                     style={{ width: `${orders.length > 0 ? (count / orders.length) * 100 : 0}%` }}
                     className={`h-full rounded-full ${key === "PAID" ? "bg-emerald-500" : key === "FAILED" ? "bg-red-500" : "bg-amber-400"}`}
@@ -197,38 +197,38 @@ export default function AdminDashboard() {
               </li>
             ))}
           </ul>
-          <div className="mt-5 flex items-center justify-between border-t border-gray-100 pt-4 text-sm">
-            <span className="text-gray-500">COD orders</span>
-            <span className="font-bold text-gray-900">{orders.filter((o) => o.paymentMethod === "cod").length}</span>
+          <div className="mt-5 flex items-center justify-between border-t border-navy-100 pt-4 text-sm">
+            <span className="text-navy-500">COD orders</span>
+            <span className="font-bold text-navy-900">{orders.filter((o) => o.paymentMethod === "cod").length}</span>
           </div>
           <div className="mt-2 flex items-center justify-between text-sm">
-            <span className="text-gray-500">Online orders</span>
-            <span className="font-bold text-gray-900">{orders.filter((o) => o.paymentMethod === "cashfree").length}</span>
+            <span className="text-navy-500">Online orders</span>
+            <span className="font-bold text-navy-900">{orders.filter((o) => o.paymentMethod === "cashfree").length}</span>
           </div>
         </div>
       </div>
 
-      <div className="rounded-2xl border border-gray-200 bg-white p-5">
+      <div className="rounded-2xl border border-navy-200 bg-white p-5">
         <div className="mb-3 flex items-center justify-between">
-          <h2 className="text-sm font-bold uppercase tracking-wide text-gray-400">Restock alerts</h2>
-          <Link href="/admin/restock-requests" className="text-xs font-bold text-indigo-600 hover:text-indigo-700">
+          <h2 className="text-sm font-bold uppercase tracking-wide text-navy-400">Restock alerts</h2>
+          <Link href="/admin/restock-requests" className="text-xs font-bold text-coral-700 hover:text-coral-800">
             View all →
           </Link>
         </div>
         {!restock || restock.length === 0 ? (
-          <p className="py-6 text-center text-sm text-gray-400">No customers waiting for restock right now.</p>
+          <p className="py-6 text-center text-sm text-navy-400">No customers waiting for restock right now.</p>
         ) : (
-          <ul className="divide-y divide-gray-100">
+          <ul className="divide-y divide-navy-100">
             {restock.slice(0, 5).map((r) => (
               <li key={r.id} className="flex items-center gap-3 py-2.5">
                 <div className="min-w-0 flex-1">
-                  <Link href={`/product/${r.productSlug}`} className="block truncate text-sm font-semibold text-gray-900 hover:text-indigo-600">
+                  <Link href={`/product/${r.productSlug}`} className="block truncate text-sm font-semibold text-navy-900 hover:text-coral-700">
                     {r.productName}
                   </Link>
-                  <p className="truncate text-xs text-gray-400">{r.email}</p>
+                  <p className="truncate text-xs text-navy-400">{r.email}</p>
                 </div>
                 <span className="rounded-full bg-amber-50 px-2 py-1 text-xs font-bold text-amber-700">pending</span>
-                <span className="text-xs font-medium text-gray-400">
+                <span className="text-xs font-medium text-navy-400">
                   {new Date(r.requestedAt).toLocaleDateString("en-IN", { day: "2-digit", month: "short" })}
                 </span>
               </li>
@@ -238,59 +238,59 @@ export default function AdminDashboard() {
       </div>
 
       <div className="grid gap-6 lg:grid-cols-2">
-        <div className="rounded-2xl border border-gray-200 bg-white p-5">
+        <div className="rounded-2xl border border-navy-200 bg-white p-5">
           <div className="mb-3 flex items-center justify-between">
-            <h2 className="text-sm font-bold uppercase tracking-wide text-gray-400">Top products</h2>
-            <Link href="/admin/inventory" className="text-xs font-bold text-indigo-600 hover:text-indigo-700">
+            <h2 className="text-sm font-bold uppercase tracking-wide text-navy-400">Top products</h2>
+            <Link href="/admin/inventory" className="text-xs font-bold text-coral-700 hover:text-coral-800">
               Inventory →
             </Link>
           </div>
           {top.length === 0 ? (
-            <p className="py-6 text-center text-sm text-gray-400">Nothing sold yet.</p>
+            <p className="py-6 text-center text-sm text-navy-400">Nothing sold yet.</p>
           ) : (
-            <ul className="divide-y divide-gray-100">
+            <ul className="divide-y divide-navy-100">
               {top.map((p, i) => (
                 <li key={p.productId} className="flex items-center gap-3 py-2.5">
-                  <span className="w-5 text-center text-sm font-extrabold text-gray-300">{i + 1}</span>
+                  <span className="w-5 text-center text-sm font-extrabold text-navy-300">{i + 1}</span>
                   <div className="min-w-0 flex-1">
-                    <Link href={`/product/${p.slug}`} className="block truncate text-sm font-semibold text-gray-900 hover:text-indigo-600">
+                    <Link href={`/product/${p.slug}`} className="block truncate text-sm font-semibold text-navy-900 hover:text-coral-700">
                       {p.name}
                     </Link>
-                    <p className="text-xs text-gray-400">{p.qty} sold · avg {formatINR(Math.round(p.revenue / Math.max(p.qty, 1)))}</p>
+                    <p className="text-xs text-navy-400">{p.qty} sold · avg {formatINR(Math.round(p.revenue / Math.max(p.qty, 1)))}</p>
                   </div>
-                  <span className="text-sm font-bold text-gray-900">{formatINR(p.revenue)}</span>
+                  <span className="text-sm font-bold text-navy-900">{formatINR(p.revenue)}</span>
                 </li>
               ))}
             </ul>
           )}
         </div>
 
-        <div className="rounded-2xl border border-gray-200 bg-white p-5">
+        <div className="rounded-2xl border border-navy-200 bg-white p-5">
           <div className="mb-3 flex items-center justify-between">
-            <h2 className="text-sm font-bold uppercase tracking-wide text-gray-400">Recent orders</h2>
-            <Link href="/admin/orders" className="text-xs font-bold text-indigo-600 hover:text-indigo-700">
+            <h2 className="text-sm font-bold uppercase tracking-wide text-navy-400">Recent orders</h2>
+            <Link href="/admin/orders" className="text-xs font-bold text-coral-700 hover:text-coral-800">
               All orders →
             </Link>
           </div>
           {orders.length === 0 ? (
-            <p className="py-6 text-center text-sm text-gray-400">No orders yet.</p>
+            <p className="py-6 text-center text-sm text-navy-400">No orders yet.</p>
           ) : (
-            <ul className="divide-y divide-gray-100">
+            <ul className="divide-y divide-navy-100">
               {orders.slice(0, 6).map((o) => (
                 <li key={o.orderId} className="flex items-center gap-3 py-2.5">
                   <Link href={`/admin/orders/${o.orderId}`} className="min-w-0 flex-1">
-                    <p className="truncate text-sm font-semibold text-gray-900 hover:text-indigo-600">
+                    <p className="truncate text-sm font-semibold text-navy-900 hover:text-coral-700">
                       {(o.customer as unknown as { fullName?: string; name?: string }).fullName ||
                         (o.customer as unknown as { name?: string }).name ||
                         "Customer"}
-                      <span className="ml-2 font-mono text-xs font-bold text-indigo-600">{o.orderId}</span>
+                      <span className="ml-2 font-mono text-xs font-bold text-coral-700">{o.orderId}</span>
                     </p>
-                    <p className="text-xs text-gray-400">
+                    <p className="text-xs text-navy-400">
                       {new Date(o.createdAt).toLocaleString("en-IN", { day: "2-digit", month: "short", hour: "2-digit", minute: "2-digit" })}
                     </p>
                   </Link>
                   <span className={`rounded-full px-2 py-1 text-xs font-bold ${ORDER_STATUS_CLASS[o.orderStatus]}`}>{o.orderStatus}</span>
-                  <span className="w-20 text-right text-sm font-bold text-gray-900">{formatINR(o.total)}</span>
+                  <span className="w-20 text-right text-sm font-bold text-navy-900">{formatINR(o.total)}</span>
                 </li>
               ))}
             </ul>

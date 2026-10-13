@@ -82,8 +82,8 @@ export default function AdminRestockRequests() {
   return (
     <div className="space-y-4">
       <div>
-        <h1 className="text-xl font-extrabold text-gray-900">Restock alerts</h1>
-        <p className="mt-0.5 text-sm text-gray-500">
+        <h1 className="text-xl font-extrabold text-navy-900">Restock alerts</h1>
+        <p className="mt-0.5 text-sm text-navy-500">
           Customers waiting to be told an out-of-stock product is available again.
         </p>
       </div>
@@ -96,7 +96,7 @@ export default function AdminRestockRequests() {
             key={t.key}
             onClick={() => setFilter(t.key)}
             className={`rounded-xl px-3.5 py-2 text-sm font-bold transition ${
-              filter === t.key ? "bg-indigo-600 text-white" : "border border-gray-200 bg-white text-gray-600 hover:bg-gray-50"
+              filter === t.key ? "bg-navy-900 text-white" : "border border-navy-200 bg-white text-navy-600 hover:bg-cream-50"
             }`}
           >
             {t.label}
@@ -105,37 +105,37 @@ export default function AdminRestockRequests() {
       </div>
 
       {items === null ? (
-        <div className="h-48 animate-pulse rounded-2xl border border-gray-200 bg-white" />
+        <div className="h-48 animate-pulse rounded-2xl border border-navy-200 bg-white" />
       ) : filtered.length === 0 ? (
-        <div className="rounded-2xl border border-gray-200 bg-white py-14 text-center">
+        <div className="rounded-2xl border border-navy-200 bg-white py-14 text-center">
           <span className="text-4xl">🔔</span>
-          <p className="mt-3 text-sm font-bold text-gray-900">
+          <p className="mt-3 text-sm font-bold text-navy-900">
             {filter === "pending" ? "No pending restock requests" : "Nothing here"}
           </p>
-          <p className="mt-1 text-sm text-gray-500">
+          <p className="mt-1 text-sm text-navy-500">
             {filter === "pending"
               ? "When a customer asks to be notified about an out-of-stock product, it appears here."
               : "Change the filter above to see other requests."}
           </p>
         </div>
       ) : (
-        <div className="overflow-hidden rounded-2xl border border-gray-200 bg-white">
-          <ul className="divide-y divide-gray-100">
+        <div className="overflow-hidden rounded-2xl border border-navy-200 bg-white">
+          <ul className="divide-y divide-navy-100">
             {filtered.map((r) => (
               <li key={r.id} className="flex flex-wrap items-center gap-3 px-4 py-3.5 sm:px-6">
                 <div className="min-w-0 flex-1">
-                  <p className="truncate text-sm font-bold text-gray-900">
+                  <p className="truncate text-sm font-bold text-navy-900">
                     {r.email}
                     <a
                       href={`/product/${r.productSlug}`}
                       target="_blank"
                       rel="noreferrer"
-                      className="ml-2 font-semibold text-indigo-600 hover:text-indigo-700"
+                      className="ml-2 font-semibold text-coral-700 hover:text-coral-800"
                     >
                       {r.productName}
                     </a>
                   </p>
-                  <p className="mt-0.5 text-xs text-gray-400">
+                  <p className="mt-0.5 text-xs text-navy-400">
                     {new Date(r.requestedAt).toLocaleString("en-IN", {
                       day: "2-digit",
                       month: "short",
@@ -160,7 +160,7 @@ export default function AdminRestockRequests() {
                   )}
                   <button
                     onClick={() => remove(r)}
-                    className="rounded-xl border border-gray-200 bg-white px-3 py-2 text-xs font-bold text-gray-500 transition hover:border-red-200 hover:text-red-500"
+                    className="rounded-xl border border-navy-200 bg-white px-3 py-2 text-xs font-bold text-navy-500 transition hover:border-red-200 hover:text-red-500"
                   >
                     Delete
                   </button>

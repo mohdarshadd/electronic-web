@@ -82,15 +82,15 @@ export default function AdminCustomers() {
   }
 
   if (!customers || !orders) {
-    return <div className="h-96 animate-pulse rounded-2xl border border-gray-200 bg-white" />;
+    return <div className="h-96 animate-pulse rounded-2xl border border-navy-200 bg-white" />;
   }
 
   return (
     <div className="space-y-4">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h1 className="text-xl font-extrabold text-gray-900">Customers</h1>
-          <p className="mt-0.5 text-sm text-gray-500">
+          <h1 className="text-xl font-extrabold text-navy-900">Customers</h1>
+          <p className="mt-0.5 text-sm text-navy-500">
             {customers.length} customer{customers.length === 1 ? "" : "s"} · lifetime value {formatINR(totalRevenue)}
           </p>
         </div>
@@ -98,17 +98,17 @@ export default function AdminCustomers() {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder="Search name, phone, email, city…"
-          className="w-full max-w-xs rounded-xl border border-gray-200 bg-white px-3.5 py-2 text-sm outline-none transition focus:border-indigo-400 focus:ring-4 focus:ring-indigo-100"
+          className="w-full max-w-xs rounded-xl border border-navy-200 bg-white px-3.5 py-2 text-sm outline-none transition focus:border-coral-400 focus:ring-4 focus:ring-coral-100"
         />
       </div>
 
-      <div className="overflow-hidden rounded-2xl border border-gray-200 bg-white">
+      <div className="overflow-hidden rounded-2xl border border-navy-200 bg-white">
         {filtered.length === 0 ? (
-          <p className="px-6 py-12 text-center text-sm text-gray-400">
+          <p className="px-6 py-12 text-center text-sm text-navy-400">
             {customers.length === 0 ? "No customers yet — they appear after the first order." : "No customers match your search."}
           </p>
         ) : (
-          <ul className="divide-y divide-gray-100">
+          <ul className="divide-y divide-navy-100">
             {filtered.map((c) => {
               const isOpen = expanded === c.key;
               const customerOrders = orders
@@ -122,9 +122,9 @@ export default function AdminCustomers() {
                 <li key={c.key}>
                   <button
                     onClick={() => setExpanded(isOpen ? null : c.key)}
-                    className="flex w-full flex-wrap items-center gap-3 px-4 py-3 text-left transition hover:bg-gray-50"
+                    className="flex w-full flex-wrap items-center gap-3 px-4 py-3 text-left transition hover:bg-cream-50"
                   >
-                    <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-indigo-50 text-sm font-extrabold text-indigo-600">
+                    <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-coral-50 text-sm font-extrabold text-coral-700">
                       {c.fullName
                         .split(" ")
                         .map((x) => x[0])
@@ -133,38 +133,38 @@ export default function AdminCustomers() {
                         .toUpperCase() || "?"}
                     </span>
                     <div className="min-w-0 flex-1">
-                      <p className="truncate text-sm font-bold text-gray-900">{c.fullName}</p>
-                      <p className="text-xs text-gray-400">
+                      <p className="truncate text-sm font-bold text-navy-900">{c.fullName}</p>
+                      <p className="text-xs text-navy-400">
                         {c.phone} · {c.email}
                       </p>
                     </div>
                     <div className="hidden text-right sm:block">
-                      <p className="text-sm font-bold text-gray-900">{formatINR(c.totalSpent)}</p>
-                      <p className="text-xs text-gray-400">
+                      <p className="text-sm font-bold text-navy-900">{formatINR(c.totalSpent)}</p>
+                      <p className="text-xs text-navy-400">
                         {c.ordersCount} order{c.ordersCount === 1 ? "" : "s"} · {c.city}
                       </p>
                     </div>
-                    <span className="text-xs font-medium text-gray-400">
+                    <span className="text-xs font-medium text-navy-400">
                       last {new Date(c.lastOrderAt).toLocaleDateString("en-IN", { day: "2-digit", month: "short" })}
                     </span>
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className={`h-4 w-4 text-gray-400 transition ${isOpen ? "rotate-180" : ""}`}>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className={`h-4 w-4 text-navy-400 transition ${isOpen ? "rotate-180" : ""}`}>
                       <path d="M6 9l6 6 6-6" />
                     </svg>
                   </button>
                   {isOpen && (
-                    <div className="border-t border-gray-100 bg-gray-50/60 px-4 py-4 sm:px-6">
-                      <p className="text-xs font-bold uppercase tracking-wide text-gray-400">Orders</p>
-                      <ul className="mt-2 divide-y divide-gray-200">
+                    <div className="border-t border-navy-100 bg-cream-50/60 px-4 py-4 sm:px-6">
+                      <p className="text-xs font-bold uppercase tracking-wide text-navy-400">Orders</p>
+                      <ul className="mt-2 divide-y divide-navy-200">
                         {customerOrders.map((o) => (
                           <li key={o.orderId} className="flex flex-wrap items-center gap-3 py-2.5">
-                            <Link href={`/admin/orders/${o.orderId}`} className="font-mono text-xs font-bold text-indigo-600 hover:text-indigo-700">
+                            <Link href={`/admin/orders/${o.orderId}`} className="font-mono text-xs font-bold text-coral-700 hover:text-coral-800">
                               {o.orderId}
                             </Link>
-                            <span className="text-xs text-gray-400">
+                            <span className="text-xs text-navy-400">
                               {new Date(o.createdAt).toLocaleString("en-IN", { day: "2-digit", month: "short", hour: "2-digit", minute: "2-digit" })}
                             </span>
                             <span className={`rounded-full px-2 py-0.5 text-[10px] font-bold ${ORDER_STATUS_CLASS[o.orderStatus]}`}>{o.orderStatus}</span>
-                            <span className="ml-auto text-sm font-bold text-gray-900">{formatINR(o.total)}</span>
+                            <span className="ml-auto text-sm font-bold text-navy-900">{formatINR(o.total)}</span>
                           </li>
                         ))}
                       </ul>

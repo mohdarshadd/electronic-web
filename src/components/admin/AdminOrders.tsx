@@ -74,7 +74,7 @@ export default function AdminOrders() {
   const hasFilters = search !== "" || orderStatus !== "ALL" || paymentStatus !== "ALL" || paymentMethod !== "ALL";
 
   const selectCls =
-    "rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm font-semibold text-gray-700 outline-none transition focus:border-indigo-400 focus:ring-4 focus:ring-indigo-100";
+    "rounded-xl border border-navy-200 bg-white px-3 py-2 text-sm font-semibold text-navy-700 outline-none transition focus:border-coral-400 focus:ring-4 focus:ring-coral-100";
 
   if (error) {
     return (
@@ -90,9 +90,9 @@ export default function AdminOrders() {
   if (!orders) {
     return (
       <div className="space-y-4">
-        <div className="h-8 w-48 animate-pulse rounded-xl bg-gray-200" />
-        <div className="h-12 animate-pulse rounded-2xl border border-gray-200 bg-white" />
-        <div className="h-96 animate-pulse rounded-2xl border border-gray-200 bg-white" />
+        <div className="h-8 w-48 animate-pulse rounded-xl bg-navy-100" />
+        <div className="h-12 animate-pulse rounded-2xl border border-navy-200 bg-white" />
+        <div className="h-96 animate-pulse rounded-2xl border border-navy-200 bg-white" />
       </div>
     );
   }
@@ -101,8 +101,8 @@ export default function AdminOrders() {
     <div className="space-y-4">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h1 className="text-xl font-extrabold text-gray-900">Orders</h1>
-          <p className="mt-0.5 text-sm text-gray-500">
+          <h1 className="text-xl font-extrabold text-navy-900">Orders</h1>
+          <p className="mt-0.5 text-sm text-navy-500">
             {filtered.length} of {orders.length} order{orders.length === 1 ? "" : "s"}
           </p>
         </div>
@@ -110,25 +110,25 @@ export default function AdminOrders() {
           <a
             href="/api/admin/export/orders"
             download
-            className="rounded-xl border border-gray-200 bg-white px-4 py-2 text-sm font-bold text-gray-700 transition hover:bg-gray-50"
+            className="rounded-xl border border-navy-200 bg-white px-4 py-2 text-sm font-bold text-navy-700 transition hover:bg-cream-50"
           >
             Export CSV
           </a>
           <button
             onClick={reload}
-            className="rounded-xl border border-gray-200 bg-white px-4 py-2 text-sm font-bold text-gray-700 transition hover:bg-gray-50"
+            className="rounded-xl border border-navy-200 bg-white px-4 py-2 text-sm font-bold text-navy-700 transition hover:bg-cream-50"
           >
             Refresh
           </button>
         </div>
       </div>
 
-      <div className="grid gap-2 rounded-2xl border border-gray-200 bg-white p-3 sm:grid-cols-2 lg:grid-cols-5">
+      <div className="grid gap-2 rounded-2xl border border-navy-200 bg-white p-3 sm:grid-cols-2 lg:grid-cols-5">
         <input
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder="Search order / customer / phone…"
-          className="rounded-xl border border-gray-200 bg-gray-50 px-3.5 py-2 text-sm outline-none transition focus:border-indigo-400 focus:bg-white focus:ring-4 focus:ring-indigo-100 sm:col-span-2"
+          className="rounded-xl border border-navy-200 bg-cream-50 px-3.5 py-2 text-sm outline-none transition focus:border-coral-400 focus:bg-white focus:ring-4 focus:ring-coral-100 sm:col-span-2"
         />
         <select value={orderStatus} onChange={(e) => setOrderStatus(e.target.value)} className={selectCls}>
           <option value="ALL">Any status</option>
@@ -161,7 +161,7 @@ export default function AdminOrders() {
 
       {hasFilters && (
         <div className="flex items-center gap-2 text-sm">
-          <span className="text-gray-500">Filtered view.</span>
+          <span className="text-navy-500">Filtered view.</span>
           <button
             onClick={() => {
               setSearch("");
@@ -169,7 +169,7 @@ export default function AdminOrders() {
               setPaymentStatus("ALL");
               setPaymentMethod("ALL");
             }}
-            className="font-bold text-indigo-600 hover:text-indigo-700"
+            className="font-bold text-coral-700 hover:text-coral-800"
           >
             Clear filters
           </button>

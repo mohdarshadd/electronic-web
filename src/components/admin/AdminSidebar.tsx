@@ -34,25 +34,25 @@ export default function AdminSidebar({ authed }: { authed: boolean }) {
   }
 
   return (
-    <aside className="flex w-full shrink-0 flex-col gap-1 border-b border-gray-200 bg-white p-3 lg:h-screen lg:sticky lg:top-0 lg:w-60 lg:overflow-y-auto lg:border-b-0 lg:border-r lg:py-6">
+    <aside className="flex w-full shrink-0 flex-col gap-1 border-b border-navy-200 bg-white p-3 lg:h-screen lg:sticky lg:top-0 lg:w-60 lg:overflow-y-auto lg:border-b-0 lg:border-r lg:py-6">
       <div className="mb-3 flex items-center gap-2.5 px-2 lg:mb-6">
-        <span className="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-indigo-600 to-violet-600 text-white shadow-sm">
+        <span className="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-navy-900 to-navy-700 text-white shadow-sm">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
             <path d="M13 2 3.5 13.5H11L9.5 22 19 10.5H11.5L13 2z" />
           </svg>
         </span>
         <div>
-          <p className="text-sm font-extrabold leading-tight text-gray-900">
-            Volt<span className="text-indigo-600">Cart</span>
+          <p className="text-sm font-extrabold leading-tight text-navy-900">
+            Volt<span className="text-coral-700">Cart</span>
           </p>
-          <p className="text-[10px] font-bold uppercase tracking-widest text-gray-400">Admin</p>
+          <p className="text-[10px] font-bold uppercase tracking-widest text-navy-400">Admin</p>
         </div>
       </div>
 
       <nav className="flex gap-1 overflow-x-auto lg:flex-col">
         {NAV.map((group) => (
           <div key={group.label} className="flex gap-1 lg:flex-col">
-            <p className="hidden px-3 pt-4 pb-1 text-[10px] font-bold uppercase tracking-widest text-gray-400 lg:block">
+            <p className="hidden px-3 pt-4 pb-1 text-[10px] font-bold uppercase tracking-widest text-navy-400 lg:block">
               {group.label}
             </p>
             {group.items.map((n) => {
@@ -62,10 +62,10 @@ export default function AdminSidebar({ authed }: { authed: boolean }) {
                   key={n.href}
                   href={n.href}
                   className={`flex shrink-0 items-center gap-2.5 rounded-xl px-3 py-2.5 text-sm font-semibold transition ${
-                    active ? "bg-indigo-50 text-indigo-700" : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+                    active ? "bg-coral-50 text-coral-700" : "text-navy-600 hover:bg-cream-50 hover:text-navy-900"
                   }`}
                 >
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" className={active ? "text-indigo-600" : "text-gray-400"}>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" className={active ? "text-coral-700" : "text-navy-400"}>
                     <path d={n.icon} />
                   </svg>
                   <span className="whitespace-nowrap">{n.label}</span>
@@ -79,9 +79,9 @@ export default function AdminSidebar({ authed }: { authed: boolean }) {
       <div className="mt-auto flex flex-col gap-1 pt-6">
         <Link
           href="/"
-          className="flex items-center gap-2.5 rounded-xl px-3 py-2.5 text-sm font-semibold text-gray-600 transition hover:bg-gray-50 hover:text-gray-900"
+          className="flex items-center gap-2.5 rounded-xl px-3 py-2.5 text-sm font-semibold text-navy-600 transition hover:bg-cream-50 hover:text-navy-900"
         >
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" className="text-gray-400">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" className="text-navy-400">
             <path d="M19 12H5m7 7-7-7 7-7" />
           </svg>
           Back to store
@@ -97,7 +97,7 @@ export default function AdminSidebar({ authed }: { authed: boolean }) {
             Sign out
           </button>
         ) : (
-          <p className="px-3 py-2 text-xs font-medium text-gray-400">Signed out</p>
+          <p className="px-3 py-2 text-xs font-medium text-navy-400">Signed out</p>
         )}
       </div>
     </aside>

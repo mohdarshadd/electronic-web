@@ -14,7 +14,7 @@ interface Settings {
 }
 
 const inputCls =
-  "w-full rounded-xl border border-gray-200 bg-white px-3.5 py-2.5 text-sm outline-none transition focus:border-indigo-400 focus:ring-4 focus:ring-indigo-100";
+  "w-full rounded-xl border border-navy-200 bg-white px-3.5 py-2.5 text-sm outline-none transition focus:border-coral-400 focus:ring-4 focus:ring-coral-100";
 
 export default function AdminSettings() {
   const router = useRouter();
@@ -105,20 +105,20 @@ export default function AdminSettings() {
   }
 
   if (!settings) {
-    return <div className="h-96 animate-pulse rounded-2xl border border-gray-200 bg-white" />;
+    return <div className="h-96 animate-pulse rounded-2xl border border-navy-200 bg-white" />;
   }
 
   return (
     <div className="mx-auto max-w-2xl space-y-6">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h1 className="text-xl font-extrabold text-gray-900">Settings</h1>
-          <p className="mt-0.5 text-sm text-gray-500">Storefront configuration live from the admin panel.</p>
+          <h1 className="text-xl font-extrabold text-navy-900">Settings</h1>
+          <p className="mt-0.5 text-sm text-navy-500">Storefront configuration live from the admin panel.</p>
         </div>
         <button
           onClick={save}
           disabled={busy}
-          className="rounded-xl bg-indigo-600 px-5 py-2.5 text-sm font-bold text-white transition hover:bg-indigo-700 disabled:cursor-not-allowed disabled:opacity-60"
+          className="rounded-xl bg-navy-900 px-5 py-2.5 text-sm font-bold text-white transition hover:bg-navy-800 disabled:cursor-not-allowed disabled:opacity-60"
         >
           {busy ? "Saving…" : "Save settings"}
         </button>
@@ -127,15 +127,15 @@ export default function AdminSettings() {
       {notice && <p className="rounded-xl bg-emerald-50 px-4 py-3 text-sm font-semibold text-emerald-700">{notice}</p>}
       {error && <p className="rounded-xl bg-red-50 px-4 py-3 text-sm font-semibold text-red-700">{error}</p>}
 
-      <section className="rounded-2xl border border-gray-200 bg-white p-5">
-        <h2 className="text-sm font-bold uppercase tracking-wide text-gray-400">Announcement bar</h2>
+      <section className="rounded-2xl border border-navy-200 bg-white p-5">
+        <h2 className="text-sm font-bold uppercase tracking-wide text-navy-400">Announcement bar</h2>
         <div className="mt-3 flex items-center gap-3">
-          <label className="flex cursor-pointer items-center gap-2 text-sm font-semibold text-gray-700">
+          <label className="flex cursor-pointer items-center gap-2 text-sm font-semibold text-navy-700">
             <input
               type="checkbox"
               checked={settings.announcementEnabled}
               onChange={(e) => patch({ announcementEnabled: e.target.checked })}
-              className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+              className="h-4 w-4 rounded border-navy-300 text-navy-900 focus:ring-coral-500"
             />
             Show announcement on every page
           </label>
@@ -147,25 +147,25 @@ export default function AdminSettings() {
           className={`${inputCls} mt-3 disabled:opacity-50`}
           disabled={!settings.announcementEnabled}
         />
-        <p className="mt-2 text-xs text-gray-400">Shown in the dark strip at the top of the header.</p>
+        <p className="mt-2 text-xs text-navy-400">Shown in the dark strip at the top of the header.</p>
       </section>
 
-      <section className="rounded-2xl border border-gray-200 bg-white p-5">
-        <h2 className="text-sm font-bold uppercase tracking-wide text-gray-400">Shipping</h2>
+      <section className="rounded-2xl border border-navy-200 bg-white p-5">
+        <h2 className="text-sm font-bold uppercase tracking-wide text-navy-400">Shipping</h2>
         <div className="mt-3 flex items-center gap-3">
-          <label className="flex cursor-pointer items-center gap-2 text-sm font-semibold text-gray-700">
+          <label className="flex cursor-pointer items-center gap-2 text-sm font-semibold text-navy-700">
             <input
               type="checkbox"
               checked={settings.freeShippingEnabled}
               onChange={(e) => patch({ freeShippingEnabled: e.target.checked })}
-              className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+              className="h-4 w-4 rounded border-navy-300 text-navy-900 focus:ring-coral-500"
             />
             Free shipping above threshold
           </label>
         </div>
         <div className="mt-4 grid gap-4 sm:grid-cols-2">
           <label className="block">
-            <span className="block text-xs font-bold uppercase tracking-wide text-gray-400">
+            <span className="block text-xs font-bold uppercase tracking-wide text-navy-400">
               Free shipping threshold (₹, in full rupees)
             </span>
             <input
@@ -178,7 +178,7 @@ export default function AdminSettings() {
             />
           </label>
           <label className="block">
-            <span className="block text-xs font-bold uppercase tracking-wide text-gray-400">Shipping fee (₹)</span>
+            <span className="block text-xs font-bold uppercase tracking-wide text-navy-400">Shipping fee (₹)</span>
             <input
               type="number"
               min={0}
@@ -188,25 +188,25 @@ export default function AdminSettings() {
             />
           </label>
         </div>
-        <p className="mt-2 text-xs text-gray-400">
+        <p className="mt-2 text-xs text-navy-400">
           Current config: {settings.freeShippingEnabled ? `free above ${formatINR(settings.freeShippingThreshold)}` : "free shipping disabled"} · fee{" "}
           {formatINR(settings.shippingFee)}.
         </p>
       </section>
 
-      <section className="rounded-2xl border border-gray-200 bg-white p-5">
-        <h2 className="text-sm font-bold uppercase tracking-wide text-gray-400">Coupons</h2>
-        <ul className="mt-3 divide-y divide-gray-100">
+      <section className="rounded-2xl border border-navy-200 bg-white p-5">
+        <h2 className="text-sm font-bold uppercase tracking-wide text-navy-400">Coupons</h2>
+        <ul className="mt-3 divide-y divide-navy-100">
           {Object.entries(settings.coupons).map(([code, c]) => (
             <li key={code} className="flex items-center justify-between gap-3 py-3">
               <div>
-                <p className="text-sm font-bold text-gray-900">
-                  {code} <span className="ml-1 font-semibold text-gray-400">· {c.name} · {c.pct}% off</span>
+                <p className="text-sm font-bold text-navy-900">
+                  {code} <span className="ml-1 font-semibold text-navy-400">· {c.name} · {c.pct}% off</span>
                 </p>
               </div>
               <button
                 onClick={() => patchCoupon(code, !c.enabled)}
-                className={`relative inline-flex h-5 w-9 items-center rounded-full transition ${c.enabled ? "bg-emerald-500" : "bg-gray-300"}`}
+                className={`relative inline-flex h-5 w-9 items-center rounded-full transition ${c.enabled ? "bg-emerald-500" : "bg-navy-200"}`}
                 aria-label={`Toggle ${code}`}
               >
                 <span className={`h-4 w-4 transform rounded-full bg-white shadow transition ${c.enabled ? "translate-x-4" : "translate-x-0.5"}`} />
@@ -214,7 +214,7 @@ export default function AdminSettings() {
             </li>
           ))}
         </ul>
-        <p className="mt-2 text-xs text-gray-400">
+        <p className="mt-2 text-xs text-navy-400">
           Disabled coupons are rejected at checkout and hidden from the storefront.
         </p>
       </section>

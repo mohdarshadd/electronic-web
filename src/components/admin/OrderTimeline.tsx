@@ -15,16 +15,16 @@ export default function OrderTimeline({ order }: { order: Order }) {
   if (order.orderStatus === "CANCELLED") {
     return (
       <div className="rounded-2xl border border-red-200 bg-white p-6">
-        <h3 className="text-xs font-bold uppercase tracking-wide text-gray-400">Order timeline</h3>
+        <h3 className="text-xs font-bold uppercase tracking-wide text-navy-400">Order timeline</h3>
         <div className="mt-4 flex items-center gap-3">
           <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-red-600 text-xs font-extrabold text-white">✕</span>
           <div>
             <p className="text-sm font-bold text-red-600">Cancelled</p>
-            <p className="text-xs text-gray-400">This order was cancelled and will not be fulfilled.</p>
+            <p className="text-xs text-navy-400">This order was cancelled and will not be fulfilled.</p>
           </div>
         </div>
-        <div className="mt-3 border-t border-gray-100 pt-3">
-          <p className="text-xs text-gray-400">
+        <div className="mt-3 border-t border-navy-100 pt-3">
+          <p className="text-xs text-navy-400">
             Placed {new Date(order.createdAt).toLocaleString("en-IN", { dateStyle: "medium", timeStyle: "short" })}
           </p>
         </div>
@@ -32,13 +32,13 @@ export default function OrderTimeline({ order }: { order: Order }) {
           <ul className="mt-3 space-y-2">
             {order.activity.map((a, i) => (
               <li key={i} className="flex flex-wrap items-center gap-2 text-xs">
-                <span className="font-semibold text-gray-900">
+                <span className="font-semibold text-navy-900">
                   {a.by === "admin" ? "Admin" : "System"} · {a.field}
                 </span>
-                <span className="text-gray-400">
+                <span className="text-navy-400">
                   {a.from} → {a.to}
                 </span>
-                <span className="ml-auto text-gray-400">
+                <span className="ml-auto text-navy-400">
                   {new Date(a.at).toLocaleString("en-IN", { day: "2-digit", month: "short", hour: "2-digit", minute: "2-digit" })}
                 </span>
               </li>
@@ -53,8 +53,8 @@ export default function OrderTimeline({ order }: { order: Order }) {
   const reached = Math.max(current, 0);
 
   return (
-    <div className="rounded-2xl border border-gray-200 bg-white p-6">
-      <h3 className="text-xs font-bold uppercase tracking-wide text-gray-400">Order timeline</h3>
+    <div className="rounded-2xl border border-navy-200 bg-white p-6">
+      <h3 className="text-xs font-bold uppercase tracking-wide text-navy-400">Order timeline</h3>
       <ol className="mt-4 space-y-0">
         {FLOW.map((step, i) => {
           const done = i <= reached;
@@ -63,25 +63,25 @@ export default function OrderTimeline({ order }: { order: Order }) {
             i === 0 ? order.createdAt : entry;
           return (
             <li key={step} className="relative flex gap-3 pb-5 last:pb-0">
-              {i < FLOW.length - 1 && <span className={`absolute left-[15px] top-7 h-[calc(100%-28px)] w-0.5 ${done ? "bg-indigo-300" : "bg-gray-200"}`} />}
+              {i < FLOW.length - 1 && <span className={`absolute left-[15px] top-7 h-[calc(100%-28px)] w-0.5 ${done ? "bg-navy-300" : "bg-navy-100"}`} />}
               <span
                 className={`z-10 grid h-8 w-8 shrink-0 place-items-center rounded-full text-xs font-extrabold ${
-                  done ? "bg-indigo-600 text-white" : "border-2 border-gray-200 text-gray-300"
+                  done ? "bg-navy-900 text-white" : "border-2 border-navy-200 text-navy-300"
                 }`}
               >
                 {done ? "✓" : i + 1}
               </span>
               <div className="pt-1">
                 <div className="flex items-center gap-2">
-                  <p className={`text-sm font-bold ${done ? "text-gray-900" : "text-gray-300"}`}>
+                  <p className={`text-sm font-bold ${done ? "text-navy-900" : "text-navy-300"}`}>
                     {step[0] + step.slice(1).toLowerCase()}
                   </p>
                   <span className={`rounded-full px-1.5 py-0.5 text-[10px] font-bold ${ORDER_STATUS_CLASS[order.orderStatus]}`}>
                     {i === reached ? "current" : done ? "done" : "upcoming"}
                   </span>
                 </div>
-                <p className="text-xs text-gray-400">{FLOW_DESC[step]}</p>
-                <p className="text-xs font-medium text-gray-500">
+                <p className="text-xs text-navy-400">{FLOW_DESC[step]}</p>
+                <p className="text-xs font-medium text-navy-500">
                   {ts ? new Date(ts).toLocaleString("en-IN", { dateStyle: "medium", timeStyle: "short" }) : "Not reached yet"}
                 </p>
               </div>
@@ -91,18 +91,18 @@ export default function OrderTimeline({ order }: { order: Order }) {
       </ol>
 
       {order.activity && order.activity.length > 0 && (
-        <div className="mt-5 border-t border-gray-100 pt-4">
-          <h4 className="text-xs font-bold uppercase tracking-wide text-gray-400">Audit log</h4>
+        <div className="mt-5 border-t border-navy-100 pt-4">
+          <h4 className="text-xs font-bold uppercase tracking-wide text-navy-400">Audit log</h4>
           <ul className="mt-2 space-y-2">
             {order.activity.map((a, i) => (
               <li key={i} className="flex flex-wrap items-center gap-2 text-xs">
-                <span className="font-semibold text-gray-900">
+                <span className="font-semibold text-navy-900">
                   {a.by === "admin" ? "Admin" : "System"} · {a.field}
                 </span>
-                <span className="text-gray-400">
+                <span className="text-navy-400">
                   {a.from} → {a.to}
                 </span>
-                <span className="ml-auto text-gray-400">
+                <span className="ml-auto text-navy-400">
                   {new Date(a.at).toLocaleString("en-IN", { day: "2-digit", month: "short", hour: "2-digit", minute: "2-digit" })}
                 </span>
               </li>

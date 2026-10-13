@@ -97,7 +97,7 @@ export default function AdminInventory() {
   }
 
   if (!items) {
-    return <div className="h-96 animate-pulse rounded-2xl border border-gray-200 bg-white" />;
+    return <div className="h-96 animate-pulse rounded-2xl border border-navy-200 bg-white" />;
   }
 
   function setDraft(id: string, patch: Partial<Draft>) {
@@ -151,7 +151,7 @@ export default function AdminInventory() {
   }
 
   const inputCls =
-    "w-24 rounded-lg border border-gray-200 bg-white px-2.5 py-1.5 text-right text-sm font-semibold text-gray-900 outline-none transition focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100";
+    "w-24 rounded-lg border border-navy-200 bg-white px-2.5 py-1.5 text-right text-sm font-semibold text-navy-900 outline-none transition focus:border-coral-400 focus:ring-2 focus:ring-coral-100";
   const toggleCls =
     "relative inline-flex h-5 w-9 items-center rounded-full transition";
 
@@ -159,26 +159,26 @@ export default function AdminInventory() {
     <div className="space-y-4">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h1 className="text-xl font-extrabold text-gray-900">Inventory</h1>
-          <p className="mt-0.5 text-sm text-gray-500">{items.length} products · prices in ₹ (paise)</p>
+          <h1 className="text-xl font-extrabold text-navy-900">Inventory</h1>
+          <p className="mt-0.5 text-sm text-navy-500">{items.length} products · prices in ₹ (paise)</p>
         </div>
         <div className="flex items-center gap-2">
           <input
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search name, SKU…"
-            className="w-full max-w-xs rounded-xl border border-gray-200 bg-white px-3.5 py-2 text-sm outline-none transition focus:border-indigo-400 focus:ring-4 focus:ring-indigo-100"
+            className="w-full max-w-xs rounded-xl border border-navy-200 bg-white px-3.5 py-2 text-sm outline-none transition focus:border-coral-400 focus:ring-4 focus:ring-coral-100"
           />
           <a
             href="/api/admin/export/inventory"
             download
-            className="rounded-xl border border-gray-200 bg-white px-4 py-2 text-sm font-bold text-gray-700 transition hover:bg-gray-50"
+            className="rounded-xl border border-navy-200 bg-white px-4 py-2 text-sm font-bold text-navy-700 transition hover:bg-cream-50"
           >
             Export CSV
           </a>
           <button
             onClick={reload}
-            className="rounded-xl border border-gray-200 bg-white px-4 py-2 text-sm font-bold text-gray-700 transition hover:bg-gray-50"
+            className="rounded-xl border border-navy-200 bg-white px-4 py-2 text-sm font-bold text-navy-700 transition hover:bg-cream-50"
           >
             Refresh
           </button>
@@ -187,8 +187,8 @@ export default function AdminInventory() {
 
       {error && <div className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm font-semibold text-red-700">{error}</div>}
 
-      <div className="rounded-2xl border border-gray-200 bg-white">
-        <div className="flex items-center justify-between border-b border-gray-200 px-4 py-3 text-xs font-bold uppercase tracking-wide text-gray-400">
+      <div className="rounded-2xl border border-navy-200 bg-white">
+        <div className="flex items-center justify-between border-b border-navy-200 px-4 py-3 text-xs font-bold uppercase tracking-wide text-navy-400">
           <span>Product catalogue</span>
           <label className="flex cursor-pointer items-center gap-2 normal-case tracking-normal">
             <input
@@ -198,16 +198,16 @@ export default function AdminInventory() {
                 setOverridesOnly(e.target.checked);
                 setSearch("");
               }}
-              className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+              className="h-4 w-4 rounded border-navy-300 text-navy-900 focus:ring-coral-500"
             />
             Only overridden
           </label>
         </div>
 
         {filtered.length === 0 ? (
-          <p className="px-6 py-12 text-center text-sm text-gray-400">No products {overridesOnly ? "with overrides yet — edit a value below to create one." : "match."}</p>
+          <p className="px-6 py-12 text-center text-sm text-navy-400">No products {overridesOnly ? "with overrides yet — edit a value below to create one." : "match."}</p>
         ) : (
-          <ul className="divide-y divide-gray-100">
+          <ul className="divide-y divide-navy-100">
             {filtered.map((p) => {
               const d = drafts[p.id] ?? { price: String(p.price), mrp: String(p.mrp), stock: String(p.stock), inStock: p.inStock };
               const dirty =
@@ -217,43 +217,43 @@ export default function AdminInventory() {
               return (
                 <li key={p.id} className="px-4 py-3">
                   <div className="flex flex-wrap items-center gap-3">
-                    <span className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-gray-100 text-base">{p.emoji}</span>
+                    <span className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-cream-100 text-base">{p.emoji}</span>
                     <div className="min-w-0 flex-1">
-                      <p className="truncate text-sm font-bold text-gray-900">{p.name}</p>
-                      <p className="text-xs text-gray-400">
+                      <p className="truncate text-sm font-bold text-navy-900">{p.name}</p>
+                      <p className="text-xs text-navy-400">
                         {p.sku} · {p.categorySlug}
                         {lowStock && <span className="ml-2 rounded-full bg-amber-50 px-1.5 py-0.5 text-[10px] font-bold text-amber-700">low stock</span>}
                         {p.stock === 0 && <span className="ml-2 rounded-full bg-red-50 px-1.5 py-0.5 text-[10px] font-bold text-red-700">out of stock</span>}
                         {(pendingCounts[p.id] ?? 0) > 0 && (
-                          <span className="ml-2 rounded-full bg-indigo-50 px-1.5 py-0.5 text-[10px] font-bold text-indigo-700">
+                          <span className="ml-2 rounded-full bg-coral-50 px-1.5 py-0.5 text-[10px] font-bold text-coral-700">
                             {pendingCounts[p.id]} waiting
                           </span>
                         )}
                       </p>
-                      <p className="text-xs text-gray-400">
+                      <p className="text-xs text-navy-400">
                         base {formatINR(p.price)} · MRP {formatINR(p.mrp)} · {discount}% off
                       </p>
                     </div>
 
                     <div className="flex items-end gap-2">
                       <label className="text-center">
-                        <span className="block text-[10px] font-bold uppercase text-gray-400">Price ₹</span>
+                        <span className="block text-[10px] font-bold uppercase text-navy-400">Price ₹</span>
                         <input value={d.price} onChange={(e) => setDraft(p.id, { price: e.target.value })} className={inputCls} inputMode="decimal" />
                       </label>
                       <label className="text-center">
-                        <span className="block text-[10px] font-bold uppercase text-gray-400">MRP ₹</span>
+                        <span className="block text-[10px] font-bold uppercase text-navy-400">MRP ₹</span>
                         <input value={d.mrp} onChange={(e) => setDraft(p.id, { mrp: e.target.value })} className={inputCls} inputMode="decimal" />
                       </label>
                       <label className="text-center">
-                        <span className="block text-[10px] font-bold uppercase text-gray-400">Stock</span>
+                        <span className="block text-[10px] font-bold uppercase text-navy-400">Stock</span>
                         <input value={d.stock} onChange={(e) => setDraft(p.id, { stock: e.target.value })} className={inputCls} inputMode="numeric" />
                       </label>
                       <label className="flex flex-col items-center gap-1">
-                        <span className="block text-[10px] font-bold uppercase text-gray-400">Active</span>
+                        <span className="block text-[10px] font-bold uppercase text-navy-400">Active</span>
                         <button
                           type="button"
                           onClick={() => setDraft(p.id, { inStock: !d.inStock })}
-                          className={`${toggleCls} ${d.inStock ? "bg-emerald-500" : "bg-gray-300"} ${busyId === p.id ? "cursor-wait" : "cursor-pointer"}`}
+                          className={`${toggleCls} ${d.inStock ? "bg-emerald-500" : "bg-navy-200"} ${busyId === p.id ? "cursor-wait" : "cursor-pointer"}`}
                           aria-label={`Toggle availability for ${p.name}`}
                         >
                           <span className={`h-4 w-4 transform rounded-full bg-white shadow transition ${d.inStock ? "translate-x-4" : "translate-x-0.5"}`} />
@@ -268,13 +268,13 @@ export default function AdminInventory() {
                           <button
                             onClick={() => save(p)}
                             disabled={busyId === p.id}
-                            className="rounded-xl bg-indigo-600 px-3.5 py-2 text-xs font-bold text-white transition hover:bg-indigo-700 disabled:cursor-not-allowed disabled:opacity-60"
+                            className="rounded-xl bg-navy-900 px-3.5 py-2 text-xs font-bold text-white transition hover:bg-navy-800 disabled:cursor-not-allowed disabled:opacity-60"
                           >
                             {busyId === p.id ? "Saving…" : "Save"}
                           </button>
                           <button
                             onClick={() => reset(p)}
-                            className="rounded-xl border border-gray-200 bg-white px-3 py-2 text-xs font-bold text-gray-600 transition hover:bg-gray-50"
+                            className="rounded-xl border border-navy-200 bg-white px-3 py-2 text-xs font-bold text-navy-600 transition hover:bg-cream-50"
                           >
                             Reset
                           </button>

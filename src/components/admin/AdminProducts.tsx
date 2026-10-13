@@ -338,21 +338,21 @@ export default function AdminProducts() {
   }, [photoFile, editing]);
 
   const inputClass =
-    "w-full rounded-xl border border-gray-200 px-3 py-2 text-sm outline-none transition focus:border-indigo-400";
-  const labelClass = "text-xs font-bold uppercase tracking-wide text-gray-400";
+    "w-full rounded-xl border border-navy-200 px-3 py-2 text-sm outline-none transition focus:border-coral-400";
+  const labelClass = "text-xs font-bold uppercase tracking-wide text-navy-400";
 
   return (
     <div className="mx-auto max-w-6xl space-y-6 p-4 sm:p-6 lg:p-8">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h1 className="text-xl font-extrabold tracking-tight text-gray-900 sm:text-2xl">Products</h1>
-          <p className="mt-1 text-sm text-gray-500">
+          <h1 className="text-xl font-extrabold tracking-tight text-navy-900 sm:text-2xl">Products</h1>
+          <p className="mt-1 text-sm text-navy-500">
             Add new items to the VoltCart catalogue — with image, pricing, specs and badges. They go live on the store immediately.
           </p>
         </div>
         <button
           onClick={openAdd}
-          className="inline-flex items-center gap-2 rounded-xl bg-indigo-600 px-4 py-2.5 text-sm font-bold text-white shadow-sm transition hover:bg-indigo-700"
+          className="inline-flex items-center gap-2 rounded-xl bg-navy-900 px-4 py-2.5 text-sm font-bold text-white shadow-sm transition hover:bg-navy-800"
         >
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><path d="M12 5v14M5 12h14" /></svg>
           Add product
@@ -367,18 +367,18 @@ export default function AdminProducts() {
       )}
 
       {items === null ? (
-        <p className="py-12 text-center text-sm text-gray-400">Loading products…</p>
+        <p className="py-12 text-center text-sm text-navy-400">Loading products…</p>
       ) : items.length === 0 ? (
-        <div className="rounded-2xl border border-dashed border-gray-200 bg-white py-16 text-center">
+        <div className="rounded-2xl border border-dashed border-navy-200 bg-white py-16 text-center">
           <span className="text-5xl">📦</span>
-          <p className="mt-4 text-base font-bold text-gray-900">No custom products yet</p>
-          <p className="mt-1 text-sm text-gray-500">
+          <p className="mt-4 text-base font-bold text-navy-900">No custom products yet</p>
+          <p className="mt-1 text-sm text-navy-500">
             Click “Add product” to publish your first item — image, price, specs and all.
           </p>
         </div>
       ) : (
-        <div className="overflow-hidden rounded-2xl border border-gray-200 bg-white">
-          <ul className="divide-y divide-gray-100">
+        <div className="overflow-hidden rounded-2xl border border-navy-200 bg-white">
+          <ul className="divide-y divide-navy-100">
             {items.map((p) => (
               <li key={p.id} className="flex flex-wrap items-center gap-4 px-4 py-3.5 sm:px-6">
                 {p.image === "jpg" ? (
@@ -390,19 +390,19 @@ export default function AdminProducts() {
                   </span>
                 )}
                 <div className="min-w-0 flex-1">
-                  <p className="truncate text-sm font-bold text-gray-900">
+                  <p className="truncate text-sm font-bold text-navy-900">
                     {p.name}
                     {p.featured && <span className="ml-2 rounded-md bg-amber-100 px-1.5 py-0.5 text-[10px] font-bold uppercase text-amber-700">Featured</span>}
                     {p.isNew && <span className="ml-1.5 rounded-md bg-emerald-100 px-1.5 py-0.5 text-[10px] font-bold uppercase text-emerald-700">New</span>}
                   </p>
-                  <p className="mt-0.5 truncate text-xs text-gray-400">
-                    {p.sku} · {p.brand} · {categories.find((c) => c.slug === p.categorySlug)?.name ?? p.categorySlug} · <span className="text-gray-500">/product/{p.slug}</span>
-                    {(p.datasheet === "pdf" || p.datasheetUrl) && <span className="ml-2 text-indigo-500">· datasheet</span>}
+                  <p className="mt-0.5 truncate text-xs text-navy-400">
+                    {p.sku} · {p.brand} · {categories.find((c) => c.slug === p.categorySlug)?.name ?? p.categorySlug} · <span className="text-navy-500">/product/{p.slug}</span>
+                    {(p.datasheet === "pdf" || p.datasheetUrl) && <span className="ml-2 text-coral-600">· datasheet</span>}
                   </p>
                 </div>
                 <div className="hidden text-right sm:block">
-                  <p className="text-sm font-extrabold text-gray-900">{formatINR(p.price)}</p>
-                  <p className="text-xs text-gray-400 line-through">{formatINR(p.mrp)}</p>
+                  <p className="text-sm font-extrabold text-navy-900">{formatINR(p.price)}</p>
+                  <p className="text-xs text-navy-400 line-through">{formatINR(p.mrp)}</p>
                 </div>
                 <span
                   className={`hidden rounded-md px-2 py-1 text-[11px] font-bold md:inline ${
@@ -416,15 +416,15 @@ export default function AdminProducts() {
                     href={`/product/${p.slug}`}
                     target="_blank"
                     rel="noreferrer"
-                    className="rounded-lg p-2 text-gray-400 transition hover:bg-gray-50 hover:text-indigo-600"
+                    className="rounded-lg p-2 text-navy-400 transition hover:bg-cream-50 hover:text-coral-700"
                     title="View in store"
                   >
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14 21 3" /></svg>
                   </a>
-                  <button onClick={() => openEdit(p)} className="rounded-lg p-2 text-gray-400 transition hover:bg-gray-50 hover:text-indigo-600" title="Edit">
+                  <button onClick={() => openEdit(p)} className="rounded-lg p-2 text-navy-400 transition hover:bg-cream-50 hover:text-coral-700" title="Edit">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z" /></svg>
                   </button>
-                  <button onClick={() => remove(p)} className="rounded-lg p-2 text-gray-400 transition hover:bg-red-50 hover:text-red-500" title="Delete">
+                  <button onClick={() => remove(p)} className="rounded-lg p-2 text-navy-400 transition hover:bg-red-50 hover:text-red-500" title="Delete">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M4 7h16M9 7V5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2m-9 0 9 13H8L7 7" /></svg>
                   </button>
                 </div>
@@ -435,30 +435,30 @@ export default function AdminProducts() {
       )}
 
       {formOpen && (
-        <div className="fixed inset-0 z-50 overflow-y-auto bg-gray-900/50 p-4 backdrop-blur-sm sm:p-8" role="dialog" aria-modal="true" aria-label={editingId ? "Edit product" : "Add product"}>
-          <form onSubmit={submit} className="mx-auto max-w-3xl space-y-6 rounded-3xl border border-gray-100 bg-white p-6 shadow-2xl">
+        <div className="fixed inset-0 z-50 overflow-y-auto bg-navy-950/50 p-4 backdrop-blur-sm sm:p-8" role="dialog" aria-modal="true" aria-label={editingId ? "Edit product" : "Add product"}>
+          <form onSubmit={submit} className="mx-auto max-w-3xl space-y-6 rounded-3xl border border-navy-100 bg-white p-6 shadow-2xl">
             <div className="flex items-center justify-between">
-              <h2 className="text-lg font-extrabold text-gray-900">{editingId ? "Edit product" : "Add a new product"}</h2>
-              <button type="button" onClick={closeForm} className="rounded-lg p-2 text-gray-400 transition hover:bg-gray-100" aria-label="Close">
+              <h2 className="text-lg font-extrabold text-navy-900">{editingId ? "Edit product" : "Add a new product"}</h2>
+              <button type="button" onClick={closeForm} className="rounded-lg p-2 text-navy-400 transition hover:bg-cream-100" aria-label="Close">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M6 6l12 12M18 6L6 18" /></svg>
               </button>
             </div>
 
             {/* Image */}
-            <section className="rounded-2xl border border-gray-100 bg-gray-50 p-5">
-              <p className="text-xs font-bold uppercase tracking-wide text-gray-400">Product image</p>
+            <section className="rounded-2xl border border-navy-100 bg-cream-50 p-5">
+              <p className="text-xs font-bold uppercase tracking-wide text-navy-400">Product image</p>
 
-              <div className="mt-4 rounded-xl border border-dashed border-gray-300 bg-white p-4">
-                <p className="text-xs font-semibold text-gray-600">Real photo (JPG) — optional</p>
-                <p className="mt-0.5 text-[11px] leading-4 text-gray-400">
+              <div className="mt-4 rounded-xl border border-dashed border-navy-300 bg-white p-4">
+                <p className="text-xs font-semibold text-navy-600">Real photo (JPG) — optional</p>
+                <p className="mt-0.5 text-[11px] leading-4 text-navy-400">
                   Upload an actual product photo; it replaces the generated image across the store, cart and orders.
                 </p>
                 <div className="mt-3 flex flex-wrap items-center gap-3">
                   {photoPreview && (
                     // eslint-disable-next-line @next/next/no-img-element -- local preview; product photos are plain <img> by design
-                    <img src={photoPreview} alt={preview.name || "Product photo"} className="h-16 w-16 shrink-0 rounded-lg border border-gray-200 object-cover shadow-sm" />
+                    <img src={photoPreview} alt={preview.name || "Product photo"} className="h-16 w-16 shrink-0 rounded-lg border border-navy-200 object-cover shadow-sm" />
                   )}
-                  <label className="cursor-pointer rounded-xl border border-gray-200 bg-white px-3 py-2 text-xs font-semibold text-gray-600 shadow-sm transition hover:border-indigo-300 hover:text-indigo-600">
+                  <label className="cursor-pointer rounded-xl border border-navy-200 bg-white px-3 py-2 text-xs font-semibold text-navy-600 shadow-sm transition hover:border-coral-300 hover:text-coral-700">
                     {photoFile ? "Choose another photo…" : "Choose a photo…"}
                     <input
                       type="file"
@@ -468,7 +468,7 @@ export default function AdminProducts() {
                     />
                   </label>
                   {photoFile && (
-                    <button type="button" onClick={() => setPhotoFile(null)} className="text-xs font-semibold text-gray-500 transition hover:text-red-500">
+                    <button type="button" onClick={() => setPhotoFile(null)} className="text-xs font-semibold text-navy-500 transition hover:text-red-500">
                       Clear
                     </button>
                   )}
@@ -479,7 +479,7 @@ export default function AdminProducts() {
                   )}
                 </div>
                 {photoFile && (
-                  <p className="mt-2 text-[11px] text-gray-400">
+                  <p className="mt-2 text-[11px] text-navy-400">
                     New photo: {photoFile.name} ({(photoFile.size / 1024).toFixed(0)} KB) — saved when you submit.
                   </p>
                 )}
@@ -490,11 +490,11 @@ export default function AdminProducts() {
                   <div className={`grid aspect-square w-40 place-items-center rounded-2xl bg-gradient-to-br ${preview.hue} shadow`}>
                     <span className="text-6xl drop-shadow">{preview.emoji}</span>
                   </div>
-                  <p className="max-w-[10rem] truncate text-center text-xs font-semibold text-gray-500">{preview.name || "Product name"}</p>
+                  <p className="max-w-[10rem] truncate text-center text-xs font-semibold text-navy-500">{preview.name || "Product name"}</p>
                 </div>
                 <div className="min-w-0 flex-1 space-y-4">
                   <div>
-                    <p className="text-xs font-semibold text-gray-600">Emoji</p>
+                    <p className="text-xs font-semibold text-navy-600">Emoji</p>
                     <div className="mt-2 grid grid-cols-5 gap-1.5 sm:grid-cols-6">
                       {EMOJI_OPTIONS.map((em) => (
                         <button
@@ -502,7 +502,7 @@ export default function AdminProducts() {
                           type="button"
                           onClick={() => set("emoji", em)}
                           className={`grid h-10 w-10 place-items-center rounded-xl border text-lg transition ${
-                            form.emoji === em ? "border-indigo-500 bg-indigo-50 ring-2 ring-indigo-200" : "border-gray-200 bg-white hover:border-indigo-300"
+                            form.emoji === em ? "border-navy-900 bg-coral-50 ring-2 ring-coral-200" : "border-navy-200 bg-white hover:border-coral-300"
                           }`}
                           aria-label={`Use ${em}`}
                         >
@@ -512,7 +512,7 @@ export default function AdminProducts() {
                     </div>
                   </div>
                   <div>
-                    <p className="text-xs font-semibold text-gray-600">Colours</p>
+                    <p className="text-xs font-semibold text-navy-600">Colours</p>
                     <div className="mt-2 flex flex-wrap gap-2">
                       {HUE_OPTIONS.map((hue) => (
                         <button
@@ -520,14 +520,14 @@ export default function AdminProducts() {
                           type="button"
                           onClick={() => set("imageHue", hue)}
                           className={`h-8 w-8 rounded-full bg-gradient-to-br ${hue} transition ${
-                            form.imageHue === hue ? "ring-2 ring-indigo-500 ring-offset-2" : "hover:scale-110"
+                            form.imageHue === hue ? "ring-2 ring-coral-500 ring-offset-2" : "hover:scale-110"
                           }`}
                           aria-label={`Use ${hue}`}
                         />
                       ))}
                     </div>
                   </div>
-                  <p className="text-[11px] leading-5 text-gray-400">
+                  <p className="text-[11px] leading-5 text-navy-400">
                     No photo? An on-brand image is generated automatically from the emoji + colours and used across the store, cart and orders.
                   </p>
                 </div>
@@ -535,17 +535,17 @@ export default function AdminProducts() {
             </section>
 
             {/* Datasheet */}
-            <section className="rounded-2xl border border-gray-100 bg-gray-50 p-5">
-              <p className="text-xs font-bold uppercase tracking-wide text-gray-400">Datasheet (PDF)</p>
+            <section className="rounded-2xl border border-navy-100 bg-cream-50 p-5">
+              <p className="text-xs font-bold uppercase tracking-wide text-navy-400">Datasheet (PDF)</p>
 
-              <div className="mt-4 rounded-xl border border-dashed border-gray-300 bg-white p-4">
-                <p className="text-xs font-semibold text-gray-600">Technical datasheet — optional</p>
-                <p className="mt-0.5 text-[11px] leading-4 text-gray-400">
+              <div className="mt-4 rounded-xl border border-dashed border-navy-300 bg-white p-4">
+                <p className="text-xs font-semibold text-navy-600">Technical datasheet — optional</p>
+                <p className="mt-0.5 text-[11px] leading-4 text-navy-400">
                   Upload a PDF (offered as a download on the product page) or link to an external datasheet URL.
                 </p>
                 <div className="mt-3 space-y-3">
                   <label className="block space-y-1.5">
-                    <span className="text-[11px] font-semibold text-gray-500">External datasheet URL</span>
+                    <span className="text-[11px] font-semibold text-navy-500">External datasheet URL</span>
                     <input
                       className={inputClass}
                       type="url"
@@ -555,7 +555,7 @@ export default function AdminProducts() {
                     />
                   </label>
                   <div className="flex flex-wrap items-center gap-3">
-                    <label className="cursor-pointer rounded-xl border border-gray-200 bg-white px-3 py-2 text-xs font-semibold text-gray-600 shadow-sm transition hover:border-indigo-300 hover:text-indigo-600">
+                    <label className="cursor-pointer rounded-xl border border-navy-200 bg-white px-3 py-2 text-xs font-semibold text-navy-600 shadow-sm transition hover:border-coral-300 hover:text-coral-700">
                       {pdfFile ? "Choose another PDF…" : "Upload a PDF…"}
                       <input
                         type="file"
@@ -565,7 +565,7 @@ export default function AdminProducts() {
                       />
                     </label>
                     {pdfFile && (
-                      <button type="button" onClick={() => setPdfFile(null)} className="text-xs font-semibold text-gray-500 transition hover:text-red-500">
+                      <button type="button" onClick={() => setPdfFile(null)} className="text-xs font-semibold text-navy-500 transition hover:text-red-500">
                         Clear
                       </button>
                     )}
@@ -576,12 +576,12 @@ export default function AdminProducts() {
                     )}
                   </div>
                   {pdfFile && (
-                    <p className="text-[11px] text-gray-400">
+                    <p className="text-[11px] text-navy-400">
                       New datasheet: {pdfFile.name} ({(pdfFile.size / 1024).toFixed(0)} KB) — saved when you submit.
                     </p>
                   )}
                   {editing?.datasheet === "pdf" && !pdfFile && (
-                    <p className="text-[11px] text-gray-400">
+                    <p className="text-[11px] text-navy-400">
                       An uploaded PDF is attached and shown as “Download datasheet” on the product page.
                     </p>
                   )}
@@ -654,11 +654,11 @@ export default function AdminProducts() {
               const mrpPaise = Math.round((Number(form.mrp) || 0) * 100);
               const disc = calcDiscount(pricePaise, mrpPaise);
               return (
-                <p className="text-sm text-gray-500">
-                  Sell price <span className="font-bold text-gray-900">{formatINR(pricePaise)}</span>
+                <p className="text-sm text-navy-500">
+                  Sell price <span className="font-bold text-navy-900">{formatINR(pricePaise)}</span>
                   {mrpPaise > pricePaise && (
                     <>
-                      {" "}· MRP <span className="text-gray-400 line-through">{formatINR(mrpPaise)}</span>
+                      {" "}· MRP <span className="text-navy-400 line-through">{formatINR(mrpPaise)}</span>
                       {" "}· <span className="font-semibold text-emerald-600">{disc}% off</span>
                     </>
                   )}
@@ -681,7 +681,7 @@ export default function AdminProducts() {
                   type="button"
                   onClick={() => set(b.key, !form[b.key])}
                   className={`rounded-xl border px-3 py-2 text-sm font-semibold transition ${
-                    form[b.key] ? "border-indigo-500 bg-indigo-50 text-indigo-700" : "border-gray-200 bg-white text-gray-500 hover:border-indigo-300"
+                    form[b.key] ? "border-navy-900 bg-coral-50 text-coral-700" : "border-navy-200 bg-white text-navy-500 hover:border-coral-300"
                   }`}
                 >
                   {b.label}
@@ -725,7 +725,7 @@ export default function AdminProducts() {
                 <button
                   type="button"
                   onClick={() => set("specs", [...form.specs, { label: "", value: "" }])}
-                  className="text-xs font-semibold text-indigo-600 hover:text-indigo-700"
+                  className="text-xs font-semibold text-coral-700 hover:text-coral-800"
                 >
                   + Add row
                 </button>
@@ -755,7 +755,7 @@ export default function AdminProducts() {
                   <button
                     type="button"
                     onClick={() => set("specs", form.specs.filter((_, j) => j !== i))}
-                    className="shrink-0 rounded-lg p-2 text-gray-300 transition hover:bg-red-50 hover:text-red-500"
+                    className="shrink-0 rounded-lg p-2 text-navy-300 transition hover:bg-red-50 hover:text-red-500"
                     aria-label="Remove spec row"
                   >
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M18 6 6 18M6 6l12 12" /></svg>
@@ -768,14 +768,14 @@ export default function AdminProducts() {
               <div className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm font-medium text-red-700">{error}</div>
             )}
 
-            <div className="flex flex-wrap items-center justify-end gap-3 border-t border-gray-100 pt-5">
-              <button type="button" onClick={closeForm} className="rounded-xl px-4 py-2.5 text-sm font-semibold text-gray-600 transition hover:bg-gray-50">
+            <div className="flex flex-wrap items-center justify-end gap-3 border-t border-navy-100 pt-5">
+              <button type="button" onClick={closeForm} className="rounded-xl px-4 py-2.5 text-sm font-semibold text-navy-600 transition hover:bg-cream-50">
                 Cancel
               </button>
               <button
                 type="submit"
                 disabled={busy}
-                className="rounded-xl bg-indigo-600 px-5 py-2.5 text-sm font-bold text-white shadow-sm transition hover:bg-indigo-700 disabled:opacity-50"
+                className="rounded-xl bg-navy-900 px-5 py-2.5 text-sm font-bold text-white shadow-sm transition hover:bg-navy-800 disabled:opacity-50"
               >
                 {busy ? "Saving…" : editingId ? "Save changes" : "Add product"}
               </button>
