@@ -39,7 +39,7 @@ function Highlight({ text, q }: { text: string; q: string }) {
   return (
     <>
       {text.slice(0, i)}
-      <span className="font-bold text-indigo-600">{text.slice(i, i + needle.length)}</span>
+      <span className="font-bold text-coral-700">{text.slice(i, i + needle.length)}</span>
       {text.slice(i + needle.length)}
     </>
   );
@@ -116,7 +116,7 @@ export function SearchBar({ onNavigate }: { onNavigate?: () => void }) {
             }
           }}
           placeholder="Search sensors, boards, kits… (try “esp32”)"
-          className="w-full rounded-full border border-gray-200/80 bg-gray-50 py-2.5 pl-4 pr-11 text-sm text-gray-900 placeholder-gray-400 outline-none transition focus:border-indigo-400 focus:bg-white focus:shadow-soft focus:ring-4 focus:ring-indigo-500/10"
+          className="w-full rounded-full border border-white/20 bg-white py-2.5 pl-4 pr-11 text-sm text-navy-900 placeholder-navy-400 outline-none transition focus:border-coral-400 focus:bg-white focus:shadow-soft focus:ring-4 focus:ring-coral-500/15"
           aria-label="Search products"
           autoComplete="off"
           role="combobox"
@@ -125,7 +125,7 @@ export function SearchBar({ onNavigate }: { onNavigate?: () => void }) {
         />
         <button
           type="submit"
-          className="absolute right-1.5 top-1/2 -translate-y-1/2 rounded-full bg-indigo-600 p-2 text-white shadow-sm shadow-indigo-600/25 transition hover:bg-indigo-700 active:scale-95"
+          className="absolute right-1.5 top-1/2 -translate-y-1/2 rounded-full bg-coral-500 p-2 text-navy-950 shadow-sm shadow-coral-500/30 transition hover:bg-coral-400 active:scale-95"
           aria-label="Search"
         >
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
@@ -138,29 +138,29 @@ export function SearchBar({ onNavigate }: { onNavigate?: () => void }) {
       {show && (
         <div
           id="search-suggestions"
-          className="absolute left-0 right-0 top-full z-50 mt-2 overflow-hidden rounded-2xl border border-gray-200/80 bg-white shadow-lift ring-1 ring-gray-900/5"
+          className="absolute left-0 right-0 top-full z-50 mt-2 overflow-hidden rounded-2xl border border-navy-900/10 bg-white shadow-lift ring-1 ring-navy-900/5"
         >
           <div className="max-h-[60vh] overflow-y-auto p-2">
             {suggestions === null && (
-              <p className="px-3 py-2.5 text-sm text-gray-400">Searching…</p>
+              <p className="px-3 py-2.5 text-sm text-navy-400">Searching…</p>
             )}
 
             {suggestions !== null && suggestions.products.length === 0 && suggestions.brands.length === 0 && suggestions.categories.length === 0 && (
-              <p className="px-3 py-2.5 text-sm text-gray-400">
-                No matches for “<span className="font-semibold text-gray-600">{term}</span>”.
+              <p className="px-3 py-2.5 text-sm text-navy-400">
+                No matches for “<span className="font-semibold text-navy-600">{term}</span>”.
               </p>
             )}
 
             {suggestions !== null && suggestions.products.length > 0 && (
               <div>
-                <p className="px-3 pb-1 pt-2 text-[10px] font-bold uppercase tracking-wider text-gray-400">Products</p>
+                <p className="px-3 pb-1 pt-2 text-[10px] font-bold uppercase tracking-wider text-navy-400">Products</p>
                 <ul className="space-y-0.5">
                   {suggestions.products.map((p) => (
                     <li key={p.id}>
                       <Link
                         href={`/product/${p.slug}`}
                         onClick={() => go(`/product/${p.slug}`)}
-                        className="flex items-center gap-3 rounded-xl px-2.5 py-2 transition hover:bg-gray-50"
+                        className="flex items-center gap-3 rounded-xl px-2.5 py-2 transition hover:bg-cream-100"
                       >
                         {p.image === "jpg" ? (
                           // eslint-disable-next-line @next/next/no-img-element -- product photos are plain <img> by design
@@ -171,12 +171,12 @@ export function SearchBar({ onNavigate }: { onNavigate?: () => void }) {
                           </span>
                         )}
                         <span className="min-w-0 flex-1">
-                          <span className="block truncate text-sm font-semibold text-gray-900">
+                          <span className="block truncate text-sm font-semibold text-navy-900">
                             <Highlight text={p.name} q={term} />
                           </span>
-                          <span className="block truncate text-xs text-gray-400">{p.brand}</span>
+                          <span className="block truncate text-xs text-navy-400">{p.brand}</span>
                         </span>
-                        <span className={`text-sm font-bold ${p.inStock ? "text-gray-900" : "text-gray-400"}`}>{formatINR(p.price)}</span>
+                        <span className={`text-sm font-bold ${p.inStock ? "text-navy-900" : "text-navy-400"}`}>{formatINR(p.price)}</span>
                       </Link>
                     </li>
                   ))}
@@ -186,14 +186,14 @@ export function SearchBar({ onNavigate }: { onNavigate?: () => void }) {
 
             {suggestions !== null && suggestions.brands.length > 0 && (
               <div>
-                <p className="px-3 pb-1 pt-2 text-[10px] font-bold uppercase tracking-wider text-gray-400">Brands</p>
+                <p className="px-3 pb-1 pt-2 text-[10px] font-bold uppercase tracking-wider text-navy-400">Brands</p>
                 <ul className="flex flex-wrap gap-1.5 px-2.5 pb-0.5">
                   {suggestions.brands.map((b) => (
                     <li key={b}>
                       <Link
                         href={`/search?q=${encodeURIComponent(b)}`}
                         onClick={() => go(`/search?q=${encodeURIComponent(b)}`)}
-                        className="inline-block rounded-full border border-gray-200 px-3 py-1 text-xs font-semibold text-gray-600 transition hover:border-indigo-300 hover:text-indigo-600"
+                        className="inline-block rounded-full border border-navy-200 px-3 py-1 text-xs font-semibold text-navy-600 transition hover:border-coral-300 hover:text-coral-700"
                       >
                         <Highlight text={b} q={term} />
                       </Link>
@@ -205,14 +205,14 @@ export function SearchBar({ onNavigate }: { onNavigate?: () => void }) {
 
             {suggestions !== null && suggestions.categories.length > 0 && (
               <div>
-                <p className="px-3 pb-1 pt-2 text-[10px] font-bold uppercase tracking-wider text-gray-400">Categories</p>
+                <p className="px-3 pb-1 pt-2 text-[10px] font-bold uppercase tracking-wider text-navy-400">Categories</p>
                 <ul className="space-y-0.5">
                   {suggestions.categories.map((c) => (
                     <li key={c.slug}>
                       <Link
                         href={`/category/${c.slug}`}
                         onClick={() => go(`/category/${c.slug}`)}
-                        className="flex items-center gap-2 rounded-xl px-2.5 py-2 text-sm font-semibold text-gray-700 transition hover:bg-gray-50"
+                        className="flex items-center gap-2 rounded-xl px-2.5 py-2 text-sm font-semibold text-navy-700 transition hover:bg-cream-100"
                       >
                         <span>{c.emoji}</span>
                         <Highlight text={c.name} q={term} />
@@ -227,7 +227,7 @@ export function SearchBar({ onNavigate }: { onNavigate?: () => void }) {
               <Link
                 href={`/search?q=${encodeURIComponent(term)}`}
                 onClick={() => go(`/search?q=${encodeURIComponent(term)}`)}
-                className="mt-1 block border-t border-gray-100 px-3 py-2.5 text-sm font-semibold text-indigo-600 transition hover:bg-indigo-50"
+                className="mt-1 block border-t border-navy-100 px-3 py-2.5 text-sm font-semibold text-coral-700 transition hover:bg-coral-50"
               >
                 See all results for “<Highlight text={term} q={term} />”
               </Link>
