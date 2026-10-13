@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f7f8fa;
-  --foreground: #0b1220;
+  --background: #f4ede0;
+  --foreground: #14213d;
 }
 
 @theme inline {
@@ -11,9 +11,42 @@
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 
-  --shadow-soft: 0 1px 2px rgb(15 23 42 / 0.04), 0 8px 24px -16px rgb(15 23 42 / 0.18);
-  --shadow-lift: 0 2px 4px rgb(15 23 42 / 0.05), 0 24px 48px -24px rgb(15 23 42 / 0.28);
-  --shadow-glow: 0 12px 32px -12px rgb(79 70 229 / 0.45);
+  /* Brand: navy (primary), cream (secondary), coral (accent) */
+  --color-navy-50: #f2f4f8;
+  --color-navy-100: #e4e8f1;
+  --color-navy-200: #c7d0e1;
+  --color-navy-300: #9fadc9;
+  --color-navy-400: #7183aa;
+  --color-navy-500: #50648e;
+  --color-navy-600: #3c4d74;
+  --color-navy-700: #2f3e5f;
+  --color-navy-800: #24314b;
+  --color-navy-900: #14213d;
+  --color-navy-950: #0c1527;
+  --color-navy: #14213d;
+
+  --color-cream-50: #fdfaf3;
+  --color-cream-100: #faf5ea;
+  --color-cream-200: #f4ede0;
+  --color-cream-300: #eadfcb;
+  --color-cream-400: #dccfb2;
+  --color-cream: #f4ede0;
+
+  --color-coral-50: #fff2ef;
+  --color-coral-100: #ffe2dc;
+  --color-coral-200: #ffc7bc;
+  --color-coral-300: #ffa294;
+  --color-coral-400: #ff8776;
+  --color-coral-500: #ff6b5b;
+  --color-coral-600: #f04a38;
+  --color-coral-700: #c93627;
+  --color-coral-800: #a52e22;
+  --color-coral-900: #882a21;
+  --color-coral: #ff6b5b;
+
+  --shadow-soft: 0 1px 2px rgb(20 33 61 / 0.05), 0 8px 24px -16px rgb(20 33 61 / 0.2);
+  --shadow-lift: 0 2px 4px rgb(20 33 61 / 0.06), 0 24px 48px -24px rgb(20 33 61 / 0.3);
+  --shadow-glow: 0 12px 32px -12px rgb(255 107 91 / 0.5);
 
   --animate-fade-up: fade-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
 
@@ -40,12 +73,12 @@
   }
 
   ::selection {
-    background-color: rgb(99 102 241 / 0.18);
-    color: #1e1b4b;
+    background-color: rgb(255 107 91 / 0.24);
+    color: #14213d;
   }
 
   :where(a, button, input, select, textarea, summary, [role="button"]):focus-visible {
-    outline: 2px solid rgb(99 102 241 / 0.7);
+    outline: 2px solid rgb(255 107 91 / 0.75);
     outline-offset: 2px;
   }
 
@@ -64,7 +97,7 @@
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--color-indigo-600);
+  color: var(--color-coral-700);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -115,10 +148,10 @@
 @keyframes chip-glow {
   0%,
   100% {
-    filter: drop-shadow(0 0 0 rgba(99, 102, 241, 0));
+    filter: drop-shadow(0 0 0 rgba(255, 107, 91, 0));
   }
   50% {
-    filter: drop-shadow(0 0 7px rgba(99, 102, 241, 0.85));
+    filter: drop-shadow(0 0 7px rgba(255, 107, 91, 0.85));
   }
 }
 

@@ -27,7 +27,7 @@ export default function ElectroLoader({
         <path
           className="loader-trace"
           d="M10 28 H36 V54 H46"
-          stroke="#a5b4fc"
+          stroke="#ffa294"
           strokeWidth="2.5"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -35,7 +35,7 @@ export default function ElectroLoader({
         <path
           className="loader-trace"
           d="M10 92 H36 V66 H46"
-          stroke="#a5b4fc"
+          stroke="#ffa294"
           strokeWidth="2.5"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -43,7 +43,7 @@ export default function ElectroLoader({
         <path
           className="loader-trace"
           d="M110 28 H84 V54 H74"
-          stroke="#a5b4fc"
+          stroke="#ffa294"
           strokeWidth="2.5"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -51,7 +51,7 @@ export default function ElectroLoader({
         <path
           className="loader-trace"
           d="M110 92 H84 V66 H74"
-          stroke="#a5b4fc"
+          stroke="#ffa294"
           strokeWidth="2.5"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -60,39 +60,39 @@ export default function ElectroLoader({
           cx="0"
           cy="0"
           r="3"
-          className="fill-indigo-500 loader-electron"
+          className="fill-coral-500 loader-electron"
         />
         <circle
           cx="0"
           cy="0"
           r="3"
-          className="fill-indigo-500 loader-electron electron-2"
+          className="fill-coral-500 loader-electron electron-2"
         />
         <circle
           cx="0"
           cy="0"
           r="3"
-          className="fill-indigo-500 loader-electron electron-3"
+          className="fill-coral-500 loader-electron electron-3"
         />
         <circle
           cx="0"
           cy="0"
           r="3"
-          className="fill-indigo-500 loader-electron electron-4"
+          className="fill-coral-500 loader-electron electron-4"
         />
-        <circle cx="10" cy="28" r="3.5" className="fill-indigo-400 loader-led" />
-        <circle cx="10" cy="92" r="3.5" className="fill-indigo-400 loader-led" />
+        <circle cx="10" cy="28" r="3.5" className="fill-coral-400 loader-led" />
+        <circle cx="10" cy="92" r="3.5" className="fill-coral-400 loader-led" />
         <circle
           cx="110"
           cy="28"
           r="3.5"
-          className="fill-indigo-400 loader-led"
+          className="fill-coral-400 loader-led"
         />
         <circle
           cx="110"
           cy="92"
           r="3.5"
-          className="fill-indigo-400 loader-led"
+          className="fill-coral-400 loader-led"
         />
         <g className="loader-chip">
           <rect
@@ -101,12 +101,12 @@ export default function ElectroLoader({
             width="28"
             height="28"
             rx="6"
-            className="fill-indigo-600"
+            className="fill-navy-900"
           />
-          <path d="M62 52 54 64h6l-2 8 8-12h-6l2-8z" className="fill-white" />
+          <path d="M62 52 54 64h6l-2 8 8-12h-6l2-8z" className="fill-cream-100" />
         </g>
       </svg>
-      <p className="text-sm font-medium text-gray-500">
+      <p className="text-sm font-medium text-navy-500">
         {label}
         <span className="loader-dots" aria-hidden>
           <span>.</span>
