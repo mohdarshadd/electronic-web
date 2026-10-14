@@ -55,7 +55,7 @@ export default async function ProductPage({ params }: Props) {
         <div className="grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14">
           {/* Gallery */}
           <div className="space-y-4">
-            <ProductImage product={product} className="aspect-square w-full rounded-3xl shadow-soft ring-1 ring-navy-900/5" />
+            <ProductImage product={product} priority className="aspect-square w-full rounded-3xl shadow-soft ring-1 ring-navy-900/5" />
             <div className="flex flex-wrap items-center gap-2 text-sm text-navy-500">
               {product.inStock ? (
                 <span className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 font-semibold ${product.stock <= 10 ? "bg-amber-50 text-amber-700" : "bg-emerald-50 text-emerald-700"}`}>

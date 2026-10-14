@@ -180,7 +180,7 @@ export function SearchBar({ onNavigate }: { onNavigate?: () => void }) {
                       >
                         {p.image === "jpg" ? (
                           // eslint-disable-next-line @next/next/no-img-element -- product photos are plain <img> by design
-                          <img src={`/api/product-images/${p.slug}`} alt="" className="h-9 w-9 shrink-0 rounded-lg object-cover" />
+                          <img src={`/api/product-images/${p.slug}`} alt="" width={36} height={36} decoding="async" className="h-9 w-9 shrink-0 rounded-lg object-cover" />
                         ) : (
                           <span className={`grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-gradient-to-br ${p.imageHue} text-base`}>
                             {p.emoji}

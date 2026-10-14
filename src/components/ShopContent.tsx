@@ -215,8 +215,40 @@ export default async function ShopContent({
 
 export function ShopSuspense() {
   return (
-    <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-      <ProductGridSkeleton />
-    </div>
+    <>
+      <div className="border-b border-navy-900/10 bg-white">
+        <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+          <div className="h-3 w-28 animate-pulse rounded bg-cream-200" />
+          <div className="mt-4 h-3 w-20 animate-pulse rounded bg-cream-200" />
+          <div className="mt-3 h-7 w-56 animate-pulse rounded bg-cream-200" />
+          <div className="mt-6 flex flex-wrap items-center justify-between gap-3">
+            <div className="h-4 w-24 animate-pulse rounded bg-cream-200" />
+            <div className="flex flex-wrap gap-2">
+              {Array.from({ length: 5 }).map((_, i) => (
+                <div key={i} className="h-7 w-24 animate-pulse rounded-full bg-cream-200" />
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+        <div className="grid gap-10 lg:grid-cols-[220px_1fr]">
+          <div className="space-y-8">
+            {Array.from({ length: 3 }).map((_, i) => (
+              <div key={i} className="space-y-2">
+                <div className="h-3 w-20 animate-pulse rounded bg-cream-200" />
+                {Array.from({ length: 4 }).map((__, j) => (
+                  <div key={j} className="h-7 w-full animate-pulse rounded-lg bg-cream-200" />
+                ))}
+              </div>
+            ))}
+          </div>
+          <div>
+            <ProductGridSkeleton />
+          </div>
+        </div>
+      </div>
+    </>
   );
 }

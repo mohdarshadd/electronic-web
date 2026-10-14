@@ -96,7 +96,7 @@ export default function HomePage() {
                   }`}
                 >
                   <div className="overflow-hidden rounded-xl">
-                    <ProductImage product={p} className="h-32 w-full transition duration-300 group-hover:scale-105" />
+                    <ProductImage product={p} priority={i === 0} className="h-32 w-full transition duration-300 group-hover:scale-105" />
                   </div>
                   <p className="mt-3 line-clamp-2 text-sm font-bold text-navy-900">{p.name}</p>
                   <p className="mt-1 text-sm font-extrabold text-coral-700">

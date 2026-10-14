@@ -2,7 +2,15 @@ import type { Product } from "@/lib/types";
 
 const IMAGE_DIR = "/products";
 
-export function ProductImage({ product, className = "" }: { product: Product; className?: string }) {
+export function ProductImage({
+  product,
+  className = "",
+  priority = false,
+}: {
+  product: Product;
+  className?: string;
+  priority?: boolean;
+}) {
   const src =
     product.image === "jpg"
       ? `/api/product-images/${product.slug}`
@@ -13,8 +21,12 @@ export function ProductImage({ product, className = "" }: { product: Product; cl
       <img
         src={src}
         alt={product.name}
+        width={600}
+        height={600}
         className="h-full w-full select-none object-cover"
-        loading="lazy"
+        loading={priority ? "eager" : "lazy"}
+        fetchPriority={priority ? "high" : "auto"}
+        decoding="async"
         draggable={false}
       />
       {product.isNew && (
