@@ -49,6 +49,7 @@ export function SearchBar({ onNavigate }: { onNavigate?: () => void }) {
   const [q, setQ] = useState("");
   const [open, setOpen] = useState(false);
   const [suggestions, setSuggestions] = useState<SuggestionsData | null>(null);
+  const [pending, setPending] = useState(false);
   const router = useRouter();
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const abortRef = useRef<AbortController | null>(null);
@@ -65,11 +66,17 @@ export function SearchBar({ onNavigate }: { onNavigate?: () => void }) {
         const res = await fetch(`/api/search/suggest?q=${encodeURIComponent(term)}`, { signal: ctrl.signal });
         if (!res.ok) throw new Error("suggestions failed");
         const data = await res.json();
-        setSuggestions(data);
+        if (!ctrl.signal.aborted) {
+          setSuggestions(data);
+          setPending(false);
+        }
       } catch {
-        if (!ctrl.signal.aborted) setSuggestions(null);
+        if (!ctrl.signal.aborted) {
+          setSuggestions(null);
+          setPending(false);
+        }
       }
-    }, 250);
+    }, 160);
     return () => {
       if (debounceRef.current) clearTimeout(debounceRef.current);
       abortRef.current?.abort();
@@ -105,8 +112,14 @@ export function SearchBar({ onNavigate }: { onNavigate?: () => void }) {
         <input
           value={q}
           onChange={(e) => {
-            setQ(e.target.value);
-            setSuggestions(null);
+            const value = e.target.value;
+            setQ(value);
+            if (value.trim()) {
+              setPending(true);
+            } else {
+              setPending(false);
+              setSuggestions(null);
+            }
           }}
           onFocus={() => setOpen(true)}
           onKeyDown={(e) => {
@@ -140,8 +153,11 @@ export function SearchBar({ onNavigate }: { onNavigate?: () => void }) {
           id="search-suggestions"
           className="absolute left-0 right-0 top-full z-50 mt-2 overflow-hidden rounded-2xl border border-navy-900/10 bg-white shadow-lift ring-1 ring-navy-900/5"
         >
-          <div className="max-h-[60vh] overflow-y-auto p-2">
-            {suggestions === null && (
+          <div
+            className={`max-h-[60vh] overflow-y-auto overscroll-contain p-2 transition-opacity duration-150 ${pending ? "opacity-60" : "opacity-100"}`}
+            aria-busy={pending}
+          >
+            {suggestions === null && pending && (
               <p className="px-3 py-2.5 text-sm text-navy-400">Searching…</p>
             )}
 

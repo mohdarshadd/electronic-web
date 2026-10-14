@@ -12,6 +12,7 @@ import {
 import type { CartLine, Product } from "@/lib/types";
 import { computeCart } from "@/lib/cart";
 import { STUDENT_DISCOUNT_CODE, products } from "@/lib/products";
+import { loadSiteSettings } from "@/lib/site-settings";
 
 interface CartContextValue {
   lines: CartLine[];
@@ -89,20 +90,12 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     let cancelled = false;
-    fetch("/api/site/settings")
-      .then(async (res) => {
-        if (!res.ok) return;
-        const data = await res.json();
-        if (!cancelled) {
-          const ce = data?.settings?.couponsEnabled;
-          if (ce && typeof ce === "object") {
-            setEnabledCoupons(Object.keys(ce).filter((code) => ce[code] !== false));
-          }
-        }
-      })
-      .catch(() => {
-        // keep the defaults (STUDENT10 only)
-      });
+    loadSiteSettings().then((settings) => {
+      const ce = settings?.couponsEnabled;
+      if (!cancelled && ce && typeof ce === "object") {
+        setEnabledCoupons(Object.keys(ce).filter((code) => ce[code] !== false));
+      }
+    });
     return () => {
       cancelled = true;
     };

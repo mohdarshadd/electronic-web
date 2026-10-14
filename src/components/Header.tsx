@@ -1,9 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { site } from "@/lib/site";
 import { categories } from "@/lib/products";
+import { loadSiteSettings } from "@/lib/site-settings";
+import { lockBodyScroll } from "@/lib/scroll-lock";
 import { useCart } from "@/context/CartContext";
 import { SearchBar } from "./SearchBar";
 
@@ -12,35 +14,53 @@ export default function Header() {
   const [mobileNav, setMobileNav] = useState(false);
   const [announcement, setAnnouncement] = useState(site.announcement);
   const [scrolled, setScrolled] = useState(false);
+  const scrollFrame = useRef(0);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8);
+    const update = () => {
+      scrollFrame.current = 0;
+      setScrolled(window.scrollY > 8);
+    };
+    const onScroll = () => {
+      if (scrollFrame.current) return;
+      scrollFrame.current = requestAnimationFrame(update);
+    };
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    update();
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (scrollFrame.current) cancelAnimationFrame(scrollFrame.current);
+    };
   }, []);
 
   useEffect(() => {
     let cancelled = false;
-    fetch("/api/site/settings")
-      .then(async (res) => {
-        if (!res.ok) return;
-        const data = await res.json();
-        if (!cancelled) {
-          const s = data.settings;
-          if (s?.announcementEnabled && typeof s.announcement === "string") setAnnouncement(s.announcement);
-        }
-      })
-      .catch(() => {
-        // keep the default announcement
-      });
+    loadSiteSettings().then((s) => {
+      if (!cancelled && s?.announcementEnabled && typeof s.announcement === "string") {
+        setAnnouncement(s.announcement);
+      }
+    });
     return () => {
       cancelled = true;
     };
   }, []);
 
+  useEffect(() => {
+    if (!mobileNav) return;
+    const release = lockBodyScroll();
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setMobileNav(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => {
+      release();
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [mobileNav]);
+
   return (
     <header
-      className={`sticky top-0 z-40 border-b border-navy-900/20 bg-navy-900/95 backdrop-blur-xl transition-shadow duration-300 ${
+      className={`sticky top-0 z-40 border-b border-navy-900/20 bg-navy-900/95 transition-shadow duration-300 ${
         scrolled ? "shadow-soft" : "shadow-none"
       }`}
     >
@@ -55,7 +75,7 @@ export default function Header() {
 
       <div className="mx-auto flex max-w-7xl items-center gap-4 px-4 py-3 sm:px-6 lg:px-8">
         <button
-          className="rounded-lg p-2 text-cream-100/80 transition-all duration-200 hover:bg-white/10 hover:text-cream-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-coral-400 focus-visible:ring-offset-2 focus-visible:ring-offset-navy-900 active:scale-90 lg:hidden"
+          className="rounded-lg p-2 text-cream-100/80 transition-colors duration-200 hover:bg-white/10 hover:text-cream-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-coral-400 focus-visible:ring-offset-2 focus-visible:ring-offset-navy-900 lg:hidden"
           onClick={() => setMobileNav((v) => !v)}
           aria-label="Toggle menu"
         >
@@ -136,7 +156,7 @@ export default function Header() {
 
         <button
           onClick={openCart}
-          className="group relative rounded-xl border border-white/15 bg-white/5 p-2.5 text-cream-100 transition-all duration-200 hover:-translate-y-0.5 hover:border-coral-400/60 hover:bg-white/10 hover:text-coral-300 hover:shadow-lift focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-coral-400 focus-visible:ring-offset-2 focus-visible:ring-offset-navy-900"
+          className="group relative rounded-xl border border-white/15 bg-white/5 p-2.5 text-cream-100 transition-colors duration-200 hover:border-coral-400/60 hover:bg-white/10 hover:text-coral-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-coral-400 focus-visible:ring-offset-2 focus-visible:ring-offset-navy-900"
           aria-label="Open cart"
         >
           <svg

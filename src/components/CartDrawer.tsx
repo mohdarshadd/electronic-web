@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useState, type ReactNode } from "react";
 import { useCart } from "@/context/CartContext";
 import { formatINR } from "@/lib/format";
+import { lockBodyScroll } from "@/lib/scroll-lock";
 import { ProductImage } from "./ProductImage";
 
 function QtyButton({ on, disabled, label, children }: { on: () => void; disabled?: boolean; label: string; children: ReactNode }) {
@@ -41,6 +42,19 @@ export default function CartDrawer() {
     return () => cancelAnimationFrame(raf2);
   }, [isOpen]);
 
+  useEffect(() => {
+    if (!rendered) return;
+    const release = lockBodyScroll();
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") closeCart();
+    };
+    window.addEventListener("keydown", onKey);
+    return () => {
+      release();
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [rendered, closeCart]);
+
   if (!rendered) return null;
 
   function checkoutUrl() {
@@ -51,11 +65,12 @@ export default function CartDrawer() {
   return (
     <div className={`fixed inset-0 z-50 ${visible ? "" : "pointer-events-none"}`} role="dialog" aria-modal="true" aria-label="Shopping cart">
       <div
-        className={`absolute inset-0 bg-navy-950/45 backdrop-blur-sm transition-opacity duration-300 ${visible ? "opacity-100" : "opacity-0"}`}
+        className={`absolute inset-0 bg-navy-950/45 transition-opacity duration-300 ${visible ? "opacity-100" : "opacity-0"}`}
         onClick={closeCart}
+        aria-hidden
       />
       <aside
-        className={`absolute right-0 top-0 flex h-full w-full max-w-md flex-col bg-white shadow-2xl transition-transform duration-300 ease-out sm:rounded-l-3xl ${
+        className={`absolute right-0 top-0 flex h-full w-full max-w-md transform-gpu flex-col bg-white shadow-2xl transition-transform duration-300 ease-out will-change-transform sm:rounded-l-3xl ${
           visible ? "translate-x-0" : "translate-x-full"
         }`}
       >
@@ -88,7 +103,7 @@ export default function CartDrawer() {
           </div>
         ) : (
           <>
-            <div className="flex-1 space-y-3 overflow-y-auto px-5 py-4">
+            <div className="flex-1 space-y-3 overflow-y-auto overscroll-contain px-5 py-4">
               {lines.map((line) => {
                 const p = catalog.find((x) => x.id === line.productId);
                 if (!p) return null;
