@@ -2,32 +2,14 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import { categories } from "@/lib/products";
 import { getCatalog, getCatalogBrands, getCatalogProductsByCategory } from "@/lib/catalog";
+import { buildShopQuery, normalizeShopParams, type RawSearchParams, type ShopParams } from "@/lib/shop-query";
 import type { Category } from "@/lib/types";
 import ProductCard from "./ProductCard";
 import ProductGridSkeleton from "./ProductGridSkeleton";
+import { ShopLink } from "./ShopLink";
+import { ShopPriceFilter } from "./ShopPriceFilter";
 
-export type ShopParams = {
-  category?: string;
-  brand?: string;
-  sort?: string;
-  min?: string;
-  max?: string;
-  instock?: string;
-};
-
-export type RawSearchParams = Record<string, string | string[] | undefined>;
-
-function normalize(raw: RawSearchParams): ShopParams {
-  const pick = (k: string): string | undefined => (typeof raw[k] === "string" ? (raw[k] as string) : undefined);
-  return {
-    category: pick("category"),
-    brand: pick("brand"),
-    sort: pick("sort"),
-    min: pick("min"),
-    max: pick("max"),
-    instock: pick("instock"),
-  };
-}
+export type { RawSearchParams, ShopParams };
 
 export function filterProducts(params: ShopParams) {
   let list = Array.from(new Map(getCatalog().map((p) => [p.id, p] as const)).values());
@@ -66,18 +48,6 @@ export const SORT_OPTIONS = [
   { value: "newest", label: "Newest" },
 ];
 
-export function buildQuery(params: ShopParams): string {
-  const sp = new URLSearchParams();
-  if (params.category) sp.set("category", params.category);
-  if (params.brand) sp.set("brand", params.brand);
-  if (params.sort) sp.set("sort", params.sort);
-  if (params.min) sp.set("min", params.min);
-  if (params.max) sp.set("max", params.max);
-  if (params.instock) sp.set("instock", params.instock);
-  const q = sp.toString();
-  return q ? `?${q}` : "";
-}
-
 export function Chip({
   href,
   active,
@@ -88,16 +58,16 @@ export function Chip({
   children: ReactNode;
 }) {
   return (
-    <Link
+    <ShopLink
       href={href}
-      className={`rounded-full border px-3.5 py-1.5 text-xs font-semibold transition ${
+      className={`rounded-full border px-3.5 py-1.5 text-xs font-semibold transition-colors ${
         active
           ? "border-navy-900 bg-navy-900 text-cream-100 shadow-sm shadow-navy-900/25"
           : "border-navy-200 bg-white text-navy-600 hover:border-navy-300 hover:text-navy-900"
       }`}
     >
       {children}
-    </Link>
+    </ShopLink>
   );
 }
 
@@ -112,7 +82,7 @@ export default async function ShopContent({
   params: Promise<RawSearchParams>;
   category?: Category;
 }) {
-  const sp = normalize(await params);
+  const sp = normalizeShopParams(await params);
   const activeCat = sp.category;
   const result = filterProducts(sp);
   const sorted = (sp.sort as string) || "popular";
@@ -120,7 +90,7 @@ export default async function ShopContent({
 
   function withParam(key: string, value: string | undefined) {
     const next = { ...sp, [key]: value !== undefined ? value : undefined };
-    return buildQuery(next);
+    return buildShopQuery(next);
   }
 
   return (
@@ -147,7 +117,7 @@ export default async function ShopContent({
             <div className="flex flex-wrap items-center gap-2">
               <span className="text-[11px] font-bold uppercase tracking-[0.14em] text-navy-400">Sort by</span>
               {SORT_OPTIONS.map((o) => (
-                <Chip key={o.value} href={buildQuery({ ...sp, sort: o.value })} active={sorted === o.value}>
+                <Chip key={o.value} href={buildShopQuery({ ...sp, sort: o.value })} active={sorted === o.value}>
                   {o.label}
                 </Chip>
               ))}
@@ -188,14 +158,14 @@ export default async function ShopContent({
                 {brands.map((b) => {
                   const active = sp.brand === b;
                   return (
-                    <label key={b} className="flex cursor-pointer items-center gap-2.5 px-3 py-1.5 text-sm text-navy-600 transition hover:text-navy-900">
+                    <label key={b} className="flex cursor-pointer items-center gap-2.5 px-3 py-1.5 text-sm text-navy-600 transition-colors hover:text-navy-900">
                       <input
                         type="checkbox"
                         checked={active}
                         readOnly
                         className="h-4 w-4 rounded border-navy-300 accent-navy-900"
                       />
-                      <a href={buildQuery({ ...sp, brand: active ? undefined : b })} className="flex-1">{b}</a>
+                      <ShopLink href={buildShopQuery({ ...sp, brand: active ? undefined : b })} className="flex-1">{b}</ShopLink>
                     </label>
                   );
                 })}
@@ -204,12 +174,7 @@ export default async function ShopContent({
 
             <div>
               <h3 className="text-[11px] font-bold uppercase tracking-[0.14em] text-navy-400">Price range</h3>
-              <form action={buildQuery({ ...sp, min: undefined, max: undefined })} className="mt-3 flex items-center gap-2">
-                <input name="min" type="number" placeholder="Min ₹" defaultValue={sp.min || ""} className="w-full rounded-lg border border-navy-200 px-2.5 py-2 text-sm outline-none transition focus:border-coral-400 focus:bg-white focus:ring-4 focus:ring-coral-500/10" />
-                <span className="text-navy-400">–</span>
-                <input name="max" type="number" placeholder="Max ₹" defaultValue={sp.max || ""} className="w-full rounded-lg border border-navy-200 px-2.5 py-2 text-sm outline-none transition focus:border-coral-400 focus:bg-white focus:ring-4 focus:ring-coral-500/10" />
-                <button type="submit" className="rounded-lg bg-navy-900 px-3 py-2 text-sm font-semibold text-cream-100 transition hover:bg-navy-800">Go</button>
-              </form>
+              <ShopPriceFilter basePath={category ? `/category/${category.slug}` : "/shop"} params={sp} />
             </div>
 
             <label className="flex cursor-pointer items-center gap-2.5 text-sm font-semibold text-navy-700">
@@ -219,7 +184,7 @@ export default async function ShopContent({
                 readOnly
                 className="h-4 w-4 rounded border-navy-300 accent-emerald-600"
               />
-              <a href={buildQuery({ ...sp, instock: sp.instock === "1" ? undefined : "1" })}>In stock only</a>
+              <ShopLink href={buildShopQuery({ ...sp, instock: sp.instock === "1" ? undefined : "1" })}>In stock only</ShopLink>
             </label>
           </aside>
 
