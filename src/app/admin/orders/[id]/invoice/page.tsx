@@ -6,6 +6,7 @@ import { ADMIN_COOKIE, adminConfigured, verifyAdminToken } from "@/lib/admin-aut
 import { fetchOrder } from "@/lib/orders";
 import { formatINR } from "@/lib/format";
 import PrintButton from "@/components/admin/PrintButton";
+import Logo from "@/components/Logo";
 import { site } from "@/lib/site";
 
 export default async function AdminInvoicePage(props: { params: Promise<{ id: string }> }) {
@@ -31,11 +32,7 @@ export default async function AdminInvoicePage(props: { params: Promise<{ id: st
       <div className="rounded-2xl border border-navy-200 bg-white p-6 sm:p-8 print:rounded-none print:border-0 print:p-0">
         <div className="flex flex-wrap items-start justify-between gap-4 border-b border-navy-200 pb-6">
           <div className="flex items-center gap-2.5">
-            <span className="grid h-10 w-10 place-items-center rounded-xl bg-gradient-to-br from-navy-900 to-navy-700 text-white">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M13 2 3.5 13.5H11L9.5 22 19 10.5H11.5L13 2z" />
-              </svg>
-            </span>
+            <Logo className="h-10 w-10 rounded-xl ring-1 ring-navy-900/10" />
             <div>
               <p className="text-lg font-extrabold text-navy-900">
                 Volt<span className="text-coral-700">Cart</span>

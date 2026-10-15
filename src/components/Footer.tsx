@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Logo from "@/components/Logo";
 import { site, footerLinks } from "@/lib/site";
 
 export default function Footer() {
@@ -8,11 +9,7 @@ export default function Footer() {
         <div className="grid grid-cols-2 gap-10 md:grid-cols-5">
           <div className="col-span-2 md:col-span-2">
             <Link href="/" className="flex items-center gap-2.5">
-              <span className="grid h-9 w-9 place-items-center rounded-xl bg-coral-500 text-navy-950 shadow-glow">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M13 2 3.5 13.5H11L9.5 22 19 10.5H11.5L13 2z" />
-                </svg>
-              </span>
+              <Logo className="h-9 w-9 rounded-xl shadow-glow ring-1 ring-white/10" />
               <span className="text-xl font-extrabold tracking-tight text-cream-100">
                 Volt<span className="text-coral-400">Cart</span>
               </span>

@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
+import Logo from "@/components/Logo";
 
 const NAV: { label: string; items: { href: string; label: string; icon: string }[] }[] = [
   {
@@ -36,11 +37,7 @@ export default function AdminSidebar({ authed }: { authed: boolean }) {
   return (
     <aside className="flex w-full shrink-0 flex-col gap-1 border-b border-navy-200 bg-white p-3 lg:h-screen lg:sticky lg:top-0 lg:w-60 lg:overflow-y-auto lg:border-b-0 lg:border-r lg:py-6">
       <div className="mb-3 flex items-center gap-2.5 px-2 lg:mb-6">
-        <span className="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-navy-900 to-navy-700 text-white shadow-sm">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M13 2 3.5 13.5H11L9.5 22 19 10.5H11.5L13 2z" />
-          </svg>
-        </span>
+        <Logo className="h-9 w-9 rounded-xl shadow-sm ring-1 ring-navy-900/10" />
         <div>
           <p className="text-sm font-extrabold leading-tight text-navy-900">
             Volt<span className="text-coral-700">Cart</span>

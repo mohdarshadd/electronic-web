@@ -8,6 +8,7 @@ import { loadSiteSettings } from "@/lib/site-settings";
 import { lockBodyScroll } from "@/lib/scroll-lock";
 import { useCart } from "@/context/CartContext";
 import { SearchBar } from "./SearchBar";
+import Logo from "./Logo";
 
 export default function Header() {
   const { count, openCart } = useCart();
@@ -112,11 +113,10 @@ export default function Header() {
         </button>
 
         <Link href="/" className="group flex shrink-0 items-center gap-2.5" aria-label={site.name}>
-          <span className="grid h-9 w-9 place-items-center rounded-xl bg-coral-500 text-navy-950 shadow-glow ring-1 ring-white/20 transition-transform duration-200 group-hover:-rotate-3 group-hover:scale-105">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M13 2 3.5 13.5H11L9.5 22 19 10.5H11.5L13 2z" />
-            </svg>
-          </span>
+          <Logo
+            preload
+            className="h-9 w-9 rounded-xl shadow-glow ring-1 ring-white/20 transition-transform duration-200 group-hover:-rotate-3 group-hover:scale-105"
+          />
           <span className="text-xl font-extrabold tracking-tight text-cream-100 transition-colors duration-200 group-hover:text-cream-50">
             Volt<span className="text-coral-400">Cart</span>
           </span>
