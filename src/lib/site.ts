@@ -1,9 +1,9 @@
 export const site = {
-  name: "VoltCart",
-  legalName: "VoltCart Electronics Pvt. Ltd.",
+  name: "VoltCore",
+  legalName: "VoltCore Electronics Pvt. Ltd.",
   tagline: "Your ideas. Our parts.",
   description:
-    "VoltCart is the student-first electronics & robotics components store — sensors, boards, motors, kits and everything between, with UPI payments, COD and student pricing.",
+    "VoltCore is the student-first electronics & robotics components store — sensors, boards, motors, kits and everything between, with UPI payments, COD and student pricing.",
   announcement:
     "Flat 10% off for students with code STUDENT10 · Free shipping above ₹499 · UPI, Cards, NetBanking & COD",
   contactPhone: "+91 1800–266–6123",

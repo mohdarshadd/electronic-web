@@ -36,7 +36,7 @@ interface CartContextValue {
 
 const CartContext = createContext<CartContextValue | null>(null);
 
-const STORAGE_KEY = "voltcart.cart.v1";
+const STORAGE_KEY = "voltcore.cart.v1";
 
 function loadLines(): CartLine[] {
   if (typeof window === "undefined") return [];
@@ -54,7 +54,7 @@ function loadLines(): CartLine[] {
 function loadCoupon(): string | null {
   if (typeof window === "undefined") return null;
   try {
-    const raw = window.localStorage.getItem("voltcart.coupon.v1");
+    const raw = window.localStorage.getItem("voltcore.coupon.v1");
     return raw || null;
   } catch {
     return null;
@@ -119,8 +119,8 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     try {
-      if (coupon) window.localStorage.setItem("voltcart.coupon.v1", coupon);
-      else window.localStorage.removeItem("voltcart.coupon.v1");
+      if (coupon) window.localStorage.setItem("voltcore.coupon.v1", coupon);
+      else window.localStorage.removeItem("voltcore.coupon.v1");
     } catch {
       // ignore
     }

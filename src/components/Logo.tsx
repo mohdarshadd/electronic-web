@@ -9,8 +9,8 @@ export default function Logo({
 }) {
   return (
     <Image
-      src="/voldcorelogo.png"
-      alt="VoltCart logo"
+      src="/voltcorelogo.png"
+      alt="VoltCore logo"
       width={40}
       height={40}
       preload={preload}

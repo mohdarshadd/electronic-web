@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const product = getCatalogProductBySlug(slug);
   if (!product) return {};
   return {
-    title: `${product.name} – ₹${(product.price / 100).toLocaleString("en-IN")} | VoltCart`,
+    title: `${product.name} – ₹${(product.price / 100).toLocaleString("en-IN")} | VoltCore`,
     description: product.description,
     keywords: product.tags,
   };

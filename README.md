@@ -22,7 +22,7 @@ This project uses [`next/font`](https://nextjs.org/docs/app/building-your-applic
 
 ## Loading states
 
-VoltCart shows an animated circuit-board loader (`src/components/ElectroLoader.tsx` — flowing current, traveling electrons, blinking LEDs, glowing chip) whenever content is on its way: storefront page navigations (`(store)/loading.tsx`), admin pages (`admin/loading.tsx`), the checkout segment, and while an order is being placed. It honors `prefers-reduced-motion`.
+VoltCore shows an animated circuit-board loader (`src/components/ElectroLoader.tsx` — flowing current, traveling electrons, blinking LEDs, glowing chip) whenever content is on its way: storefront page navigations (`(store)/loading.tsx`), admin pages (`admin/loading.tsx`), the checkout segment, and while an order is being placed. It honors `prefers-reduced-motion`.
 
 ## Learn More
 
@@ -53,7 +53,7 @@ Notes:
 - Free instances go to sleep after ~15 minutes idle, so the first request after a pause can take a few seconds to wake up.
 - Runtime data (products, orders, restock requests, uploaded datasheets/images) is stored in the local `.data/` folder. Render's free instances have an ephemeral filesystem, so that data resets whenever the service restarts or redeploys. For persistent storage, attach a [Disk](https://render.com/docs/disks) to the service and mount it at the repo's `.data/` path.
 
-## Keeping VoltCart awake
+## Keeping VoltCore awake
 
 Render's free web service sleeps after ~15 minutes without traffic, and a GitHub Actions cron alone won't reliably prevent that (scheduled runs can be delayed 15–30 minutes by GitHub). Use an external uptime monitor for a strict cadence:
 

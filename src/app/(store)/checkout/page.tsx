@@ -10,7 +10,7 @@ import ElectroLoader from "@/components/ElectroLoader";
 
 type PaymentMethod = "cashfree" | "cod";
 
-const WALLET_KEY = "voltcart.address.v1";
+const WALLET_KEY = "voltcore.address.v1";
 
 function loadAddress() {
   if (typeof window === "undefined") return null;

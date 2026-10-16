@@ -347,7 +347,7 @@ export default function AdminProducts() {
         <div>
           <h1 className="text-xl font-extrabold tracking-tight text-navy-900 sm:text-2xl">Products</h1>
           <p className="mt-1 text-sm text-navy-500">
-            Add new items to the VoltCart catalogue — with image, pricing, specs and badges. They go live on the store immediately.
+            Add new items to the VoltCore catalogue — with image, pricing, specs and badges. They go live on the store immediately.
           </p>
         </div>
         <button

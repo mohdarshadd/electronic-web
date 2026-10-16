@@ -15,7 +15,7 @@ export default function StudentOffersPage() {
               Flat 10% off, every build.
             </h1>
             <p className="mt-4 text-base leading-7 text-navy-900/80">
-              VoltCart is built for students — whether you&apos;re making your first line follower,
+              VoltCore is built for students — whether you&apos;re making your first line follower,
               grinding toward a hackathon trophy, or running the college robotics club. Verify
               your student status once and keep saving.
             </p>

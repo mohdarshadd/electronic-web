@@ -35,7 +35,7 @@ export async function GET(req: NextRequest) {
   return new Response(toCSV(rows), {
     headers: {
       "Content-Type": "text/csv; charset=utf-8",
-      "Content-Disposition": `attachment; filename="voltcart-orders-${csvNow()}.csv"`,
+      "Content-Disposition": `attachment; filename="voltcore-orders-${csvNow()}.csv"`,
     },
   });
 }

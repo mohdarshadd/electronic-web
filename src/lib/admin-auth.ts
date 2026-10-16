@@ -1,6 +1,6 @@
 import { createHmac, timingSafeEqual } from "node:crypto";
 
-export const ADMIN_COOKIE = "voltcart_admin";
+export const ADMIN_COOKIE = "voltcore_admin";
 const MAX_AGE = 12 * 60 * 60; // 12 hours
 
 export function adminConfigured(): boolean {

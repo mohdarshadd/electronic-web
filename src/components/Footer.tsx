@@ -11,7 +11,7 @@ export default function Footer() {
             <Link href="/" className="flex items-center gap-2.5">
               <Logo className="h-9 w-9 rounded-xl shadow-glow ring-1 ring-white/10" />
               <span className="text-xl font-extrabold tracking-tight text-cream-100">
-                Volt<span className="text-coral-400">Cart</span>
+                Volt<span className="text-coral-400">Core</span>
               </span>
             </Link>
             <p className="mt-4 max-w-xs text-sm leading-6 text-cream-100/60">{site.description}</p>

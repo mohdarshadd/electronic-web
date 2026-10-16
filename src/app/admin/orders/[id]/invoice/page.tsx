@@ -35,7 +35,7 @@ export default async function AdminInvoicePage(props: { params: Promise<{ id: st
             <Logo className="h-10 w-10 rounded-xl ring-1 ring-navy-900/10" />
             <div>
               <p className="text-lg font-extrabold text-navy-900">
-                Volt<span className="text-coral-700">Cart</span>
+                Volt<span className="text-coral-700">Core</span>
               </p>
               <p className="text-xs text-navy-500">{site.legalName}</p>
             </div>

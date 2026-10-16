@@ -5,7 +5,7 @@ import { ADMIN_COOKIE, adminConfigured, verifyAdminToken } from "@/lib/admin-aut
 import AdminSidebar from "@/components/admin/AdminSidebar";
 
 export const metadata: Metadata = {
-  title: "Admin – VoltCart",
+  title: "Admin – VoltCore",
   robots: { index: false, follow: false },
 };
 

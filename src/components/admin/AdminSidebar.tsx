@@ -40,7 +40,7 @@ export default function AdminSidebar({ authed }: { authed: boolean }) {
         <Logo className="h-9 w-9 rounded-xl shadow-sm ring-1 ring-navy-900/10" />
         <div>
           <p className="text-sm font-extrabold leading-tight text-navy-900">
-            Volt<span className="text-coral-700">Cart</span>
+            Volt<span className="text-coral-700">Core</span>
           </p>
           <p className="text-[10px] font-bold uppercase tracking-widest text-navy-400">Admin</p>
         </div>

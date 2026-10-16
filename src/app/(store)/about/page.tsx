@@ -6,13 +6,13 @@ export default function AboutPage() {
     <StaticShell
       crumbs="About us"
       title="We make building possible for Indian students."
-      subtitle="VoltCart started the way most good ideas do — with a student who couldn't find the right part for a hackathon."
+      subtitle="VoltCore started the way most good ideas do — with a student who couldn't find the right part for a hackathon."
     >
       <Section heading="Why we exist">
         <p>
           Finding components for electronics projects in India is painful. Prices are opaque,
           stock is unreliable, and the parts you need are scattered across half a dozen sellers.
-          We started VoltCart to fix that for the people who build: students, makers, robotics
+          We started VoltCore to fix that for the people who build: students, makers, robotics
           clubs and college labs.
         </p>
         <p>

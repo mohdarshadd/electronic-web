@@ -118,7 +118,7 @@ export default function Header() {
             className="h-9 w-9 rounded-xl shadow-glow ring-1 ring-white/20 transition-transform duration-200 group-hover:-rotate-3 group-hover:scale-105"
           />
           <span className="text-xl font-extrabold tracking-tight text-cream-100 transition-colors duration-200 group-hover:text-cream-50">
-            Volt<span className="text-coral-400">Cart</span>
+            Volt<span className="text-coral-400">Core</span>
           </span>
         </Link>
 

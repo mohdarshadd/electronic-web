@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 2
     steps:
-      - name: Ping VoltCart
+      - name: Ping VoltCore
         env:
           URL: ${{ inputs.url }}
         run: |
