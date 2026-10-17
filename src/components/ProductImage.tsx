@@ -1,3 +1,4 @@
+import { productPhotoSrc } from "@/lib/product-photos";
 import type { Product } from "@/lib/types";
 
 const IMAGE_DIR = "/products";
@@ -11,19 +12,19 @@ export function ProductImage({
   className?: string;
   priority?: boolean;
 }) {
-  const src =
-    product.image === "jpg"
-      ? `/api/product-images/${product.slug}`
-      : `${IMAGE_DIR}/${product.slug}.svg`;
+  const uploaded = product.image === "jpg" ? `/api/product-images/${product.slug}` : null;
+  const photo = uploaded ?? productPhotoSrc(product.slug);
+  const src = photo ?? `${IMAGE_DIR}/${product.slug}.svg`;
+  const fit = uploaded ? "object-cover" : photo ? "object-contain" : "object-cover";
   return (
     <div className={`relative overflow-hidden bg-cream-100 ${className}`}>
-      {/* eslint-disable-next-line @next/next/no-img-element -- local SVGs + streamed uploads; the optimizer refuses SVGs without dangerouslyAllowSVG. Swap for <Image> when real photos land. */}
+      {/* eslint-disable-next-line @next/next/no-img-element -- local SVGs, WebP photos + streamed uploads; the optimizer refuses SVGs without dangerouslyAllowSVG. */}
       <img
         src={src}
         alt={product.name}
         width={600}
         height={600}
-        className="h-full w-full select-none object-cover"
+        className={`h-full w-full select-none ${fit}`}
         loading={priority ? "eager" : "lazy"}
         fetchPriority={priority ? "high" : "auto"}
         decoding="async"

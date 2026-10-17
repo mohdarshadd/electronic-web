@@ -14,7 +14,7 @@ interface SuggestionProduct {
   inStock: boolean;
   emoji: string;
   imageHue: string;
-  image: "jpg" | null;
+  image: "jpg" | "webp" | null;
   categorySlug: string;
 }
 
@@ -178,9 +178,16 @@ export function SearchBar({ onNavigate }: { onNavigate?: () => void }) {
                         onClick={() => go(`/product/${p.slug}`)}
                         className="flex items-center gap-3 rounded-xl px-2.5 py-2 transition hover:bg-cream-100"
                       >
-                        {p.image === "jpg" ? (
+                        {p.image === "jpg" || p.image === "webp" ? (
                           // eslint-disable-next-line @next/next/no-img-element -- product photos are plain <img> by design
-                          <img src={`/api/product-images/${p.slug}`} alt="" width={36} height={36} decoding="async" className="h-9 w-9 shrink-0 rounded-lg object-cover" />
+                          <img
+                            src={p.image === "jpg" ? `/api/product-images/${p.slug}` : `/products/${p.slug}.webp`}
+                            alt=""
+                            width={36}
+                            height={36}
+                            decoding="async"
+                            className="h-9 w-9 shrink-0 rounded-lg bg-cream-100 object-contain"
+                          />
                         ) : (
                           <span className={`grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-gradient-to-br ${p.imageHue} text-base`}>
                             {p.emoji}

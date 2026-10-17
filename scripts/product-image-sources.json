@@ -1,0 +1,186 @@
+{
+  "hc-sr04-ultrasonic-distance-sensor": {
+    "search": "HC-SR04 ultrasonic sensor",
+    "tags": "ultrasonic,sensor",
+    "file": "public/products/hc-sr04-ultrasonic-distance-sensor.png"
+  },
+  "mpu6050-gyroscope-accelerometer": {
+    "search": "MPU-6050 module",
+    "tags": "gyroscope,electronics"
+  },
+  "dht22-temperature-humidity": {
+    "search": "DHT22 sensor",
+    "tags": "temperature,sensor"
+  },
+  "ir-obstacle-sensor-module": {
+    "search": "infrared obstacle sensor module",
+    "tags": "infrared,sensor",
+    "commons": "Sharp GP2Y0A21YK IR proximity sensor cropped.jpg"
+  },
+  "esp32-devkit-v1-wifi-bluetooth": {
+    "search": "ESP32 DevKit",
+    "tags": "esp32,electronics",
+    "commons": "Espressif ESP-WROOM-32 Wi-Fi & Bluetooth Module.jpg"
+  },
+  "arduino-uno-r3": {
+    "search": "Arduino Uno R3",
+    "tags": "arduino,electronics"
+  },
+  "raspberry-pi-4-model-b": {
+    "search": "Raspberry Pi 4 Model B",
+    "tags": "raspberry-pi"
+  },
+  "nodemcu-esp8266-wifi": {
+    "search": "NodeMCU ESP8266",
+    "tags": "esp8266,electronics"
+  },
+  "l298n-motor-driver-module": {
+    "search": "L298N motor driver",
+    "tags": "motor-driver,electronics",
+    "commons": "Dosmotorsl298n.jpg"
+  },
+  "sg90-micro-servo": {
+    "search": "SG90 servo",
+    "tags": "servo,motor"
+  },
+  "28byj-48-stepper-motor-uln2003": {
+    "search": "28BYJ-48 stepper motor",
+    "tags": "stepper-motor"
+  },
+  "n20-gear-micromotor-12v": {
+    "search": "N20 gear motor",
+    "tags": "dc-motor",
+    "commons": "Gear motor.jpg"
+  },
+  "ne555-timer-ic": {
+    "search": "NE555 timer IC",
+    "tags": "integrated-circuit"
+  },
+  "lm358-dual-opamp": {
+    "search": "LM358 operational amplifier",
+    "tags": "op-amp,electronics"
+  },
+  "lm2596-buck-converter-module": {
+    "search": "LM2596 buck converter",
+    "tags": "buck-converter"
+  },
+  "atmega328p-pu-microcontroller": {
+    "search": "ATmega328P microcontroller",
+    "tags": "microcontroller"
+  },
+  "ssd1306-oled-0-96-i2c": {
+    "search": "SSD1306 OLED display",
+    "tags": "oled,display",
+    "commons": "OLED display.jpg"
+  },
+  "1-8-tft-lcd-touch": {
+    "search": "1.8 inch TFT LCD module",
+    "tags": "lcd,display",
+    "commons": "Chimei Innolux N133HSE-EA1-9641.jpg"
+  },
+  "tm1637-4-digit-display": {
+    "search": "TM1637 seven segment display",
+    "tags": "seven-segment,display",
+    "commons": "Clock module with seven segment display (51032781886).jpg"
+  },
+  "ws2812b-led-strip-1m": {
+    "search": "WS2812B LED strip",
+    "tags": "led-strip"
+  },
+  "lora-sx1278-433mhz": {
+    "search": "SX1278 LoRa module",
+    "tags": "lora,antenna",
+    "commons": "LoRa Module with antenna and SPI wires attached.jpg"
+  },
+  "hc-05-bluetooth-module": {
+    "search": "HC-05 Bluetooth module",
+    "tags": "bluetooth,module",
+    "commons": "Bluetooth module.jpg"
+  },
+  "gsm-sim800l-module": {
+    "search": "SIM800L GSM module",
+    "tags": "gsm,module",
+    "commons": "USB broadband modems.jpg"
+  },
+  "wifi-esp01-relay-4ch": {
+    "search": "ESP-01 relay module",
+    "tags": "relay,module",
+    "commons": "SRD-05VDC-SL-C 5V one-channel relay module.jpg"
+  },
+  "18650-li-ion-3000mah": {
+    "search": "18650 lithium ion battery",
+    "tags": "18650,battery"
+  },
+  "tp4056-lipo-charger-module": {
+    "search": "TP4056 charging module",
+    "tags": "battery,charger",
+    "commons": "TP4056 board P1089957.jpg"
+  },
+  "9v-2a-adaptor": {
+    "search": "9V power adapter",
+    "tags": "power-adapter",
+    "commons": "Power adapter.jpg"
+  },
+  "7-4v-2s-lipo-1200mah": {
+    "search": "lithium polymer battery",
+    "tags": "lipo-battery"
+  },
+  "robot-car-chassis-4wd": {
+    "search": "robot car chassis 4WD",
+    "tags": "robot,chassis",
+    "commons": "Small wheeled robot chassis displayed on shelves.jpg"
+  },
+  "metallic-gears-combo": {
+    "search": "metal gears",
+    "tags": "gears,mechanical",
+    "commons": "Gear.jpg"
+  },
+  "m3-screw-nut-standoff-kit": {
+    "search": "M3 screws standoffs",
+    "tags": "screws,hardware",
+    "commons": "Standoffs.jpg"
+  },
+  "linear-slide-rail-300mm": {
+    "search": "linear rail MGN12",
+    "tags": "linear,rail",
+    "commons": "BallScrews-with-detail-insets.jpg"
+  },
+  "line-follower-robot-combo": {
+    "search": "line follower robot",
+    "tags": "robot,electronics"
+  },
+  "iot-starter-kit-esp32": {
+    "search": "ESP32 starter kit",
+    "tags": "electronics,kit",
+    "commons": "Espressif ESP-WROOM-32 Wi-Fi & Bluetooth Module.jpg"
+  },
+  "hackathon-electronics-essentials": {
+    "search": "electronic components kit",
+    "tags": "electronic-components",
+    "commons": "Electronic components.jpg"
+  },
+  "stem-science-learning-kit": {
+    "search": "STEM electronics kit",
+    "tags": "stem,electronics",
+    "commons": "Electronic components.jpg"
+  },
+  "pla-filament-1kg": {
+    "search": "PLA filament spool",
+    "tags": "3d-printing,filament",
+    "commons": "3D Printing Materials (16863368275).jpg"
+  },
+  "ender-3-v3-se-printer": {
+    "search": "Creality Ender 3 V3 SE",
+    "tags": "3d-printer",
+    "commons": "Prusa i3 3D Printer - Reprap - Completed.jpg"
+  },
+  "petg-filament-1kg": {
+    "search": "PETG filament spool",
+    "tags": "petg,filament",
+    "commons": "1 kg petg filament in packaging.jpg"
+  },
+  "direct-drive-extruder": {
+    "search": "3D printer extruder",
+    "tags": "3d-printer,extruder"
+  }
+}

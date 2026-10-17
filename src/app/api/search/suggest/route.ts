@@ -1,5 +1,6 @@
 import type { NextRequest } from "next/server";
 import { getCatalog } from "@/lib/catalog";
+import { productPhotoSrc } from "@/lib/product-photos";
 import { categories } from "@/lib/products";
 
 const MAX_PRODUCTS = 6;
@@ -42,7 +43,7 @@ export async function GET(req: NextRequest) {
       inStock: p.inStock,
       emoji: p.emoji,
       imageHue: p.imageHue,
-      image: p.image ?? null,
+      image: p.image ?? (productPhotoSrc(p.slug) ? "webp" : null),
       categorySlug: p.categorySlug,
     }));
 

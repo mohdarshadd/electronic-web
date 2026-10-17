@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import type { Product } from "@/lib/types";
+import { productPhotoSrc } from "@/lib/product-photos";
 import { formatINR, calcDiscount } from "@/lib/format";
 
 interface Draft {
@@ -214,10 +215,16 @@ export default function AdminInventory() {
                 d.price !== String(p.price) || d.mrp !== String(p.mrp) || d.stock !== String(p.stock) || d.inStock !== p.inStock;
               const lowStock = p.stock <= 10;
               const discount = calcDiscount(p.price, p.mrp);
+              const photo = p.image === "jpg" ? `/api/product-images/${p.slug}` : productPhotoSrc(p.slug);
               return (
                 <li key={p.id} className="px-4 py-3">
                   <div className="flex flex-wrap items-center gap-3">
-                    <span className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-cream-100 text-base">{p.emoji}</span>
+                    {photo ? (
+                      // eslint-disable-next-line @next/next/no-img-element -- local WebP photos + streamed uploads
+                      <img src={photo} alt="" width={36} height={36} decoding="async" className="h-9 w-9 shrink-0 rounded-lg bg-cream-100 object-contain" />
+                    ) : (
+                      <span className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-cream-100 text-base">{p.emoji}</span>
+                    )}
                     <div className="min-w-0 flex-1">
                       <p className="truncate text-sm font-bold text-navy-900">{p.name}</p>
                       <p className="text-xs text-navy-400">
