@@ -2,7 +2,7 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import { categories } from "@/lib/products";
 import { getCatalog, getCatalogBrands, getCatalogProductsByCategory } from "@/lib/catalog";
-import { buildShopQuery, normalizeShopParams, type RawSearchParams, type ShopParams } from "@/lib/shop-query";
+import { buildCategoryHref, normalizeShopParams, shopHref, withoutCategory, type RawSearchParams, type ShopParams } from "@/lib/shop-query";
 import type { Category } from "@/lib/types";
 import ProductCard from "./ProductCard";
 import ProductGridSkeleton from "./ProductGridSkeleton";
@@ -84,14 +84,20 @@ export default async function ShopContent({
   category?: Category;
 }) {
   const sp = normalizeShopParams(await params);
-  const activeCat = sp.category;
-  const result = filterProducts(sp);
+  const activeCat = category?.slug ?? sp.category;
+  const basePath = category ? `/category/${category.slug}` : "/shop";
+  const queryParams = category ? withoutCategory(sp) : sp;
+  const result = filterProducts({ ...sp, category: activeCat });
   const sorted = (sp.sort as string) || "popular";
   const brands = getCatalogBrands();
 
-  function withParam(key: string, value: string | undefined) {
-    const next = { ...sp, [key]: value !== undefined ? value : undefined };
-    return buildShopQuery(next);
+  function hrefFor(next: ShopParams) {
+    return shopHref(basePath, category ? withoutCategory(next) : next);
+  }
+
+  function categoryLink(slug: string) {
+    if (activeCat === slug) return shopHref("/shop", withoutCategory(sp));
+    return buildCategoryHref(slug, sp);
   }
 
   return (
@@ -118,7 +124,7 @@ export default async function ShopContent({
             <div className="flex flex-wrap items-center gap-2">
               <span className="text-[11px] font-bold uppercase tracking-[0.14em] text-navy-400">Sort by</span>
               {SORT_OPTIONS.map((o) => (
-                <Chip key={o.value} href={buildShopQuery({ ...sp, sort: o.value })} active={sorted === o.value}>
+                <Chip key={o.value} href={hrefFor({ ...sp, sort: o.value })} active={sorted === o.value}>
                   {o.label}
                 </Chip>
               ))}
@@ -140,7 +146,7 @@ export default async function ShopContent({
                   return (
                     <Link
                       key={c.slug}
-                      href={withParam("category", active ? undefined : c.slug)}
+                      href={categoryLink(c.slug)}
                       className={`flex items-center justify-between rounded-lg px-3 py-2 text-sm transition ${
                         active ? "bg-coral-50 font-semibold text-coral-700" : "text-navy-600 hover:bg-cream-100"
                       }`}
@@ -161,7 +167,7 @@ export default async function ShopContent({
                   return (
                     <FilterCheck
                       key={b}
-                      href={buildShopQuery({ ...sp, brand: active ? undefined : b })}
+                      href={hrefFor({ ...sp, brand: active ? undefined : b })}
                       checked={active}
                     >
                       {b}
@@ -173,11 +179,11 @@ export default async function ShopContent({
 
             <div>
               <h3 className="text-[11px] font-bold uppercase tracking-[0.14em] text-navy-400">Price range</h3>
-              <ShopPriceFilter basePath={category ? `/category/${category.slug}` : "/shop"} params={sp} />
+              <ShopPriceFilter basePath={basePath} params={queryParams} />
             </div>
 
             <FilterCheck
-              href={buildShopQuery({ ...sp, instock: sp.instock === "1" ? undefined : "1" })}
+              href={hrefFor({ ...sp, instock: sp.instock === "1" ? undefined : "1" })}
               checked={sp.instock === "1"}
             >
               In stock only

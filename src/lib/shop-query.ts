@@ -32,3 +32,17 @@ export function buildShopQuery(params: ShopParams): string {
   const q = sp.toString();
   return q ? `?${q}` : "";
 }
+
+export function withoutCategory(params: ShopParams): ShopParams {
+  const next = { ...params };
+  delete next.category;
+  return next;
+}
+
+export function shopHref(basePath: string, params: ShopParams): string {
+  return `${basePath}${buildShopQuery(params)}`;
+}
+
+export function buildCategoryHref(slug: string, params: ShopParams): string {
+  return shopHref(`/category/${slug}`, withoutCategory(params));
+}

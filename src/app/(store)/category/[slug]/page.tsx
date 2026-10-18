@@ -24,7 +24,7 @@ async function CategoryContent({ slug, searchParams }: { slug: Promise<string>; 
       title={category.name}
       subtitle={category.description}
       category={category}
-      params={searchParams.then((sp) => ({ ...sp, category: category.slug }))}
+      params={searchParams}
     />
   );
 }
