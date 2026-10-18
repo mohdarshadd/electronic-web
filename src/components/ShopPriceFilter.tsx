@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useTransition, type FormEvent } from "react";
-import { buildShopQuery, type ShopParams } from "@/lib/shop-query";
+import { buildShopQuery, normalizePriceRange, type ShopParams } from "@/lib/shop-query";
 
 export function ShopPriceFilter({ basePath, params }: { basePath: string; params: ShopParams }) {
   const router = useRouter();
@@ -13,7 +13,8 @@ export function ShopPriceFilter({ basePath, params }: { basePath: string; params
     const form = new FormData(e.currentTarget);
     const min = String(form.get("min") ?? "").trim();
     const max = String(form.get("max") ?? "").trim();
-    const href = `${basePath}${buildShopQuery({ ...params, min: min || undefined, max: max || undefined })}`;
+    const range = normalizePriceRange(min, max);
+    const href = `${basePath}${buildShopQuery({ ...params, ...range })}`;
     startTransition(() => {
       router.push(href);
     });

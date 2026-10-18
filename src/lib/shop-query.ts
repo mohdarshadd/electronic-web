@@ -46,3 +46,19 @@ export function shopHref(basePath: string, params: ShopParams): string {
 export function buildCategoryHref(slug: string, params: ShopParams): string {
   return shopHref(`/category/${slug}`, withoutCategory(params));
 }
+
+export function normalizePrice(value: string | undefined): string | undefined {
+  if (!value) return undefined;
+  const amount = Number(value);
+  if (!Number.isFinite(amount) || amount < 0) return undefined;
+  return String(Math.floor(amount));
+}
+
+export function normalizePriceRange(min?: string, max?: string): { min?: string; max?: string } {
+  let low = normalizePrice(min);
+  let high = normalizePrice(max);
+  if (low && high && Number(low) > Number(high)) {
+    [low, high] = [high, low];
+  }
+  return { min: low, max: high };
+}
