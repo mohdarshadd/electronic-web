@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import { categories } from "@/lib/products";
 import { getCatalog, getCatalogBrands } from "@/lib/catalog";
+import { formatINR } from "@/lib/format";
 import { buildCategoryHref, normalizeShopParams, shopHref, withoutCategory, type RawSearchParams, type ShopParams } from "@/lib/shop-query";
 import type { Category } from "@/lib/types";
 import ProductCard from "./ProductCard";
@@ -100,6 +101,29 @@ export default async function ShopContent({
     return buildCategoryHref(slug, sp);
   }
 
+  const activeFilters: { key: string; label: string; href: string }[] = [];
+  if (activeCat) {
+    const name = categories.find((c) => c.slug === activeCat)?.name ?? activeCat;
+    activeFilters.push({ key: "category", label: name, href: shopHref("/shop", withoutCategory(sp)) });
+  }
+  if (sp.brand) {
+    activeFilters.push({ key: "brand", label: sp.brand, href: hrefFor({ ...sp, brand: undefined }) });
+  }
+  if (sp.min || sp.max) {
+    const low = Number(sp.min) || 0;
+    const high = Number(sp.max) || 0;
+    const label = low && high
+      ? `${formatINR(low * 100)} – ${formatINR(high * 100)}`
+      : low
+        ? `From ${formatINR(low * 100)}`
+        : `Under ${formatINR(high * 100)}`;
+    activeFilters.push({ key: "price", label, href: hrefFor({ ...sp, min: undefined, max: undefined }) });
+  }
+  if (sp.instock === "1") {
+    activeFilters.push({ key: "instock", label: "In stock", href: hrefFor({ ...sp, instock: undefined }) });
+  }
+  const clearAllHref = shopHref("/shop", { sort: sp.sort });
+
   return (
     <>
       {/* Header */}
@@ -132,6 +156,31 @@ export default async function ShopContent({
           </div>
         </div>
       </div>
+
+      {activeFilters.length > 0 && (
+        <div className="border-b border-navy-900/10 bg-cream-50">
+          <div className="mx-auto flex max-w-7xl flex-wrap items-center gap-2 px-4 py-3 sm:px-6 lg:px-8">
+            <span className="text-[11px] font-bold uppercase tracking-[0.14em] text-navy-400">Active filters</span>
+            {activeFilters.map((filter) => (
+              <ShopLink
+                key={filter.key}
+                href={filter.href}
+                aria-label={`Remove ${filter.label} filter`}
+                className="inline-flex items-center gap-1.5 rounded-full border border-navy-200 bg-white px-3 py-1.5 text-xs font-semibold text-navy-700 transition hover:border-navy-300 hover:text-navy-900"
+              >
+                {filter.label}
+                <span aria-hidden className="text-navy-400">×</span>
+              </ShopLink>
+            ))}
+            <ShopLink
+              href={clearAllHref}
+              className="ml-1 rounded-full px-2 py-1.5 text-xs font-semibold text-coral-700 underline-offset-4 transition hover:underline"
+            >
+              Clear all
+            </ShopLink>
+          </div>
+        </div>
+      )}
 
       <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
         <div className="grid gap-10 lg:grid-cols-[220px_1fr]">
