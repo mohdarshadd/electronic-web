@@ -6,6 +6,7 @@ import { buildShopQuery, normalizeShopParams, type RawSearchParams, type ShopPar
 import type { Category } from "@/lib/types";
 import ProductCard from "./ProductCard";
 import ProductGridSkeleton from "./ProductGridSkeleton";
+import { FilterCheck } from "./FilterCheck";
 import { ShopLink } from "./ShopLink";
 import { ShopPriceFilter } from "./ShopPriceFilter";
 
@@ -158,15 +159,13 @@ export default async function ShopContent({
                 {brands.map((b) => {
                   const active = sp.brand === b;
                   return (
-                    <label key={b} className="flex cursor-pointer items-center gap-2.5 px-3 py-1.5 text-sm text-navy-600 transition-colors hover:text-navy-900">
-                      <input
-                        type="checkbox"
-                        checked={active}
-                        readOnly
-                        className="h-4 w-4 rounded border-navy-300 accent-navy-900"
-                      />
-                      <ShopLink href={buildShopQuery({ ...sp, brand: active ? undefined : b })} className="flex-1">{b}</ShopLink>
-                    </label>
+                    <FilterCheck
+                      key={b}
+                      href={buildShopQuery({ ...sp, brand: active ? undefined : b })}
+                      checked={active}
+                    >
+                      {b}
+                    </FilterCheck>
                   );
                 })}
               </div>
@@ -177,15 +176,12 @@ export default async function ShopContent({
               <ShopPriceFilter basePath={category ? `/category/${category.slug}` : "/shop"} params={sp} />
             </div>
 
-            <label className="flex cursor-pointer items-center gap-2.5 text-sm font-semibold text-navy-700">
-              <input
-                type="checkbox"
-                checked={sp.instock === "1"}
-                readOnly
-                className="h-4 w-4 rounded border-navy-300 accent-emerald-600"
-              />
-              <ShopLink href={buildShopQuery({ ...sp, instock: sp.instock === "1" ? undefined : "1" })}>In stock only</ShopLink>
-            </label>
+            <FilterCheck
+              href={buildShopQuery({ ...sp, instock: sp.instock === "1" ? undefined : "1" })}
+              checked={sp.instock === "1"}
+            >
+              In stock only
+            </FilterCheck>
           </aside>
 
           {/* Products */}
