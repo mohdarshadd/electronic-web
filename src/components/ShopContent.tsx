@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { categories } from "@/lib/products";
-import { getCatalog, getCatalogBrands, getCatalogProductsByCategory } from "@/lib/catalog";
+import { getCatalog, getCatalogBrands } from "@/lib/catalog";
 import { buildCategoryHref, normalizeShopParams, shopHref, withoutCategory, type RawSearchParams, type ShopParams } from "@/lib/shop-query";
 import type { Category } from "@/lib/types";
 import ProductCard from "./ProductCard";
@@ -141,7 +141,7 @@ export default async function ShopContent({
               <h3 className="text-[11px] font-bold uppercase tracking-[0.14em] text-navy-400">Category</h3>
               <div className="mt-3 space-y-1">
                 {categories.map((c) => {
-                  const count = category ? getCatalogProductsByCategory(c.slug).length : filterProducts({ category: c.slug }).length;
+                  const count = filterProducts({ ...sp, category: c.slug }).length;
                   const active = activeCat === c.slug;
                   return (
                     <Link
