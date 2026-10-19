@@ -3,7 +3,6 @@ export interface Category {
   name: string;
   tagline: string;
   description: string;
-  imageHue: string;
   emoji: string;
 }
 
