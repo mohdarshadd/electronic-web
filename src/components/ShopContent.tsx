@@ -5,6 +5,8 @@ import { getCatalog, getCatalogBrands } from "@/lib/catalog";
 import { formatINR } from "@/lib/format";
 import { buildCategoryHref, normalizeShopParams, shopHref, withoutCategory, type RawSearchParams, type ShopParams } from "@/lib/shop-query";
 import type { Category } from "@/lib/types";
+import { categoryIcon } from "@/lib/icons";
+import { Icon } from "./Icon";
 import ProductCard from "./ProductCard";
 import ProductGridSkeleton from "./ProductGridSkeleton";
 import { FilterCheck } from "./FilterCheck";
@@ -135,8 +137,13 @@ export default async function ShopContent({
             <span className="text-navy-600">{title}</span>
           </div>
           <p className="eyebrow mt-4">{category ? "Category" : "Catalog"}</p>
-          <h1 className="mt-2 text-2xl font-extrabold tracking-tight text-navy-900 sm:text-3xl">
-            {category?.emoji ? `${category.emoji} ` : ""}{title}
+          <h1 className="mt-2 flex items-center gap-3 text-2xl font-extrabold tracking-tight text-navy-900 sm:text-3xl">
+            {category && (
+              <span className="text-coral-600" aria-hidden>
+                <Icon name={categoryIcon(category.slug)} size={30} strokeWidth={1.7} />
+              </span>
+            )}
+            {title}
           </h1>
           {subtitle && <p className="mt-2 max-w-2xl text-sm text-navy-500">{subtitle}</p>}
 

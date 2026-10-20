@@ -4,6 +4,8 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { formatINR } from "@/lib/format";
+import { categoryIcon } from "@/lib/icons";
+import { Icon } from "./Icon";
 
 interface SuggestionProduct {
   id: string;
@@ -21,7 +23,6 @@ interface SuggestionProduct {
 interface SuggestionCategory {
   slug: string;
   name: string;
-  emoji: string;
 }
 
 interface SuggestionsData {
@@ -237,7 +238,9 @@ export function SearchBar({ onNavigate }: { onNavigate?: () => void }) {
                         onClick={() => go(`/category/${c.slug}`)}
                         className="flex items-center gap-2 rounded-xl px-2.5 py-2 text-sm font-semibold text-navy-700 transition hover:bg-cream-100"
                       >
-                        <span>{c.emoji}</span>
+                        <span className="text-coral-600" aria-hidden>
+                          <Icon name={categoryIcon(c.slug)} size={16} />
+                        </span>
                         <Highlight text={c.name} q={term} />
                       </Link>
                     </li>

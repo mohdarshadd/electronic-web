@@ -6,8 +6,10 @@ import { site } from "@/lib/site";
 import { categories } from "@/lib/products";
 import { loadSiteSettings } from "@/lib/site-settings";
 import { lockBodyScroll } from "@/lib/scroll-lock";
+import { categoryIcon } from "@/lib/icons";
 import { useCart } from "@/context/CartContext";
 import { SearchBar } from "./SearchBar";
+import { Icon } from "./Icon";
 import Logo from "./Logo";
 
 export default function Header() {
@@ -194,7 +196,9 @@ export default function Header() {
               className="group relative shrink-0 rounded-full px-2.5 py-1.5 text-xs font-medium text-cream-100/60 transition-colors duration-200 hover:bg-white/10 hover:text-cream-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-coral-400/50 focus-visible:ring-offset-2 focus-visible:ring-offset-navy-950"
             >
               <span className="relative z-10">
-                <span className="mr-1.5 inline-block transition-transform duration-200 group-hover:-translate-y-0.5">{c.emoji}</span>
+                <span className="mr-1.5 inline-flex align-[-2px] text-coral-300 transition-transform duration-200 group-hover:-translate-y-0.5">
+                  <Icon name={categoryIcon(c.slug)} size={14} strokeWidth={1.8} />
+                </span>
                 {c.name}
               </span>
             </Link>
@@ -224,7 +228,9 @@ export default function Header() {
                 onClick={() => setMobileNav(false)}
                 className="rounded-lg px-3 py-2 text-sm text-cream-100/75 hover:bg-white/10"
               >
-                <span className="mr-2">{c.emoji}</span>
+                <span className="mr-2 inline-flex align-[-2px] text-coral-300">
+                  <Icon name={categoryIcon(c.slug)} size={15} strokeWidth={1.8} />
+                </span>
                 {c.name}
               </Link>
             ))}

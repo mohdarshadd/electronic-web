@@ -3,7 +3,6 @@ export interface Category {
   name: string;
   tagline: string;
   description: string;
-  emoji: string;
 }
 
 export interface Spec {

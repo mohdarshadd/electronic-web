@@ -18,7 +18,6 @@ export const categories: Category[] = [
     tagline: "4000+ sensors in stock",
     description:
       "India's largest range of sensors — ultrasonic, IR, temperature, humidity, motion, gas, pressure and more. Every SKU tested for quality.",
-    emoji: "📡",
   },
   {
     slug: "development-boards",
@@ -26,7 +25,6 @@ export const categories: Category[] = [
     tagline: "Arduino, ESP32, Raspberry Pi",
     description:
       "Microcontroller and SBC boards for every project — from your first blink to full AIoT builds. Originals and reliable clones.",
-    emoji: "🔌",
   },
   {
     slug: "motors",
@@ -34,7 +32,6 @@ export const categories: Category[] = [
     tagline: "DC, stepper, servo, BLDC",
     description:
       "Motors, motor drivers, gearboxes, pumps and actuators for robotics, automation and mechatronics projects.",
-    emoji: "⚙️",
   },
   {
     slug: "integrated-circuits",
@@ -42,7 +39,6 @@ export const categories: Category[] = [
     tagline: "ICs, MCUs, memory & logic",
     description:
       "Analog, digital and mixed-signal ICs from leading manufacturers — op-amps, regulators, drivers, memory and MCUs.",
-    emoji: "🔬",
   },
   {
     slug: "displays",
@@ -50,7 +46,6 @@ export const categories: Category[] = [
     tagline: "OLED, LCD, TFT, 7-segment",
     description:
       "Screens for your build — from 0.96\" OLEDs to full TFT panels, plus LED strips, matrices and indicators.",
-    emoji: "🖥️",
   },
   {
     slug: "iot-wireless",
@@ -58,7 +53,6 @@ export const categories: Category[] = [
     tagline: "WiFi, BLE, LoRa, GSM, 433MHz",
     description:
       "Wireless connectivity modules and gateways to turn any device into an IoT endpoint — wherever you are.",
-    emoji: "📶",
   },
   {
     slug: "power",
@@ -66,7 +60,6 @@ export const categories: Category[] = [
     tagline: "LiPo, 18650, PSU, solar",
     description:
       "Power your electronics — Li-ion/LiPo cells, chargers, power banks, bench power supplies, adapters and solar.",
-    emoji: "🔋",
   },
   {
     slug: "mechanical",
@@ -74,7 +67,6 @@ export const categories: Category[] = [
     tagline: "Chassis, gears, fasteners & tools",
     description:
       "Structural parts, robotics hardware, precision tools and accessories to make your builds sturdy and pro.",
-    emoji: "🛠️",
   },
   {
     slug: "diy-kits",
@@ -82,7 +74,6 @@ export const categories: Category[] = [
     tagline: "Robotics, IoT, STEM kits",
     description:
       "Ready-to-build kits for competitions, hackathons and classrooms — everything included, no hunting for parts.",
-    emoji: "📦",
   },
   {
     slug: "3d-printing",
@@ -90,7 +81,6 @@ export const categories: Category[] = [
     tagline: "Printers, filaments, parts",
     description:
       "3D printers, filaments in every colour, print heads, controllers and CNC accessories for makers.",
-    emoji: "🗜️",
   },
 ];
 

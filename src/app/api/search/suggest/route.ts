@@ -54,7 +54,7 @@ export async function GET(req: NextRequest) {
   const cats = categories
     .filter((c) => c.name.toLowerCase().includes(q) || c.slug.includes(q))
     .slice(0, MAX_CATEGORIES)
-    .map((c) => ({ slug: c.slug, name: c.name, emoji: c.emoji }));
+    .map((c) => ({ slug: c.slug, name: c.name }));
 
   return Response.json({ query: q, products, categories: cats, brands });
 }

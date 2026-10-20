@@ -1,6 +1,8 @@
 import Link from "next/link";
 import type { Category } from "@/lib/types";
 import { getCatalogProductsByCategory } from "@/lib/catalog";
+import { categoryIcon } from "@/lib/icons";
+import { Icon } from "./Icon";
 
 export default function CategoryCard({ category }: { category: Category }) {
   const count = getCatalogProductsByCategory(category.slug).length;
@@ -22,8 +24,8 @@ export default function CategoryCard({ category }: { category: Category }) {
         </svg>
       </span>
       <div className="relative flex h-full flex-col">
-        <span className="text-3xl drop-shadow" aria-hidden>
-          {category.emoji}
+        <span className="text-navy-950/90 drop-shadow" aria-hidden>
+          <Icon name={categoryIcon(category.slug)} size={32} strokeWidth={1.6} />
         </span>
         <h3 className="mt-4 text-lg font-bold leading-tight">{category.name}</h3>
         <p className="mt-1 line-clamp-3 text-[13px] leading-snug text-navy-950/75">{category.description}</p>
