@@ -2,11 +2,12 @@
 // Output: public/products/{productSlug}.svg — swap in real photos later by
 // replacing the file (or updating ProductImage to point at the new asset).
 // Run with: node scripts/generate-product-images.mjs
-import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 
 const root = process.cwd();
 const src = readFileSync(path.join(root, "src", "lib", "products.ts"), "utf8");
+const iconsSrc = readFileSync(path.join(root, "src", "lib", "icons.ts"), "utf8");
 
 // Tailwind gradient tokens used in products.ts -> actual hex pairs.
 const HUE_MAP = {
@@ -25,11 +26,33 @@ const HUE_MAP = {
 // String contents may contain escaped quotes (e.g. 0.96\" SSD1306 OLED).
 const str = '((?:[^"\\\\]|\\\\.)*)';
 const productRe = new RegExp(
-  `\\{\\s*id:\\s*"${str}",\\s*slug:\\s*"${str}",\\s*name:\\s*"${str}",[\\s\\S]*?imageHue:\\s*"${str}",\\s*emoji:\\s*"${str}",\\s*\\}`,
+  `\\{\\s*id:\\s*"${str}",\\s*slug:\\s*"${str}",\\s*name:\\s*"${str}",[\\s\\S]*?categorySlug:\\s*"${str}",[\\s\\S]*?imageHue:\\s*"${str}",\\s*\\}`,
   "g"
 );
 
 const colors = (hue) => HUE_MAP[hue] || ["#94a3b8", "#475569"];
+
+// Mirror the icon registry so placeholders stay in sync with the storefront.
+const categoryBlock = iconsSrc.slice(
+  iconsSrc.indexOf("export const CATEGORY_ICONS"),
+  iconsSrc.indexOf("};", iconsSrc.indexOf("export const CATEGORY_ICONS")),
+);
+const CATEGORY_ICONS = {};
+for (const match of categoryBlock.matchAll(/(?:"([^"]+)"|([A-Za-z0-9-]+)):\s*"([^"]+)"/g)) {
+  CATEGORY_ICONS[match[1] ?? match[2]] = match[3];
+}
+
+function iconPathFor(name) {
+  const escaped = name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const match = iconsSrc.match(new RegExp(`\\n\\s*(?:${escaped}|"${escaped}"):\\s*\\n?\\s*'([^']*)'`));
+  if (!match) throw new Error(`Missing icon path for ${name}`);
+  return match[1];
+}
+
+function iconMarkup(name, x, y, size, stroke = "#ffffff", strokeWidth = 1.8) {
+  const scale = size / 24;
+  return `<g transform="translate(${x} ${y}) scale(${scale})" fill="none" stroke="${stroke}" stroke-width="${strokeWidth}" stroke-linecap="round" stroke-linejoin="round">${iconPathFor(name)}</g>`;
+}
 
 function escapeXml(value) {
   return value
@@ -44,9 +67,9 @@ function decodeTs(value) {
   return value.replaceAll('\\"', '"').replaceAll("\\\\", "\\").replaceAll("\\n", "\n");
 }
 
-function svgFor({ name, emoji, from, to }) {
+function svgFor({ name, categorySlug, from, to }) {
   const label = escapeXml(name);
-  const emojiChar = escapeXml(emoji);
+  const icon = iconMarkup(CATEGORY_ICONS[categorySlug] ?? "package", 280, 265, 240);
   return `<svg xmlns="http://www.w3.org/2000/svg" width="800" height="800" viewBox="0 0 800 800">
   <title>${label}</title>
   <defs>
@@ -66,7 +89,7 @@ function svgFor({ name, emoji, from, to }) {
   <rect width="800" height="800" fill="url(#bg)"/>
   <rect width="800" height="800" fill="url(#glowA)"/>
   <rect width="800" height="800" fill="url(#glowB)"/>
-  <text x="400" y="385" text-anchor="middle" dominant-baseline="central" font-size="230">${emojiChar}</text>
+  ${icon}
   <text x="400" y="728" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="34" font-weight="600" fill="rgba(255,255,255,0.9)">${label}</text>
 </svg>
 `;
@@ -75,14 +98,34 @@ function svgFor({ name, emoji, from, to }) {
 const outDir = path.join(root, "public", "products");
 mkdirSync(outDir, { recursive: true });
 
+const slugs = new Set();
 let count = 0;
 let match;
 while ((match = productRe.exec(src)) !== null) {
-  const [, , slug, name, hue, emoji] = match;
+  const [, , slug, name, categorySlug, hue] = match;
   const [from, to] = colors(hue);
-  const svg = svgFor({ name: decodeTs(name), emoji, from, to });
+  const svg = svgFor({ name: decodeTs(name), categorySlug: decodeTs(categorySlug), from, to });
   writeFileSync(path.join(outDir, `${slug}.svg`), svg, "utf8");
+  slugs.add(slug);
   count++;
 }
 
-console.log(`Generated ${count} dummy product images in public/products/`);
+// Regenerate tracked placeholders for custom catalog entries when local data exists.
+const customPath = path.join(root, ".data", "products.json");
+let customCount = 0;
+if (existsSync(customPath)) {
+  const parsed = JSON.parse(readFileSync(customPath, "utf8"));
+  const customProducts = Array.isArray(parsed) ? parsed : parsed.products ?? [];
+  for (const product of customProducts) {
+    if (!product?.slug || !product.categorySlug || !product.imageHue || slugs.has(product.slug)) continue;
+    const [from, to] = colors(product.imageHue);
+    const svg = svgFor({ name: product.name ?? product.slug, categorySlug: product.categorySlug, from, to });
+    writeFileSync(path.join(outDir, `${product.slug}.svg`), svg, "utf8");
+    customCount++;
+  }
+}
+
+console.log(
+  `Generated ${count} dummy product images in public/products/` +
+    (customCount ? ` plus ${customCount} custom image${customCount === 1 ? "" : "s"}.` : "."),
+);

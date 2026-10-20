@@ -17,6 +17,6 @@
   <rect width="800" height="800" fill="url(#bg)"/>
   <rect width="800" height="800" fill="url(#glowA)"/>
   <rect width="800" height="800" fill="url(#glowB)"/>
-  <text x="400" y="385" text-anchor="middle" dominant-baseline="central" font-size="230">📶</text>
+  <g transform="translate(280 265) scale(10)" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9a15 15 0 0 1 20 0"/><path d="M5 12.5a10 10 0 0 1 14 0"/><path d="M8.5 16a5 5 0 0 1 7 0"/><circle cx="12" cy="20" r="1"/></g>
   <text x="400" y="728" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="34" font-weight="600" fill="rgba(255,255,255,0.9)">4-Channel WiFi Relay Board (ESP-01)</text>
 </svg>

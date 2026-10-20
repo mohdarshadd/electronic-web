@@ -17,6 +17,6 @@
   <rect width="800" height="800" fill="url(#bg)"/>
   <rect width="800" height="800" fill="url(#glowA)"/>
   <rect width="800" height="800" fill="url(#glowB)"/>
-  <text x="400" y="385" text-anchor="middle" dominant-baseline="central" font-size="230">🗜️</text>
+  <g transform="translate(280 265) scale(10)" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m12 2 9 5-9 5-9-5 9-5Z"/><path d="m3 12 9 5 9-5"/><path d="m3 17 9 5 9-5"/></g>
   <text x="400" y="728" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="34" font-weight="600" fill="rgba(255,255,255,0.9)">PLA Filament 1.75mm (1kg Spool)</text>
 </svg>
