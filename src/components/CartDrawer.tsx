@@ -6,6 +6,7 @@ import { useCart } from "@/context/CartContext";
 import { formatINR } from "@/lib/format";
 import { lockBodyScroll } from "@/lib/scroll-lock";
 import { ProductImage } from "./ProductImage";
+import { Icon } from "./Icon";
 
 function QtyButton({ on, disabled, label, children }: { on: () => void; disabled?: boolean; label: string; children: ReactNode }) {
   return (
@@ -90,7 +91,9 @@ export default function CartDrawer() {
 
         {lines.length === 0 ? (
           <div className="flex flex-1 flex-col items-center justify-center gap-4 px-6 text-center">
-            <span className="grid h-16 w-16 place-items-center rounded-2xl bg-cream-100 text-3xl ring-1 ring-navy-900/5">🛒</span>
+            <span className="grid h-16 w-16 place-items-center rounded-2xl bg-cream-100 text-navy-300 ring-1 ring-navy-900/5">
+              <Icon name="cart" size={30} strokeWidth={1.5} />
+            </span>
             <p className="text-lg font-bold text-navy-900">Your cart is empty</p>
             <p className="max-w-[16rem] text-sm text-navy-500">Add some sensors, boards or kits to get started.</p>
             <Link

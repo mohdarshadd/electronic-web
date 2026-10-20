@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useCart } from "@/context/CartContext";
 import type { Product } from "@/lib/types";
+import { Icon } from "./Icon";
 
 export default function BuyBox({ product }: { product: Product }) {
   const { add, openCart } = useCart();
@@ -123,10 +124,12 @@ export default function BuyBox({ product }: { product: Product }) {
 
       <div className="grid grid-cols-2 gap-3 pt-1 text-center text-xs text-navy-500">
         <div className="rounded-xl bg-cream-100/80 px-2 py-2.5 ring-1 ring-navy-900/5">
-          <span className="block text-base">🚚</span>Free shipping over ₹499
+          <Icon name="truck" size={17} className="mx-auto mb-1 text-navy-500" />
+          Free shipping over ₹499
         </div>
         <div className="rounded-xl bg-cream-100/80 px-2 py-2.5 ring-1 ring-navy-900/5">
-          <span className="block text-base">↩️</span>7-day easy returns
+          <Icon name="rotate-ccw" size={17} className="mx-auto mb-1 text-navy-500" />
+          7-day easy returns
         </div>
       </div>
     </div>

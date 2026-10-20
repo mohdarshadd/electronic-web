@@ -250,7 +250,9 @@ export default async function ShopContent({
           <div>
             {result.length === 0 ? (
               <div className="grid place-items-center rounded-3xl border border-dashed border-navy-200 bg-white px-6 py-20 text-center shadow-soft">
-                <span className="text-5xl">🔍</span>
+                <span className="inline-flex text-navy-300">
+                  <Icon name="search" size={48} strokeWidth={1.4} />
+                </span>
                 <p className="mt-4 text-lg font-bold text-navy-900">No products match those filters</p>
                 <p className="mt-1 text-sm text-navy-500">Try removing a filter or two.</p>
                 <Link href="/shop" className="mt-6 rounded-xl bg-navy-900 px-5 py-2.5 text-sm font-semibold text-cream-100 hover:bg-navy-800">

@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import type { RestockRequest } from "@/lib/restock-requests";
+import { Icon } from "../Icon";
 
 type Filter = "pending" | "notified" | "all";
 
@@ -108,7 +109,9 @@ export default function AdminRestockRequests() {
         <div className="h-48 animate-pulse rounded-2xl border border-navy-200 bg-white" />
       ) : filtered.length === 0 ? (
         <div className="rounded-2xl border border-navy-200 bg-white py-14 text-center">
-          <span className="text-4xl">🔔</span>
+          <span className="inline-flex text-navy-300">
+            <Icon name="bell" size={40} strokeWidth={1.5} />
+          </span>
           <p className="mt-3 text-sm font-bold text-navy-900">
             {filter === "pending" ? "No pending restock requests" : "Nothing here"}
           </p>

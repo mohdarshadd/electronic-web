@@ -144,8 +144,8 @@ export default function Header() {
             className="group relative rounded-lg px-3 py-2 text-sm font-medium text-coral-300 transition-colors duration-200 hover:text-coral-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-coral-400/60 focus-visible:ring-offset-2 focus-visible:ring-offset-navy-900"
           >
             <span className="inline-flex items-center gap-1.5">
-              <span aria-hidden className="inline-block transition-transform duration-200 group-hover:-translate-y-0.5">
-                🎓
+              <span aria-hidden className="inline-flex transition-transform duration-200 group-hover:-translate-y-0.5">
+                <Icon name="graduation-cap" size={15} />
               </span>
               Student Offers
             </span>
@@ -234,8 +234,9 @@ export default function Header() {
                 {c.name}
               </Link>
             ))}
-            <Link href="/student-offers" onClick={() => setMobileNav(false)} className="rounded-lg bg-coral-500/15 px-3 py-2 text-sm font-semibold text-coral-300">
-              🎓 Student Offers
+            <Link href="/student-offers" onClick={() => setMobileNav(false)} className="inline-flex items-center gap-2 rounded-lg bg-coral-500/15 px-3 py-2 text-sm font-semibold text-coral-300">
+              <Icon name="graduation-cap" size={15} />
+              Student Offers
             </Link>
           </div>
         </div>

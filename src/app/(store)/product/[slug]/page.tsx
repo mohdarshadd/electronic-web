@@ -5,6 +5,7 @@ import { products } from "@/lib/products";
 import { getCatalogProductBySlug, getCatalogRelated } from "@/lib/catalog";
 import { formatINR, calcDiscount } from "@/lib/format";
 import { ProductImage } from "@/components/ProductImage";
+import { Icon } from "@/components/Icon";
 import { StarRating } from "@/components/StarRating";
 import BuyBox from "@/components/BuyBox";
 import ProductCard from "@/components/ProductCard";
@@ -116,14 +117,16 @@ export default async function ProductPage({ params }: Props) {
             </div>
 
             <div className="mt-6 space-y-2.5">
-              {[
-                { icon: "🚚", text: "Dispatched from Mumbai — 1–3 day delivery across India" },
-                { icon: "💳", text: "Pay via UPI, Cards, NetBanking or Cash on Delivery" },
-                { icon: "↩️", text: "7-day no-questions returns & warranty support" },
-                { icon: "🎓", text: "Students save 10% — verify ID at checkout" },
-              ].map((f) => (
+              {([
+                { icon: "truck", text: "Dispatched from Mumbai — 1–3 day delivery across India" },
+                { icon: "credit-card", text: "Pay via UPI, Cards, NetBanking or Cash on Delivery" },
+                { icon: "rotate-ccw", text: "7-day no-questions returns & warranty support" },
+                { icon: "graduation-cap", text: "Students save 10% — verify ID at checkout" },
+              ] as const).map((f) => (
                 <div key={f.text} className="flex items-center gap-3 text-sm text-navy-600">
-                  <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-white text-base ring-1 ring-navy-900/5">{f.icon}</span>
+                  <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-white text-navy-500 ring-1 ring-navy-900/5">
+                    <Icon name={f.icon} size={17} />
+                  </span>
                   {f.text}
                 </div>
               ))}

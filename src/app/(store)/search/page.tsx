@@ -2,6 +2,7 @@ import { Suspense } from "react";
 import Link from "next/link";
 import { searchCatalog } from "@/lib/catalog";
 import ProductCard from "@/components/ProductCard";
+import { Icon } from "@/components/Icon";
 export default function SearchPage(props: PageProps<"/search">) {
   return (
     <Suspense fallback={<div className="mx-auto max-w-7xl px-4 py-10 text-navy-400">Searching…</div>}>
@@ -43,7 +44,9 @@ async function SearchResults({ searchParams }: Pick<PageProps<"/search">, "searc
         </div>
       ) : (
         <div className="mt-8 grid place-items-center rounded-3xl border border-dashed border-navy-300 bg-white px-6 py-16 text-center">
-          <span className="text-5xl">🔍</span>
+          <span className="inline-flex text-navy-300">
+            <Icon name="search" size={48} strokeWidth={1.4} />
+          </span>
           <p className="mt-4 text-lg font-bold text-navy-900">No matches for “{q}”</p>
           <p className="mt-1 text-sm text-navy-500">Check the spelling, or try searching “esp32”, “servo”, “oled”…</p>
           <div className="mt-5 flex flex-wrap justify-center gap-2">

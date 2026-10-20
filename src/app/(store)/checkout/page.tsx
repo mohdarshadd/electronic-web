@@ -6,6 +6,7 @@ import { useMemo, useState } from "react";
 import { useCart } from "@/context/CartContext";
 import { formatINR } from "@/lib/format";
 import { ProductImage } from "@/components/ProductImage";
+import { Icon } from "@/components/Icon";
 import ElectroLoader from "@/components/ElectroLoader";
 
 type PaymentMethod = "cashfree" | "cod";
@@ -132,7 +133,9 @@ export default function CheckoutPage() {
 
       {detailed.length === 0 ? (
         <div className="mt-10 grid place-items-center rounded-3xl border border-dashed border-navy-300 bg-white px-6 py-16 text-center">
-          <span className="text-5xl">🛒</span>
+          <span className="inline-flex text-navy-300">
+            <Icon name="cart" size={48} strokeWidth={1.4} />
+          </span>
           <p className="mt-4 text-lg font-bold text-navy-900">Nothing to checkout yet</p>
           <Link href="/shop" className="mt-5 rounded-xl bg-navy-900 px-5 py-2.5 text-sm font-semibold text-cream-100 hover:bg-navy-800">
             Browse products
@@ -200,7 +203,9 @@ export default function CheckoutPage() {
                   }`}
                 >
                   <input type="radio" name="pm" checked={method === "cashfree"} onChange={() => setMethod("cashfree")} className="h-4 w-4 accent-navy-900" />
-                  <span className="grid h-10 w-10 place-items-center rounded-xl bg-coral-100 text-lg">💳</span>
+                  <span className="grid h-10 w-10 place-items-center rounded-xl bg-coral-100 text-coral-700">
+                    <Icon name="credit-card" size={20} />
+                  </span>
                   <span className="flex-1">
                     <span className="block text-sm font-bold text-navy-900">Pay online — UPI, Cards, NetBanking</span>
                     <span className="block text-xs text-navy-500">securely via Cashfree Payments Gateway</span>
@@ -214,7 +219,9 @@ export default function CheckoutPage() {
                   }`}
                 >
                   <input type="radio" name="pm" checked={method === "cod"} onChange={() => setMethod("cod")} className="h-4 w-4 accent-navy-900" />
-                  <span className="grid h-10 w-10 place-items-center rounded-xl bg-amber-100 text-lg">💵</span>
+                  <span className="grid h-10 w-10 place-items-center rounded-xl bg-amber-100 text-amber-700">
+                    <Icon name="banknote" size={20} />
+                  </span>
                   <span className="flex-1">
                     <span className="block text-sm font-bold text-navy-900">Cash on Delivery</span>
                     <span className="block text-xs text-navy-500">Pay in cash when your order arrives</span>
@@ -224,7 +231,8 @@ export default function CheckoutPage() {
               </div>
 
               <div className="mt-5 rounded-xl bg-cream-100 p-4 text-xs leading-6 text-navy-500">
-                🎓 <span className="font-semibold text-navy-700">Student discount:</span> you can use code{" "}
+                <Icon name="graduation-cap" size={16} className="mr-1 inline-block align-[-2px]" />
+                <span className="font-semibold text-navy-700">Student discount:</span> you can use code{" "}
                 <code className="rounded bg-white px-1 font-mono font-bold">STUDENT10</code> on the cart page (10% off). It shows in your summary.
               </div>
             </section>
@@ -264,8 +272,9 @@ export default function CheckoutPage() {
             )}
 
             {demoMode ? (
-              <div className="rounded-xl bg-emerald-50 px-4 py-3 text-sm font-medium text-emerald-700">
-                ⚡ Demo mode — simulating a successful UPI payment…
+              <div className="flex items-center gap-2 rounded-xl bg-emerald-50 px-4 py-3 text-sm font-medium text-emerald-700">
+                <Icon name="zap" size={16} className="shrink-0" />
+                <span>Demo mode — simulating a successful UPI payment…</span>
               </div>
             ) : null}
 

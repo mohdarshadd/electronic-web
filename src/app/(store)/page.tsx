@@ -5,6 +5,7 @@ import { site } from "@/lib/site";
 import CategoryCard from "@/components/CategoryCard";
 import ProductCard from "@/components/ProductCard";
 import { ProductImage } from "@/components/ProductImage";
+import { Icon } from "@/components/Icon";
 
 export default function HomePage() {
   const categories = getCategories();
@@ -63,20 +64,21 @@ export default function HomePage() {
                 href="/student-offers"
                 className="inline-flex items-center gap-2 rounded-xl border border-cream-100/20 bg-cream-100/5 px-6 py-3.5 text-sm font-bold text-cream-100 backdrop-blur transition hover:-translate-y-0.5 hover:border-coral-300/50 hover:bg-cream-100/10"
               >
-                🎓 Student offers
+                <Icon name="graduation-cap" size={16} />
+                Student offers
               </Link>
             </div>
             <div className="mt-10 flex flex-wrap gap-2">
-              {[
-                { icon: "📦", label: "5000+ parts" },
-                { icon: "🚚", label: "1–3 day delivery" },
-                { icon: "🎓", label: "10% student off" },
-              ].map((s) => (
+              {([
+                { icon: "package", label: "5000+ parts" },
+                { icon: "truck", label: "1–3 day delivery" },
+                { icon: "graduation-cap", label: "10% student off" },
+              ] as const).map((s) => (
                 <div
                   key={s.label}
                   className="inline-flex items-center gap-2 rounded-full border border-cream-100/10 bg-cream-100/5 px-3.5 py-1.5 backdrop-blur"
                 >
-                  <span className="text-base leading-none">{s.icon}</span>
+                  <Icon name={s.icon} size={16} className="text-cream-100/80" />
                   <span className="text-xs font-medium text-cream-100/75">{s.label}</span>
                 </div>
               ))}
@@ -108,8 +110,9 @@ export default function HomePage() {
             <div className="absolute -right-4 -top-6 rounded-2xl bg-coral-500 px-4 py-3 text-sm font-bold text-navy-950 shadow-lift ring-1 ring-white/30">
               Free shipping over ₹499
             </div>
-            <div className="absolute -bottom-5 left-6 rounded-2xl bg-white px-4 py-3 text-sm font-bold text-navy-900 shadow-lift ring-1 ring-navy-900/5">
-              ⚡ Hackathon-ready kits
+            <div className="absolute -bottom-5 left-6 inline-flex items-center gap-2 rounded-2xl bg-white px-4 py-3 text-sm font-bold text-navy-900 shadow-lift ring-1 ring-navy-900/5">
+              <Icon name="zap" size={16} className="text-coral-600" />
+              Hackathon-ready kits
             </div>
           </div>
         </div>
@@ -118,14 +121,16 @@ export default function HomePage() {
       {/* TRUST BAR */}
       <section className="border-b border-navy-900/10 bg-cream-100">
         <div className="mx-auto grid max-w-7xl grid-cols-2 gap-6 px-4 py-6 sm:grid-cols-4 sm:px-6 lg:px-8">
-          {[
-            { icon: "⚡", title: "Same-day dispatch", desc: "Order before 4 PM, ships today" },
-            { icon: "🛡️", title: "Tested & genuine", desc: "Quality-checked at 3 stages" },
-            { icon: "👨‍🎓", title: "Student-first", desc: "Discounts on college IDs" },
-            { icon: "🤝", title: "Live support", desc: "Real humans on chat & phone" },
-          ].map((t) => (
+          {([
+            { icon: "zap", title: "Same-day dispatch", desc: "Order before 4 PM, ships today" },
+            { icon: "shield-check", title: "Tested & genuine", desc: "Quality-checked at 3 stages" },
+            { icon: "graduation-cap", title: "Student-first", desc: "Discounts on college IDs" },
+            { icon: "headset", title: "Live support", desc: "Real humans on chat & phone" },
+          ] as const).map((t) => (
             <div key={t.title} className="flex items-start gap-3">
-              <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-navy-900/5 text-xl ring-1 ring-navy-900/5">{t.icon}</span>
+              <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-navy-900/5 text-navy-700 ring-1 ring-navy-900/5">
+                <Icon name={t.icon} size={20} />
+              </span>
               <div>
                 <p className="text-sm font-bold text-navy-900">{t.title}</p>
                 <p className="mt-0.5 text-xs text-navy-500">{t.desc}</p>
@@ -187,7 +192,8 @@ export default function HomePage() {
           <div className="relative grid gap-8 lg:grid-cols-[1.2fr_1fr] lg:items-center">
             <div>
               <span className="inline-flex items-center gap-2 rounded-full bg-navy-900/10 px-3 py-1 text-xs font-bold uppercase tracking-wider">
-                🎓 Students save more
+                <Icon name="graduation-cap" size={14} />
+                Students save more
               </span>
               <h2 className="mt-4 text-3xl font-extrabold tracking-tight sm:text-4xl">
                 Flat 10% off on your first build.

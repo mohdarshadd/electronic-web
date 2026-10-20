@@ -5,6 +5,7 @@ import { useMemo, useState } from "react";
 import { useCart } from "@/context/CartContext";
 import { formatINR } from "@/lib/format";
 import { ProductImage } from "@/components/ProductImage";
+import { Icon } from "@/components/Icon";
 import { FREE_SHIPPING_THRESHOLD, STUDENT_DISCOUNT_CODE } from "@/lib/products";
 
 export default function CartPage() {
@@ -39,7 +40,7 @@ export default function CartPage() {
     const ok = applyCoupon(codeInput);
     setCouponMsg(
       ok
-        ? { ok: true, text: "Coupon applied — enjoy the savings! 🎉" }
+        ? { ok: true, text: "Coupon applied — enjoy the savings!" }
         : { ok: false, text: `That code isn't valid. Try ${STUDENT_DISCOUNT_CODE}.` }
     );
     if (ok) setCodeInput("");
@@ -48,7 +49,9 @@ export default function CartPage() {
   if (detailed.length === 0) {
     return (
       <div className="mx-auto max-w-3xl px-4 py-16 text-center sm:px-6 lg:px-8">
-        <span className="text-6xl">🛒</span>
+        <span className="inline-flex text-navy-300">
+          <Icon name="cart" size={56} strokeWidth={1.4} />
+        </span>
         <h1 className="mt-6 text-2xl font-extrabold text-navy-900">Your cart is empty</h1>
         <p className="mt-2 text-navy-500">Let&apos;s fix that — the perfect sensor for your next build is waiting.</p>
         <Link href="/shop" className="mt-6 inline-block rounded-xl bg-navy-900 px-6 py-3 text-sm font-bold text-cream-100 shadow-glow hover:bg-navy-800">
@@ -111,8 +114,9 @@ export default function CartPage() {
           ))}
 
           {remainingForFree > 0 && (
-            <div className="rounded-2xl border border-dashed border-emerald-300 bg-emerald-50 px-4 py-3 text-sm font-medium text-emerald-800">
-              🚚 You&apos;re {formatINR(remainingForFree)} away from free shipping!
+            <div className="flex items-center gap-2 rounded-2xl border border-dashed border-emerald-300 bg-emerald-50 px-4 py-3 text-sm font-medium text-emerald-800">
+              <Icon name="truck" size={18} className="shrink-0" />
+              <span>You&apos;re {formatINR(remainingForFree)} away from free shipping!</span>
             </div>
           )}
         </div>

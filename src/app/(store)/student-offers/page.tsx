@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { site } from "@/lib/site";
 import { STUDENT_DISCOUNT_CODE } from "@/lib/products";
+import { Icon } from "@/components/Icon";
 
 export default function StudentOffersPage() {
   return (
@@ -9,7 +10,8 @@ export default function StudentOffersPage() {
         <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
           <div className="max-w-2xl">
             <p className="inline-flex items-center gap-2 rounded-full bg-white/15 px-3 py-1 text-xs font-bold uppercase tracking-wider">
-              🎓 Students save more
+              <Icon name="graduation-cap" size={14} />
+              Students save more
             </p>
             <h1 className="mt-5 text-4xl font-extrabold leading-tight tracking-tight sm:text-5xl">
               Flat 10% off, every build.
@@ -32,7 +34,9 @@ export default function StudentOffersPage() {
       <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
         <div className="grid gap-6 md:grid-cols-2">
           <div className="rounded-2xl border border-navy-900/10 bg-white p-8 shadow-soft">
-            <span className="text-3xl">✅</span>
+            <span className="inline-flex text-emerald-600">
+              <Icon name="check-circle" size={32} strokeWidth={1.6} />
+            </span>
             <h2 className="mt-3 text-xl font-bold text-navy-900">Is everyone eligible?</h2>
             <ul className="mt-4 space-y-3 text-sm leading-6 text-navy-600">
               <li>• School & college students with a valid ID</li>
@@ -42,7 +46,9 @@ export default function StudentOffersPage() {
             </ul>
           </div>
           <div className="rounded-2xl border border-navy-900/10 bg-white p-8 shadow-soft">
-            <span className="text-3xl">🔓</span>
+            <span className="inline-flex text-coral-600">
+              <Icon name="lock-open" size={32} strokeWidth={1.6} />
+            </span>
             <h2 className="mt-3 text-xl font-bold text-navy-900">How to claim your discount</h2>
             <ol className="mt-4 space-y-3 text-sm leading-6 text-navy-600">
               <li><span className="mr-1.5 font-bold text-coral-700">1.</span> Order with your college email on checkout</li>

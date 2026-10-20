@@ -5,6 +5,7 @@ import { fetchOrder } from "@/lib/orders";
 import { getCatalogProductBySlug } from "@/lib/catalog";
 import { formatINR } from "@/lib/format";
 import { ProductImage } from "@/components/ProductImage";
+import { Icon } from "@/components/Icon";
 import { cashfreeConfigured, fetchCashfreeOrder } from "@/lib/cashfree";
 
 export default function OrderPage(props: PageProps<"/order/[id]">) {
@@ -108,7 +109,9 @@ async function OrderContent({ id }: { id: Promise<string> }) {
                 {product ? (
                   <ProductImage product={product} className="h-14 w-14 rounded-xl" />
                 ) : (
-                  <div className="grid h-14 w-14 place-items-center rounded-xl bg-cream-100 text-lg">📦</div>
+                  <div className="grid h-14 w-14 place-items-center rounded-xl bg-cream-100 text-navy-400">
+                    <Icon name="package" size={22} strokeWidth={1.6} />
+                  </div>
                 )}
                 <div className="flex-1">
                   <p className="text-sm font-semibold text-navy-900">{l.name}</p>
@@ -140,7 +143,10 @@ async function OrderContent({ id }: { id: Promise<string> }) {
           <p className="text-sm text-navy-600">{order.customer.line1}</p>
           {order.customer.line2 && <p className="text-sm text-navy-600">{order.customer.line2}</p>}
           <p className="text-sm text-navy-600">{order.customer.city}, {order.customer.state} — {order.customer.pincode}</p>
-          <p className="mt-2 text-sm text-navy-500">📞 {order.customer.phone}</p>
+          <p className="mt-2 flex items-center gap-1.5 text-sm text-navy-500">
+            <Icon name="phone" size={14} className="shrink-0" />
+            {order.customer.phone}
+          </p>
         </div>
         <div className="rounded-2xl border border-navy-900/10 bg-white p-5">
           <h3 className="text-sm font-bold text-navy-900">Payment</h3>
