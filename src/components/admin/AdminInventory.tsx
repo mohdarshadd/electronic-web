@@ -4,7 +4,9 @@ import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import type { Product } from "@/lib/types";
 import { productPhotoSrc } from "@/lib/product-photos";
+import { categoryIcon } from "@/lib/icons";
 import { formatINR, calcDiscount } from "@/lib/format";
+import { Icon } from "../Icon";
 
 interface Draft {
   price: string;
@@ -223,7 +225,9 @@ export default function AdminInventory() {
                       // eslint-disable-next-line @next/next/no-img-element -- local WebP photos + streamed uploads
                       <img src={photo} alt="" width={36} height={36} decoding="async" className="h-9 w-9 shrink-0 rounded-lg bg-cream-100 object-contain" />
                     ) : (
-                      <span className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-cream-100 text-base">{p.emoji}</span>
+                      <span className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-cream-100 text-navy-500">
+                        <Icon name={categoryIcon(p.categorySlug)} size={20} strokeWidth={1.6} />
+                      </span>
                     )}
                     <div className="min-w-0 flex-1">
                       <p className="truncate text-sm font-bold text-navy-900">{p.name}</p>

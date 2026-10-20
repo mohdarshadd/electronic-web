@@ -1,5 +1,6 @@
 // Pure, fs-free helpers for product images. Client-safe (imported by admin form).
 import type { Product } from "./types";
+import { categoryIcon, iconMarkup } from "./icons";
 
 // Tailwind gradient tokens used across the catalog -> actual hex pairs for the SVG.
 export const HUE_MAP: Record<string, [string, string]> = {
@@ -17,13 +18,6 @@ export const HUE_MAP: Record<string, [string, string]> = {
 
 export const HUE_OPTIONS = Object.keys(HUE_MAP);
 
-export const EMOJI_OPTIONS = [
-  "📡", "🔌", "⚙️", "🔬", "🖥️", "📶", "🔋", "🛠️",
-  "📦", "🗜️", "🧲", "💡", "🎛️", "⏱️", "🌡️", "💧",
-  "🔧", "⚡", "🕹️", "📷", "🤖", "🧩", "💻", "📱",
-  "🔦", "🧵", "🔭", "🎙️", "🖱️", "🎤",
-];
-
 export function hueColors(hue: string): [string, string] {
   return HUE_MAP[hue] ?? ["#94a3b8", "#475569"];
 }
@@ -39,7 +33,7 @@ export function escapeXml(value: string): string {
 export function svgForProduct(product: Product): string {
   const [from, to] = hueColors(product.imageHue);
   const label = escapeXml(product.name);
-  const emojiChar = escapeXml(product.emoji || "📦");
+  const icon = iconMarkup(categoryIcon(product.categorySlug), 280, 265, 240, "#ffffff", 1.8);
   return `<svg xmlns="http://www.w3.org/2000/svg" width="800" height="800" viewBox="0 0 800 800">
   <title>${label}</title>
   <defs>
@@ -59,7 +53,7 @@ export function svgForProduct(product: Product): string {
   <rect width="800" height="800" fill="url(#bg)"/>
   <rect width="800" height="800" fill="url(#glowA)"/>
   <rect width="800" height="800" fill="url(#glowB)"/>
-  <text x="400" y="385" text-anchor="middle" dominant-baseline="central" font-size="230">${emojiChar}</text>
+  ${icon}
   <text x="400" y="728" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="34" font-weight="600" fill="rgba(255,255,255,0.9)">${label}</text>
 </svg>
 `;

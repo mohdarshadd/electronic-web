@@ -117,7 +117,6 @@ export const products: Product[] = [
     ],
     tags: ["ultrasonic", "distance", "sensor", "robot", "hc-sr04"],
     imageHue: "from-emerald-400 to-teal-600",
-    emoji: "📡",
   },
   {
     id: "p-sen-002",
@@ -149,7 +148,6 @@ export const products: Product[] = [
     ],
     tags: ["imu", "gyro", "accelerometer", "quadcopter", "mpu6050"],
     imageHue: "from-emerald-400 to-teal-600",
-    emoji: "📡",
   },
   {
     id: "p-sen-003",
@@ -182,7 +180,6 @@ export const products: Product[] = [
     ],
     tags: ["dht22", "temperature", "humidity", "weather", "environment"],
     imageHue: "from-emerald-400 to-teal-600",
-    emoji: "📡",
   },
   {
     id: "p-sen-004",
@@ -215,7 +212,6 @@ export const products: Product[] = [
     ],
     tags: ["ir", "obstacle", "proximity", "line-follower", "robot"],
     imageHue: "from-emerald-400 to-teal-600",
-    emoji: "📡",
   },
 
   // ---------- DEVELOPMENT BOARDS ----------
@@ -251,7 +247,6 @@ export const products: Product[] = [
     ],
     tags: ["esp32", "wifi", "bluetooth", "iot", "arduino"],
     imageHue: "from-sky-400 to-blue-600",
-    emoji: "🔌",
   },
   {
     id: "p-brd-002",
@@ -285,7 +280,6 @@ export const products: Product[] = [
     ],
     tags: ["arduino", "uno", "microcontroller", "beginner", "hackathon"],
     imageHue: "from-sky-400 to-blue-600",
-    emoji: "🔌",
   },
   {
     id: "p-brd-003",
@@ -317,7 +311,6 @@ export const products: Product[] = [
     ],
     tags: ["raspberry-pi", "sbc", "linux", "ai", "computer"],
     imageHue: "from-sky-400 to-blue-600",
-    emoji: "🔌",
   },
   {
     id: "p-brd-004",
@@ -349,7 +342,6 @@ export const products: Product[] = [
     ],
     tags: ["nodemcu", "esp8266", "wifi", "iot", "student"],
     imageHue: "from-sky-400 to-blue-600",
-    emoji: "🔌",
   },
 
   // ---------- MOTORS & DRIVERS ----------
@@ -384,7 +376,6 @@ export const products: Product[] = [
     ],
     tags: ["l298n", "motor driver", "robot car", "stepper", "h-bridge"],
     imageHue: "from-orange-400 to-red-600",
-    emoji: "⚙️",
   },
   {
     id: "p-mot-002",
@@ -417,7 +408,6 @@ export const products: Product[] = [
     ],
     tags: ["servo", "sg90", "robot arm", "rc", "micro"],
     imageHue: "from-orange-400 to-red-600",
-    emoji: "⚙️",
   },
   {
     id: "p-mot-003",
@@ -449,7 +439,6 @@ export const products: Product[] = [
     ],
     tags: ["stepper", "28byj-48", "uln2003", "cnc", "turret"],
     imageHue: "from-orange-400 to-red-600",
-    emoji: "⚙️",
   },
   {
     id: "p-mot-004",
@@ -482,7 +471,6 @@ export const products: Product[] = [
     ],
     tags: ["n20", "gearmotor", "encoder", "mini robot", "speed control"],
     imageHue: "from-orange-400 to-red-600",
-    emoji: "⚙️",
   },
 
   // ---------- ICs ----------
@@ -516,7 +504,6 @@ export const products: Product[] = [
     ],
     tags: ["ne555", "timer", "ic", "oscillator", "pwm"],
     imageHue: "from-violet-400 to-purple-600",
-    emoji: "🔬",
   },
   {
     id: "p-ic-002",
@@ -549,7 +536,6 @@ export const products: Product[] = [
     ],
     tags: ["lm358", "opamp", "amplifier", "comparator", "signal"],
     imageHue: "from-violet-400 to-purple-600",
-    emoji: "🔬",
   },
   {
     id: "p-ic-003",
@@ -582,7 +568,6 @@ export const products: Product[] = [
     ],
     tags: ["lm2596", "buck", "dc-dc", "power", "voltage regulator"],
     imageHue: "from-violet-400 to-purple-600",
-    emoji: "🔬",
   },
   {
     id: "p-ic-004",
@@ -614,7 +599,6 @@ export const products: Product[] = [
     ],
     tags: ["atmega328", "mcu", "avr", "dip", "arduino"],
     imageHue: "from-violet-400 to-purple-600",
-    emoji: "🔬",
   },
 
   // ---------- DISPLAYS ----------
@@ -649,7 +633,6 @@ export const products: Product[] = [
     ],
     tags: ["oled", "ssd1306", "display", "i2c", "status screen"],
     imageHue: "from-pink-400 to-fuchsia-600",
-    emoji: "🖥️",
   },
   {
     id: "p-dsp-002",
@@ -682,7 +665,6 @@ export const products: Product[] = [
     ],
     tags: ["tft", "lcd", "st7735", "spi", "touch ui"],
     imageHue: "from-pink-400 to-fuchsia-600",
-    emoji: "🖥️",
   },
   {
     id: "p-dsp-003",
@@ -714,7 +696,6 @@ export const products: Product[] = [
     ],
     tags: ["tm1637", "7 segment", "display", "clock", "arduino"],
     imageHue: "from-pink-400 to-fuchsia-600",
-    emoji: "🖥️",
   },
   {
     id: "p-dsp-004",
@@ -747,7 +728,6 @@ export const products: Product[] = [
     ],
     tags: ["ws2812b", "rgb", "led strip", "neopixel", "lighting"],
     imageHue: "from-pink-400 to-fuchsia-600",
-    emoji: "🖥️",
   },
 
   // ---------- IOT & WIRELESS ----------
@@ -782,7 +762,6 @@ export const products: Product[] = [
     ],
     tags: ["lora", "sx1278", "long range", "433mhz", "sensor network"],
     imageHue: "from-indigo-400 to-violet-600",
-    emoji: "📶",
   },
   {
     id: "p-iot-002",
@@ -814,7 +793,6 @@ export const products: Product[] = [
     ],
     tags: ["hc-05", "bluetooth", "uart", "robot car", "phone control"],
     imageHue: "from-indigo-400 to-violet-600",
-    emoji: "📶",
   },
   {
     id: "p-iot-003",
@@ -846,7 +824,6 @@ export const products: Product[] = [
     ],
     tags: ["sim800l", "gsm", "sms", "gprs", "tracker"],
     imageHue: "from-indigo-400 to-violet-600",
-    emoji: "📶",
   },
   {
     id: "p-iot-004",
@@ -879,7 +856,6 @@ export const products: Product[] = [
     ],
     tags: ["relay", "wifi", "esp-01", "home automation", "4 channel"],
     imageHue: "from-indigo-400 to-violet-600",
-    emoji: "📶",
   },
 
   // ---------- POWER ----------
@@ -914,7 +890,6 @@ export const products: Product[] = [
     ],
     tags: ["18650", "li-ion", "battery", "power bank", "3.7v"],
     imageHue: "from-amber-400 to-yellow-600",
-    emoji: "🔋",
   },
   {
     id: "p-pwr-002",
@@ -946,7 +921,6 @@ export const products: Product[] = [
     ],
     tags: ["tp4056", "charger", "lipo", "usb-c", "protection"],
     imageHue: "from-amber-400 to-yellow-600",
-    emoji: "🔋",
   },
   {
     id: "p-pwr-003",
@@ -979,7 +953,6 @@ export const products: Product[] = [
     ],
     tags: ["9v", "adaptor", "power supply", "smps", "dc"],
     imageHue: "from-amber-400 to-yellow-600",
-    emoji: "🔋",
   },
   {
     id: "p-pwr-004",
@@ -1012,7 +985,6 @@ export const products: Product[] = [
     ],
     tags: ["lipo", "2s", "7.4v", "robot car", "high drain"],
     imageHue: "from-amber-400 to-yellow-600",
-    emoji: "🔋",
   },
 
   // ---------- MECHANICAL ----------
@@ -1047,7 +1019,6 @@ export const products: Product[] = [
     ],
     tags: ["chassis", "robot car", "4wd", "kit", "acrylic"],
     imageHue: "from-slate-400 to-gray-600",
-    emoji: "🛠️",
   },
   {
     id: "p-mch-002",
@@ -1079,7 +1050,6 @@ export const products: Product[] = [
     ],
     tags: ["gears", "robotic arm", "coupling", "metal", "screw"],
     imageHue: "from-slate-400 to-gray-600",
-    emoji: "🛠️",
   },
   {
     id: "p-mch-003",
@@ -1112,7 +1082,6 @@ export const products: Product[] = [
     ],
     tags: ["m3", "screw", "standoff", "fastener", "kit"],
     imageHue: "from-slate-400 to-gray-600",
-    emoji: "🛠️",
   },
   {
     id: "p-mch-004",
@@ -1145,7 +1114,6 @@ export const products: Product[] = [
     ],
     tags: ["linear rail", "mgn12", "guide", "cnc", "3d printer"],
     imageHue: "from-slate-400 to-gray-600",
-    emoji: "🛠️",
   },
 
   // ---------- DIY & KITS ----------
@@ -1181,7 +1149,6 @@ export const products: Product[] = [
     ],
     tags: ["line follower", "kit", "arduino", "competition", "robot"],
     imageHue: "from-teal-400 to-emerald-600",
-    emoji: "📦",
   },
   {
     id: "p-kit-002",
@@ -1214,7 +1181,6 @@ export const products: Product[] = [
     ],
     tags: ["iot", "kit", "esp32", "starter", "school"],
     imageHue: "from-teal-400 to-emerald-600",
-    emoji: "📦",
   },
   {
     id: "p-kit-003",
@@ -1247,7 +1213,6 @@ export const products: Product[] = [
     ],
     tags: ["hackathon", "kit", "essentials", "breadboard", "maker"],
     imageHue: "from-teal-400 to-emerald-600",
-    emoji: "📦",
   },
   {
     id: "p-kit-004",
@@ -1280,7 +1245,6 @@ export const products: Product[] = [
     ],
     tags: ["stem", "science kit", "school", "learning", "180 projects"],
     imageHue: "from-teal-400 to-emerald-600",
-    emoji: "📦",
   },
 
   // ---------- 3D PRINTING ----------
@@ -1315,7 +1279,6 @@ export const products: Product[] = [
     ],
     tags: ["pla", "filament", "1.75mm", "3d printer", "spool"],
     imageHue: "from-rose-400 to-pink-600",
-    emoji: "🗜️",
   },
   {
     id: "p-3dp-002",
@@ -1348,7 +1311,6 @@ export const products: Product[] = [
     ],
     tags: ["ender-3", "creality", "3d printer", "v3 se", "friendly"],
     imageHue: "from-rose-400 to-pink-600",
-    emoji: "🗜️",
   },
   {
     id: "p-3dp-003",
@@ -1381,7 +1343,6 @@ export const products: Product[] = [
     ],
     tags: ["petg", "filament", "strong", "1.75mm", "functional"],
     imageHue: "from-rose-400 to-pink-600",
-    emoji: "🗜️",
   },
   {
     id: "p-3dp-004",
@@ -1413,7 +1374,6 @@ export const products: Product[] = [
     ],
     tags: ["extruder", "direct drive", "titan", "tpu", "upgrade"],
     imageHue: "from-rose-400 to-pink-600",
-    emoji: "🗜️",
   },
 ];
 

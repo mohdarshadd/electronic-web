@@ -14,7 +14,6 @@ interface SuggestionProduct {
   brand: string;
   price: number;
   inStock: boolean;
-  emoji: string;
   imageHue: string;
   image: "jpg" | "webp" | null;
   categorySlug: string;
@@ -190,8 +189,8 @@ export function SearchBar({ onNavigate }: { onNavigate?: () => void }) {
                             className="h-9 w-9 shrink-0 rounded-lg bg-cream-100 object-contain"
                           />
                         ) : (
-                          <span className={`grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-gradient-to-br ${p.imageHue} text-base`}>
-                            {p.emoji}
+                          <span className={`grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-gradient-to-br ${p.imageHue} text-white/90`}>
+                            <Icon name={categoryIcon(p.categorySlug)} size={18} strokeWidth={1.6} />
                           </span>
                         )}
                         <span className="min-w-0 flex-1">

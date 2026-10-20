@@ -41,7 +41,6 @@ export async function GET(req: NextRequest) {
       brand: p.brand,
       price: p.price,
       inStock: p.inStock,
-      emoji: p.emoji,
       imageHue: p.imageHue,
       image: p.image ?? (productPhotoSrc(p.slug) ? "webp" : null),
       categorySlug: p.categorySlug,

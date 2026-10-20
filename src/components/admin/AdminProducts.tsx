@@ -4,8 +4,10 @@ import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import type { Product, Spec } from "@/lib/types";
 import { categories } from "@/lib/products";
-import { EMOJI_OPTIONS, HUE_OPTIONS } from "@/lib/product-visual";
+import { HUE_OPTIONS } from "@/lib/product-visual";
+import { categoryIcon } from "@/lib/icons";
 import { formatINR, calcDiscount } from "@/lib/format";
+import { Icon } from "../Icon";
 
 interface FormState {
   name: string;
@@ -28,7 +30,6 @@ interface FormState {
   tags: string;
   specs: Spec[];
   imageHue: string;
-  emoji: string;
   datasheetUrl: string;
 }
 
@@ -63,7 +64,6 @@ function emptyForm(): FormState {
     tags: "",
     specs: [{ label: "", value: "" }],
     imageHue: "from-teal-400 to-emerald-600",
-    emoji: "📦",
     datasheetUrl: "",
   };
 }
@@ -90,7 +90,6 @@ function formFromProduct(p: Product): FormState {
     tags: p.tags.join(", "),
     specs: p.specs.length ? p.specs : [{ label: "", value: "" }],
     imageHue: p.imageHue,
-    emoji: p.emoji || "📦",
     datasheetUrl: p.datasheetUrl || "",
   };
 }
@@ -144,7 +143,10 @@ export default function AdminProducts() {
     }));
   }
 
-  const preview = useMemo(() => ({ emoji: form.emoji, hue: form.imageHue, name: form.name }), [form.emoji, form.imageHue, form.name]);
+  const preview = useMemo(
+    () => ({ icon: categoryIcon(form.categorySlug), hue: form.imageHue, name: form.name }),
+    [form.categorySlug, form.imageHue, form.name],
+  );
 
   function openAdd() {
     setEditingId(null);
@@ -210,7 +212,6 @@ export default function AdminProducts() {
       tags: form.tags.split(",").map((t) => t.trim()).filter(Boolean),
       specs: form.specs.filter((s) => s.label.trim() && s.value.trim()),
       imageHue: form.imageHue,
-      emoji: form.emoji,
       datasheetUrl: form.datasheetUrl.trim() || undefined,
     };
 
@@ -370,7 +371,9 @@ export default function AdminProducts() {
         <p className="py-12 text-center text-sm text-navy-400">Loading products…</p>
       ) : items.length === 0 ? (
         <div className="rounded-2xl border border-dashed border-navy-200 bg-white py-16 text-center">
-          <span className="text-5xl">📦</span>
+          <span className="inline-flex text-navy-300" aria-hidden>
+            <Icon name="package" size={48} strokeWidth={1.5} />
+          </span>
           <p className="mt-4 text-base font-bold text-navy-900">No custom products yet</p>
           <p className="mt-1 text-sm text-navy-500">
             Click “Add product” to publish your first item — image, price, specs and all.
@@ -385,8 +388,8 @@ export default function AdminProducts() {
                   // eslint-disable-next-line @next/next/no-img-element -- product photos are plain <img> by design
                   <img src={`/api/product-images/${p.slug}`} alt={p.name} className="h-14 w-14 shrink-0 rounded-xl object-cover shadow-sm" />
                 ) : (
-                  <span className={`grid h-14 w-14 shrink-0 place-items-center rounded-xl bg-gradient-to-br ${p.imageHue} text-2xl shadow-sm`}>
-                    {p.emoji}
+                  <span className={`grid h-14 w-14 shrink-0 place-items-center rounded-xl bg-gradient-to-br ${p.imageHue} text-white/90 shadow-sm`}>
+                    <Icon name={categoryIcon(p.categorySlug)} size={28} strokeWidth={1.6} />
                   </span>
                 )}
                 <div className="min-w-0 flex-1">
@@ -487,30 +490,12 @@ export default function AdminProducts() {
 
               <div className="mt-4 flex flex-wrap items-start gap-6">
                 <div className="flex flex-col items-center gap-2">
-                  <div className={`grid aspect-square w-40 place-items-center rounded-2xl bg-gradient-to-br ${preview.hue} shadow`}>
-                    <span className="text-6xl drop-shadow">{preview.emoji}</span>
+                  <div className={`grid aspect-square w-40 place-items-center rounded-2xl bg-gradient-to-br ${preview.hue} text-white/90 shadow`}>
+                    <Icon name={preview.icon} size={72} strokeWidth={1.5} />
                   </div>
                   <p className="max-w-[10rem] truncate text-center text-xs font-semibold text-navy-500">{preview.name || "Product name"}</p>
                 </div>
                 <div className="min-w-0 flex-1 space-y-4">
-                  <div>
-                    <p className="text-xs font-semibold text-navy-600">Emoji</p>
-                    <div className="mt-2 grid grid-cols-5 gap-1.5 sm:grid-cols-6">
-                      {EMOJI_OPTIONS.map((em) => (
-                        <button
-                          key={em}
-                          type="button"
-                          onClick={() => set("emoji", em)}
-                          className={`grid h-10 w-10 place-items-center rounded-xl border text-lg transition ${
-                            form.emoji === em ? "border-navy-900 bg-coral-50 ring-2 ring-coral-200" : "border-navy-200 bg-white hover:border-coral-300"
-                          }`}
-                          aria-label={`Use ${em}`}
-                        >
-                          {em}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
                   <div>
                     <p className="text-xs font-semibold text-navy-600">Colours</p>
                     <div className="mt-2 flex flex-wrap gap-2">
@@ -528,7 +513,7 @@ export default function AdminProducts() {
                     </div>
                   </div>
                   <p className="text-[11px] leading-5 text-navy-400">
-                    No photo? An on-brand image is generated automatically from the emoji + colours and used across the store, cart and orders.
+                    No photo? An on-brand image is generated automatically from the category icon + colours and used across the store, cart and orders.
                   </p>
                 </div>
               </div>

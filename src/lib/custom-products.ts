@@ -23,7 +23,6 @@ export interface CustomProductInput {
   specs: Spec[];
   tags: string[];
   imageHue: string;
-  emoji: string;
   image?: "jpg";
   datasheetUrl?: string;
   datasheet?: "pdf";
@@ -99,7 +98,6 @@ function validate(input: CustomProductInput): void {
   requireNonEmpty(input.name, "Product name is required");
   requireNonEmpty(input.sku, "SKU is required");
   requireNonEmpty(input.brand, "Brand is required");
-  requireNonEmpty(input.emoji, "Emoji is required");
   requireNonEmpty(input.imageHue, "Image colours are required");
   requireNonEmpty(input.description, "Description is required");
   if (!categories.some((c) => c.slug === input.categorySlug)) {
@@ -150,7 +148,6 @@ function toProduct(input: CustomProductInput, id: string, slug: string): Product
       .filter((s) => s.label && s.value),
     tags: input.tags.map((t) => t.trim()).filter(Boolean),
     imageHue: input.imageHue,
-    emoji: input.emoji,
     image: input.image,
     datasheetUrl: input.datasheetUrl ? input.datasheetUrl.trim() || undefined : undefined,
     datasheet: input.datasheet,
@@ -191,7 +188,6 @@ export function updateCustomProduct(id: string, patch: CustomProductPatch): Prod
   if (patch.name !== undefined) requireNonEmpty(patch.name, "Product name is required");
   if (patch.sku !== undefined) requireNonEmpty(patch.sku, "SKU is required");
   if (patch.brand !== undefined) requireNonEmpty(patch.brand, "Brand is required");
-  if (patch.emoji !== undefined) requireNonEmpty(patch.emoji, "Emoji is required");
   if (patch.imageHue !== undefined) requireNonEmpty(patch.imageHue, "Image colours are required");
   if (patch.description !== undefined) requireNonEmpty(patch.description, "Description is required");
   if (patch.categorySlug !== undefined && !categories.some((c) => c.slug === patch.categorySlug)) {
@@ -248,7 +244,6 @@ export function updateCustomProduct(id: string, patch: CustomProductPatch): Prod
       specs: merged.specs,
       tags: merged.tags,
       imageHue: merged.imageHue,
-      emoji: merged.emoji,
       image: merged.image,
       datasheetUrl: merged.datasheetUrl,
       datasheet: merged.datasheet,
