@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { site } from "@/lib/site";
 import { categories } from "@/lib/products";
 import { loadSiteSettings } from "@/lib/site-settings";
@@ -16,25 +16,6 @@ export default function Header() {
   const { count, openCart } = useCart();
   const [mobileNav, setMobileNav] = useState(false);
   const [announcement, setAnnouncement] = useState(site.announcement);
-  const [scrolled, setScrolled] = useState(false);
-  const scrollFrame = useRef(0);
-
-  useEffect(() => {
-    const update = () => {
-      scrollFrame.current = 0;
-      setScrolled(window.scrollY > 8);
-    };
-    const onScroll = () => {
-      if (scrollFrame.current) return;
-      scrollFrame.current = requestAnimationFrame(update);
-    };
-    window.addEventListener("scroll", onScroll, { passive: true });
-    update();
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      if (scrollFrame.current) cancelAnimationFrame(scrollFrame.current);
-    };
-  }, []);
 
   useEffect(() => {
     let cancelled = false;
@@ -63,7 +44,7 @@ export default function Header() {
 
   return (
     <>
-      <div className="sticky top-0 z-50 bg-gradient-to-r from-coral-600 via-coral-500 to-coral-400 px-4 py-1.5 text-center text-[11px] font-semibold tracking-wide text-navy-950">
+      <div className="sticky top-0 z-50 border-b border-navy-950/10 bg-gradient-to-r from-coral-600 via-coral-500 to-coral-400 px-4 py-1.5 text-center text-[11px] font-semibold tracking-wide text-navy-950 shadow-sm">
         <span className="inline-flex items-center gap-2">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" className="text-navy-900">
             <path d="M12 2l2.6 6.9L22 11l-7.4 2.1L12 20l-2.6-6.9L2 11l7.4-2.1L12 2z" />
@@ -72,11 +53,7 @@ export default function Header() {
         </span>
       </div>
 
-      <header
-        className={`relative z-40 border-b border-navy-900/20 bg-navy-900/95 transition-shadow duration-300 ${
-          scrolled ? "shadow-soft" : "shadow-none"
-        }`}
-      >
+      <header className="relative z-40 border-b border-navy-900/20 bg-navy-900/95">
         <div className="mx-auto flex max-w-7xl items-center gap-4 px-4 py-3 sm:px-6 lg:px-8">
           <button
             className="rounded-lg p-2 text-cream-100/80 transition-colors duration-200 hover:bg-white/10 hover:text-cream-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-coral-400 focus-visible:ring-offset-2 focus-visible:ring-offset-navy-900 lg:hidden"
