@@ -46,6 +46,15 @@ export default function Header() {
     };
   }, [mobileNav]);
 
+  useEffect(() => {
+    const media = window.matchMedia("(min-width: 1024px)");
+    const onChange = () => {
+      if (media.matches) setMobileNav(false);
+    };
+    media.addEventListener("change", onChange);
+    return () => media.removeEventListener("change", onChange);
+  }, []);
+
   return (
     <>
       <div className="sticky top-0 z-50 border-b border-navy-950/10 bg-gradient-to-r from-coral-600 via-coral-500 to-coral-400 px-4 py-1.5 text-center text-[11px] font-semibold tracking-wide text-navy-950 shadow-sm">
