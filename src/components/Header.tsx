@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { site } from "@/lib/site";
 import { categories } from "@/lib/products";
 import { loadSiteSettings } from "@/lib/site-settings";
@@ -16,6 +16,7 @@ export default function Header() {
   const { count, openCart } = useCart();
   const [mobileNav, setMobileNav] = useState(false);
   const [announcement, setAnnouncement] = useState(site.announcement);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     let cancelled = false;
@@ -33,7 +34,10 @@ export default function Header() {
     if (!mobileNav) return;
     const release = lockBodyScroll();
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setMobileNav(false);
+      if (e.key === "Escape") {
+        setMobileNav(false);
+        requestAnimationFrame(() => menuButtonRef.current?.focus());
+      }
     };
     window.addEventListener("keydown", onKey);
     return () => {
@@ -56,6 +60,7 @@ export default function Header() {
       <header className="relative z-40 border-b border-navy-900/20 bg-navy-900/95">
         <div className="mx-auto flex max-w-7xl items-center gap-4 px-4 py-3 sm:px-6 lg:px-8">
           <button
+            ref={menuButtonRef}
             className="rounded-lg p-2 text-cream-100/80 transition-colors duration-200 hover:bg-white/10 hover:text-cream-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-coral-400 focus-visible:ring-offset-2 focus-visible:ring-offset-navy-900 lg:hidden"
             onClick={() => setMobileNav((v) => !v)}
             aria-label="Toggle menu"
