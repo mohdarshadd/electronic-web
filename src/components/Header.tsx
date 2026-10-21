@@ -59,6 +59,8 @@ export default function Header() {
             className="rounded-lg p-2 text-cream-100/80 transition-colors duration-200 hover:bg-white/10 hover:text-cream-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-coral-400 focus-visible:ring-offset-2 focus-visible:ring-offset-navy-900 lg:hidden"
             onClick={() => setMobileNav((v) => !v)}
             aria-label="Toggle menu"
+            aria-expanded={mobileNav}
+            aria-controls="mobile-nav"
           >
             <span className="relative block h-[22px] w-[22px]">
               <svg
@@ -191,7 +193,7 @@ export default function Header() {
         </div>
 
         {mobileNav && (
-          <div className="animate-[menu-in_0.25s_ease-out] border-t border-white/10 bg-navy-900 px-4 pb-4 pt-2 lg:hidden">
+          <div id="mobile-nav" className="animate-[menu-in_0.25s_ease-out] border-t border-white/10 bg-navy-900 px-4 pb-4 pt-2 lg:hidden">
             <div className="mb-3 md:hidden">
               <SearchBar onNavigate={() => setMobileNav(false)} />
             </div>
