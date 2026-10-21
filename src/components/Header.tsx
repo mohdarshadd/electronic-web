@@ -62,12 +62,8 @@ export default function Header() {
   }, [mobileNav]);
 
   return (
-    <header
-      className={`sticky top-0 z-40 border-b border-navy-900/20 bg-navy-900/95 transition-shadow duration-300 ${
-        scrolled ? "shadow-soft" : "shadow-none"
-      }`}
-    >
-      <div className="bg-gradient-to-r from-coral-600 via-coral-500 to-coral-400 px-4 py-1.5 text-center text-[11px] font-semibold tracking-wide text-navy-950">
+    <>
+      <div className="sticky top-0 z-50 bg-gradient-to-r from-coral-600 via-coral-500 to-coral-400 px-4 py-1.5 text-center text-[11px] font-semibold tracking-wide text-navy-950">
         <span className="inline-flex items-center gap-2">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" className="text-navy-900">
             <path d="M12 2l2.6 6.9L22 11l-7.4 2.1L12 20l-2.6-6.9L2 11l7.4-2.1L12 2z" />
@@ -76,171 +72,177 @@ export default function Header() {
         </span>
       </div>
 
-      <div className="mx-auto flex max-w-7xl items-center gap-4 px-4 py-3 sm:px-6 lg:px-8">
-        <button
-          className="rounded-lg p-2 text-cream-100/80 transition-colors duration-200 hover:bg-white/10 hover:text-cream-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-coral-400 focus-visible:ring-offset-2 focus-visible:ring-offset-navy-900 lg:hidden"
-          onClick={() => setMobileNav((v) => !v)}
-          aria-label="Toggle menu"
-        >
-          <span className="relative block h-[22px] w-[22px]">
+      <header
+        className={`relative z-40 border-b border-navy-900/20 bg-navy-900/95 transition-shadow duration-300 ${
+          scrolled ? "shadow-soft" : "shadow-none"
+        }`}
+      >
+        <div className="mx-auto flex max-w-7xl items-center gap-4 px-4 py-3 sm:px-6 lg:px-8">
+          <button
+            className="rounded-lg p-2 text-cream-100/80 transition-colors duration-200 hover:bg-white/10 hover:text-cream-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-coral-400 focus-visible:ring-offset-2 focus-visible:ring-offset-navy-900 lg:hidden"
+            onClick={() => setMobileNav((v) => !v)}
+            aria-label="Toggle menu"
+          >
+            <span className="relative block h-[22px] w-[22px]">
+              <svg
+                width="22"
+                height="22"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                className={`absolute inset-0 transition-all duration-300 ${
+                  mobileNav ? "-rotate-90 scale-50 opacity-0" : "rotate-0 scale-100 opacity-100"
+                }`}
+              >
+                <path d="M4 7h16M4 12h16M4 17h16" />
+              </svg>
+              <svg
+                width="22"
+                height="22"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                className={`absolute inset-0 transition-all duration-300 ${
+                  mobileNav ? "rotate-0 scale-100 opacity-100" : "rotate-90 scale-50 opacity-0"
+                }`}
+              >
+                <path d="M6 6l12 12M18 6L6 18" />
+              </svg>
+            </span>
+          </button>
+
+          <Link href="/" className="group flex shrink-0 items-center gap-2.5" aria-label={site.name}>
+            <Logo
+              preload
+              className="h-9 w-9 rounded-xl shadow-glow ring-1 ring-white/20 transition-transform duration-200 group-hover:-rotate-3 group-hover:scale-105"
+            />
+            <span className="text-xl font-extrabold tracking-tight text-cream-100 transition-colors duration-200 group-hover:text-cream-50">
+              Volt<span className="text-coral-400">Core</span>
+            </span>
+          </Link>
+
+          <div className="hidden flex-1 justify-center md:flex">
+            <SearchBar />
+          </div>
+
+          <nav className="ml-auto hidden items-center gap-1 lg:flex">
+            <Link
+              href="/shop"
+              className="group relative rounded-lg px-3 py-2 text-sm font-medium text-cream-100/75 transition-colors duration-200 hover:text-cream-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-coral-400/60 focus-visible:ring-offset-2 focus-visible:ring-offset-navy-900"
+            >
+              All Products
+              <span
+                aria-hidden
+                className="absolute inset-x-3 bottom-1 h-0.5 origin-left scale-x-0 rounded-full bg-coral-400 transition-transform duration-300 group-hover:scale-x-100"
+              />
+            </Link>
+            <Link
+              href="/student-offers"
+              className="group relative rounded-lg px-3 py-2 text-sm font-medium text-coral-300 transition-colors duration-200 hover:text-coral-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-coral-400/60 focus-visible:ring-offset-2 focus-visible:ring-offset-navy-900"
+            >
+              <span className="inline-flex items-center gap-1.5">
+                <span aria-hidden className="inline-flex transition-transform duration-200 group-hover:-translate-y-0.5">
+                  <Icon name="graduation-cap" size={15} />
+                </span>
+                Student Offers
+              </span>
+              <span
+                aria-hidden
+                className="absolute inset-x-3 bottom-1 h-0.5 origin-left scale-x-0 rounded-full bg-coral-500 transition-transform duration-300 group-hover:scale-x-100"
+              />
+            </Link>
+          </nav>
+
+          <button
+            onClick={openCart}
+            className="group relative rounded-xl border border-white/15 bg-white/5 p-2.5 text-cream-100 transition-colors duration-200 hover:border-coral-400/60 hover:bg-white/10 hover:text-coral-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-coral-400 focus-visible:ring-offset-2 focus-visible:ring-offset-navy-900"
+            aria-label="Open cart"
+          >
             <svg
-              width="22"
-              height="22"
+              width="20"
+              height="20"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
-              strokeWidth="2"
+              strokeWidth="1.8"
               strokeLinecap="round"
-              className={`absolute inset-0 transition-all duration-300 ${
-                mobileNav ? "-rotate-90 scale-50 opacity-0" : "rotate-0 scale-100 opacity-100"
-              }`}
+              strokeLinejoin="round"
+              className="transition-transform duration-200 group-hover:-rotate-12 group-hover:scale-110"
             >
-              <path d="M4 7h16M4 12h16M4 17h16" />
+              <circle cx="9" cy="21" r="1.6" />
+              <circle cx="19" cy="21" r="1.6" />
+              <path d="M2.5 3h2l2.4 12.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L22 7H6" />
             </svg>
-            <svg
-              width="22"
-              height="22"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              className={`absolute inset-0 transition-all duration-300 ${
-                mobileNav ? "rotate-0 scale-100 opacity-100" : "rotate-90 scale-50 opacity-0"
-              }`}
-            >
-              <path d="M6 6l12 12M18 6L6 18" />
-            </svg>
-          </span>
-        </button>
-
-        <Link href="/" className="group flex shrink-0 items-center gap-2.5" aria-label={site.name}>
-          <Logo
-            preload
-            className="h-9 w-9 rounded-xl shadow-glow ring-1 ring-white/20 transition-transform duration-200 group-hover:-rotate-3 group-hover:scale-105"
-          />
-          <span className="text-xl font-extrabold tracking-tight text-cream-100 transition-colors duration-200 group-hover:text-cream-50">
-            Volt<span className="text-coral-400">Core</span>
-          </span>
-        </Link>
-
-        <div className="hidden flex-1 justify-center md:flex">
-          <SearchBar />
+            {count > 0 && (
+              <span
+                key={count}
+                className="absolute -right-1.5 -top-1.5 grid h-5 min-w-5 animate-[badge-pop_0.4s_ease-out] place-items-center rounded-full bg-coral-500 px-1 text-[11px] font-bold text-navy-950 ring-2 ring-navy-900"
+              >
+                {count}
+              </span>
+            )}
+          </button>
         </div>
 
-        <nav className="ml-auto hidden items-center gap-1 lg:flex">
-          <Link
-            href="/shop"
-            className="group relative rounded-lg px-3 py-2 text-sm font-medium text-cream-100/75 transition-colors duration-200 hover:text-cream-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-coral-400/60 focus-visible:ring-offset-2 focus-visible:ring-offset-navy-900"
-          >
-            All Products
-            <span
-              aria-hidden
-              className="absolute inset-x-3 bottom-1 h-0.5 origin-left scale-x-0 rounded-full bg-coral-400 transition-transform duration-300 group-hover:scale-x-100"
-            />
-          </Link>
-          <Link
-            href="/student-offers"
-            className="group relative rounded-lg px-3 py-2 text-sm font-medium text-coral-300 transition-colors duration-200 hover:text-coral-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-coral-400/60 focus-visible:ring-offset-2 focus-visible:ring-offset-navy-900"
-          >
-            <span className="inline-flex items-center gap-1.5">
-              <span aria-hidden className="inline-flex transition-transform duration-200 group-hover:-translate-y-0.5">
-                <Icon name="graduation-cap" size={15} />
-              </span>
-              Student Offers
-            </span>
-            <span
-              aria-hidden
-              className="absolute inset-x-3 bottom-1 h-0.5 origin-left scale-x-0 rounded-full bg-coral-500 transition-transform duration-300 group-hover:scale-x-100"
-            />
-          </Link>
-        </nav>
-
-        <button
-          onClick={openCart}
-          className="group relative rounded-xl border border-white/15 bg-white/5 p-2.5 text-cream-100 transition-colors duration-200 hover:border-coral-400/60 hover:bg-white/10 hover:text-coral-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-coral-400 focus-visible:ring-offset-2 focus-visible:ring-offset-navy-900"
-          aria-label="Open cart"
-        >
-          <svg
-            width="20"
-            height="20"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.8"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="transition-transform duration-200 group-hover:-rotate-12 group-hover:scale-110"
-          >
-            <circle cx="9" cy="21" r="1.6" />
-            <circle cx="19" cy="21" r="1.6" />
-            <path d="M2.5 3h2l2.4 12.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L22 7H6" />
-          </svg>
-          {count > 0 && (
-            <span
-              key={count}
-              className="absolute -right-1.5 -top-1.5 grid h-5 min-w-5 animate-[badge-pop_0.4s_ease-out] place-items-center rounded-full bg-coral-500 px-1 text-[11px] font-bold text-navy-950 ring-2 ring-navy-900"
-            >
-              {count}
-            </span>
-          )}
-        </button>
-      </div>
-
-      <div className="hidden border-t border-white/10 bg-navy-950/60 lg:block">
-        <nav className="mx-auto flex max-w-7xl flex-wrap items-center gap-x-1 gap-y-1 px-4 py-1.5 sm:px-6 lg:px-8">
-          {categories.slice(0, 6).map((c) => (
-            <Link
-              key={c.slug}
-              href={`/category/${c.slug}`}
-              className="group relative shrink-0 rounded-full px-2.5 py-1.5 text-xs font-medium text-cream-100/60 transition-colors duration-200 hover:bg-white/10 hover:text-cream-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-coral-400/50 focus-visible:ring-offset-2 focus-visible:ring-offset-navy-950"
-            >
-              <span className="relative z-10">
-                <span className="mr-1.5 inline-flex align-[-2px] text-coral-300 transition-transform duration-200 group-hover:-translate-y-0.5">
-                  <Icon name={categoryIcon(c.slug)} size={14} strokeWidth={1.8} />
-                </span>
-                {c.name}
-              </span>
-            </Link>
-          ))}
-          <Link href="/shop" className="group ml-auto shrink-0 rounded-full bg-coral-500/15 px-3 py-1.5 text-xs font-semibold text-coral-300 transition-colors duration-200 hover:bg-coral-500/25">
-            <span className="relative z-10">
-              View all{" "}
-              <span className="inline-block transition-transform duration-200 group-hover:translate-x-0.5">→</span>
-            </span>
-          </Link>
-        </nav>
-      </div>
-
-      {mobileNav && (
-        <div className="animate-[menu-in_0.25s_ease-out] border-t border-white/10 bg-navy-900 px-4 pb-4 pt-2 lg:hidden">
-          <div className="mb-3 md:hidden">
-            <SearchBar onNavigate={() => setMobileNav(false)} />
-          </div>
-          <div className="grid grid-cols-1 gap-1">
-            <Link href="/shop" onClick={() => setMobileNav(false)} className="rounded-lg px-3 py-2 text-sm font-medium text-cream-100 hover:bg-white/10">
-              All Products
-            </Link>
+        <div className="hidden border-t border-white/10 bg-navy-950/60 lg:block">
+          <nav className="mx-auto flex max-w-7xl flex-wrap items-center gap-x-1 gap-y-1 px-4 py-1.5 sm:px-6 lg:px-8">
             {categories.slice(0, 6).map((c) => (
               <Link
                 key={c.slug}
                 href={`/category/${c.slug}`}
-                onClick={() => setMobileNav(false)}
-                className="rounded-lg px-3 py-2 text-sm text-cream-100/75 hover:bg-white/10"
+                className="group relative shrink-0 rounded-full px-2.5 py-1.5 text-xs font-medium text-cream-100/60 transition-colors duration-200 hover:bg-white/10 hover:text-cream-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-coral-400/50 focus-visible:ring-offset-2 focus-visible:ring-offset-navy-950"
               >
-                <span className="mr-2 inline-flex align-[-2px] text-coral-300">
-                  <Icon name={categoryIcon(c.slug)} size={15} strokeWidth={1.8} />
+                <span className="relative z-10">
+                  <span className="mr-1.5 inline-flex align-[-2px] text-coral-300 transition-transform duration-200 group-hover:-translate-y-0.5">
+                    <Icon name={categoryIcon(c.slug)} size={14} strokeWidth={1.8} />
+                  </span>
+                  {c.name}
                 </span>
-                {c.name}
               </Link>
             ))}
-            <Link href="/student-offers" onClick={() => setMobileNav(false)} className="inline-flex items-center gap-2 rounded-lg bg-coral-500/15 px-3 py-2 text-sm font-semibold text-coral-300">
-              <Icon name="graduation-cap" size={15} />
-              Student Offers
+            <Link href="/shop" className="group ml-auto shrink-0 rounded-full bg-coral-500/15 px-3 py-1.5 text-xs font-semibold text-coral-300 transition-colors duration-200 hover:bg-coral-500/25">
+              <span className="relative z-10">
+                View all{" "}
+                <span className="inline-block transition-transform duration-200 group-hover:translate-x-0.5">→</span>
+              </span>
             </Link>
-          </div>
+          </nav>
         </div>
-      )}
-    </header>
+
+        {mobileNav && (
+          <div className="animate-[menu-in_0.25s_ease-out] border-t border-white/10 bg-navy-900 px-4 pb-4 pt-2 lg:hidden">
+            <div className="mb-3 md:hidden">
+              <SearchBar onNavigate={() => setMobileNav(false)} />
+            </div>
+            <div className="grid grid-cols-1 gap-1">
+              <Link href="/shop" onClick={() => setMobileNav(false)} className="rounded-lg px-3 py-2 text-sm font-medium text-cream-100 hover:bg-white/10">
+                All Products
+              </Link>
+              {categories.slice(0, 6).map((c) => (
+                <Link
+                  key={c.slug}
+                  href={`/category/${c.slug}`}
+                  onClick={() => setMobileNav(false)}
+                  className="rounded-lg px-3 py-2 text-sm text-cream-100/75 hover:bg-white/10"
+                >
+                  <span className="mr-2 inline-flex align-[-2px] text-coral-300">
+                    <Icon name={categoryIcon(c.slug)} size={15} strokeWidth={1.8} />
+                  </span>
+                  {c.name}
+                </Link>
+              ))}
+              <Link href="/student-offers" onClick={() => setMobileNav(false)} className="inline-flex items-center gap-2 rounded-lg bg-coral-500/15 px-3 py-2 text-sm font-semibold text-coral-300">
+                <Icon name="graduation-cap" size={15} />
+                Student Offers
+              </Link>
+            </div>
+          </div>
+        )}
+      </header>
+    </>
   );
 }
