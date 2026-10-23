@@ -33,6 +33,7 @@ export const footerLinks = {
       { label: "FAQs", href: "/faqs" },
       { label: "Shipping Policy", href: "/shipping" },
       { label: "Returns & Refunds", href: "/returns" },
+      { label: "Terms & Conditions", href: "/terms" },
       { label: "Contact", href: "/contact" },
     ],
   },
