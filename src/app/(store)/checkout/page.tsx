@@ -292,7 +292,13 @@ export default function CheckoutPage() {
                 {`Place order · ${formatINR(total)}`}
               </button>
             )}
-            <p className="text-center text-[11px] text-navy-400">By placing an order you agree to our Terms & Privacy Policy.</p>
+            <p className="text-center text-[11px] text-navy-400">
+              By placing an order you agree to our{" "}
+              <Link href="/terms" className="font-semibold text-coral-700 hover:underline">
+                Terms &amp; Conditions
+              </Link>
+              .
+            </p>
           </aside>
         </div>
       )}
